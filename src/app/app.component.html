@@ -1,1 +1,9 @@
-<router-outlet></router-outlet>
+<div class="mat-app-background">
+  <app-header (onThemeChanged)="onThemeChanged($event)"></app-header>
+
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+
+  <p>Footer</p>
+</div>

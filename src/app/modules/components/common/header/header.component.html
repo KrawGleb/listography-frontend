@@ -1,0 +1,24 @@
+<p class="wrapper">
+  <mat-toolbar color="primary">
+    <button mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Listography</span>
+
+    <span class="spacer"></span>
+
+    <div class="theme_slider">
+      <mat-icon>brightness_5</mat-icon>
+
+      <div class="slider">
+        <mat-slide-toggle [formControl]="themeToggleControl"></mat-slide-toggle>
+      </div>
+
+      <mat-icon>bedtime</mat-icon>
+    </div>
+
+    <button mat-icon-button>
+      <mat-icon>person</mat-icon>
+    </button>
+  </mat-toolbar>
+</p>
