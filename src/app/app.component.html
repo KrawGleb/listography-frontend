@@ -1,9 +1,19 @@
-<div class="mat-app-background">
-  <app-header (onThemeChanged)="onThemeChanged($event)"></app-header>
-
-  <div class="content">
-    <router-outlet></router-outlet>
+<div class="mat-app-background wrapper">
+  <div class="header">
+    <app-header (onThemeChanged)="onThemeChanged($event)"></app-header>
   </div>
 
-  <p>Footer</p>
+  <div class="body">
+    <div class="content">
+      <router-outlet></router-outlet>
+      <div>
+        Test
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <p>Footer</p>
+  </div>
 </div>
