@@ -1,51 +1,73 @@
 <div class="wrapper">
-  <nav>
-    <input type="checkbox" id="menu" name="menu" class="m-menu__checkbox">
-    <label class="m-menu__toggle" for="menu">
-      <mat-icon>menu</mat-icon>
-    </label>
-    <label class="m-menu__overlay" for="menu"></label>
-
-    <div class="m-menu">
-      <div class="m-menu__header">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <input type="checkbox" id="menu" name="menu" class="m-menu__checkbox" />
         <label class="m-menu__toggle" for="menu">
-          <mat-icon>close</mat-icon>
+          <mat-icon>menu</mat-icon>
         </label>
-        <span>MENU</span>
-      </div>
-      <ul>
-        <li><label>Item 1</label></li>
-        <li>
-          <label class="a-label__chevron" for="item-2">Languages</label>
-          <input type="checkbox" id="item-2" name="item-2" class="m-menu__checkbox">
-          <div class="m-menu">
-            <div class="m-menu__header">
-              <label class="m-menu__toggle" for="item-2">
-                <mat-icon>arrow_back</mat-icon>
-              </label>
-              <span>Languages</span>
-            </div>
-            <ul>
-              <li><label>Russian</label></li>
-              <li><label>English</label></li>
-            </ul>
-          </div>
-        </li>
+        <label class="m-menu__overlay" for="menu"></label>
 
-        <li>
-          <label class="a-label__chevron" for="item-2">Themes</label>
-          <input type="checkbox" id="item-2" name="item-2" class="m-menu__checkbox">
-          <div class="m-menu">
-            <div class="m-menu__header">
-              <span>Themes</span>
-            </div>
-            <ul>
-              <li><label>Dark</label></li>
-              <li><label>Light</label></li>
-            </ul>
+        <div class="m-menu">
+          <div class="m-menu__header">
+            <label class="m-menu__toggle" for="menu">
+              <mat-icon>close</mat-icon>
+            </label>
+            <span>MENU</span>
           </div>
-        </li>
-      </ul>
-    </div>
-  </nav>
+          <ul>
+            <li><label>Item 1</label></li>
+            <li>
+              <label class="a-label__chevron" for="item-2">Languages</label>
+              <input
+                type="checkbox"
+                id="item-2"
+                name="item-2"
+                class="m-menu__checkbox"
+              />
+              <div class="m-menu">
+                <div class="m-menu__header">
+                  <label class="m-menu__toggle" for="item-2">
+                    <mat-icon>arrow_back</mat-icon>
+                  </label>
+                  <span>Languages</span>
+                </div>
+                <ul>
+                  <li><label>Russian</label></li>
+                  <li><label>English</label></li>
+                </ul>
+              </div>
+            </li>
+
+            <li>
+              <label class="a-label__chevron" for="themes">Themes</label>
+              <input
+                type="checkbox"
+                id="themes"
+                name="themes"
+                class="m-menu__checkbox"
+              />
+              <div class="m-menu">
+                <div class="m-menu__header">
+                  <label class="m-menu__toggle" for="themes">
+                    <mat-icon>arrow_back</mat-icon>
+                  </label>
+                  <span>Themes</span>
+                </div>
+                <ul>
+                  <li (click)="toggleTheme(true)"><label>Dark</label></li>
+                  <li (click)="toggleTheme(false)"><label>Light</label></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="account">
+          <div class="account__buttons">
+            <button mat-button>Login</button>
+            <button mat-button>Register</button>
+          </div>
+        </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
 </div>

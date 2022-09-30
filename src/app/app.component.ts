@@ -6,7 +6,7 @@ import { Component, HostBinding } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  private readonly darkModeClassName = 'dark_mode';
+  private readonly darkModeClassName = 'dark-theme';
 
   @HostBinding('class') className = '';
 

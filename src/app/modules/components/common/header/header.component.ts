@@ -15,9 +15,6 @@ import { filter, takeUntil, tap } from 'rxjs';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent extends DestroyableComponent implements OnInit {
-  public themeToggleControl = new FormControl(false);
-  public isSubMenuOpen: boolean = false;
-
   @Output()
   public onThemeChanged = new EventEmitter<boolean>();
 
@@ -26,15 +23,9 @@ export class HeaderComponent extends DestroyableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.themeToggleControl.valueChanges
-      .pipe(
-        takeUntil(this.onDestroy$),
-        tap((value) => this.onThemeChanged.emit(!!value))
-      )
-      .subscribe();
   }
 
-  public subMenuClick() {
-    this.isSubMenuOpen = !this.isSubMenuOpen;
+  public toggleTheme(isDarkMode: boolean = false) {
+    this.onThemeChanged.emit(isDarkMode);
   }
 }
