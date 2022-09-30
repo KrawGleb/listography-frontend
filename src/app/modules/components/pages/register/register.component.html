@@ -1,0 +1,41 @@
+<div class="wrapper">
+  <mat-card>
+    <mat-card-title>{{ "Register.Title" | translate }}</mat-card-title>
+    <mat-card-content>
+      <form>
+        <p>
+          <mat-form-field>
+            <input
+              matInput
+              [placeholder]="'Register.Labels.Email' | translate"
+            />
+          </mat-form-field>
+        </p>
+
+        <p>
+          <mat-form-field>
+            <input
+              matInput
+              [placeholder]="'Register.Labels.Password' | translate"
+            />
+          </mat-form-field>
+        </p>
+
+        <p>
+          <mat-form-field>
+            <input
+              matInput
+              [placeholder]="'Register.Labels.RepeatPassword' | translate"
+            />
+          </mat-form-field>
+        </p>
+
+        <div class="button">
+          <button type="submit" mat-button>
+            {{ "Register.Action" | translate }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
