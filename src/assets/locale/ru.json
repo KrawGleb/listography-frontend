@@ -1,5 +1,23 @@
 {
-  "Test": {
-    "Text": "Тестовый текст"
+  "Header" : {
+    "Menu" : {
+      "Title": "Меню",
+      "Items": {
+        "Themes": {
+          "Title": "Темы",
+          "Light": "Светлая",
+          "Dark": "Тёмная"
+        },
+        "Languages": {
+          "Title": "Языки",
+          "Russian": "Русский",
+          "English": "Анлийский"
+        }
+      }
+    },
+    "Toolbar": {
+      "Login" : "Войти",
+      "Register": "Зарегистрироваться"
+    }
   }
 }

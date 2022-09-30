@@ -1,51 +1,104 @@
 <div class="wrapper">
-  <nav>
-    <input type="checkbox" id="menu" name="menu" class="m-menu__checkbox">
-    <label class="m-menu__toggle" for="menu">
-      <mat-icon>menu</mat-icon>
-    </label>
-    <label class="m-menu__overlay" for="menu"></label>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <input type="checkbox" id="menu" name="menu" class="m-menu__checkbox" />
+      <label class="m-menu__toggle" for="menu">
+        <mat-icon>menu</mat-icon>
+      </label>
+      <label class="m-menu__overlay" for="menu"></label>
 
-    <div class="m-menu">
-      <div class="m-menu__header">
-        <label class="m-menu__toggle" for="menu">
-          <mat-icon>close</mat-icon>
-        </label>
-        <span>MENU</span>
+      <div class="m-menu">
+        <div class="m-menu__header">
+          <label class="m-menu__toggle" for="menu">
+            <mat-icon>close</mat-icon>
+          </label>
+          <span>{{ "Header.Menu.Title" | translate }}</span>
+        </div>
+        <ul>
+          <li><label>Item 1</label></li>
+          <li>
+            <label class="a-label__chevron" for="languages">{{
+              "Header.Menu.Items.Languages.Title" | translate
+            }}</label>
+            <input
+              type="checkbox"
+              id="languages"
+              name="languages"
+              class="m-menu__checkbox"
+            />
+            <div class="m-menu">
+              <div class="m-menu__header">
+                <label class="m-menu__toggle" for="languages">
+                  <mat-icon>arrow_back</mat-icon>
+                </label>
+                <span>{{
+                  "Header.Menu.Items.Languages.Title" | translate
+                }}</span>
+              </div>
+              <ul>
+                <li (click)="toggleLanguage('ru')">
+                  <label>{{
+                    "Header.Menu.Items.Languages.Russian" | translate
+                  }}</label>
+                </li>
+                <li (click)="toggleLanguage('en')">
+                  <label>{{
+                    "Header.Menu.Items.Languages.English" | translate
+                  }}</label>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li>
+            <label class="a-label__chevron" for="themes">{{
+              "Header.Menu.Items.Themes.Title" | translate
+            }}</label>
+            <input
+              type="checkbox"
+              id="themes"
+              name="themes"
+              class="m-menu__checkbox"
+            />
+            <div class="m-menu">
+              <div class="m-menu__header">
+                <label class="m-menu__toggle" for="themes">
+                  <mat-icon>arrow_back</mat-icon>
+                </label>
+                <span>{{ "Header.Menu.Items.Themes.Title" | translate }}</span>
+              </div>
+              <ul>
+                <li (click)="toggleTheme(true)">
+                  <label>{{
+                    "Header.Menu.Items.Themes.Dark" | translate
+                  }}</label>
+                </li>
+                <li (click)="toggleTheme(false)">
+                  <label>{{
+                    "Header.Menu.Items.Themes.Light" | translate
+                  }}</label>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
       </div>
-      <ul>
-        <li><label>Item 1</label></li>
-        <li>
-          <label class="a-label__chevron" for="item-2">Languages</label>
-          <input type="checkbox" id="item-2" name="item-2" class="m-menu__checkbox">
-          <div class="m-menu">
-            <div class="m-menu__header">
-              <label class="m-menu__toggle" for="item-2">
-                <mat-icon>arrow_back</mat-icon>
-              </label>
-              <span>Languages</span>
-            </div>
-            <ul>
-              <li><label>Russian</label></li>
-              <li><label>English</label></li>
-            </ul>
-          </div>
-        </li>
 
-        <li>
-          <label class="a-label__chevron" for="item-2">Themes</label>
-          <input type="checkbox" id="item-2" name="item-2" class="m-menu__checkbox">
-          <div class="m-menu">
-            <div class="m-menu__header">
-              <span>Themes</span>
-            </div>
-            <ul>
-              <li><label>Dark</label></li>
-              <li><label>Light</label></li>
-            </ul>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </nav>
+      <div class="account">
+        <div class="account__buttons" *ngIf="!isAuthorize">
+          <a routerLink="/login" mat-button>{{
+            "Header.Toolbar.Login" | translate
+          }}</a>
+          <a routerLink="/register" mat-button>{{
+            "Header.Toolbar.Register" | translate
+          }}</a>
+        </div>
+        <div *ngIf="isAuthorize">
+          <a mat-icon-button routerLink="/me">
+            <mat-icon>person</mat-icon>
+          </a>
+        </div>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
 </div>
