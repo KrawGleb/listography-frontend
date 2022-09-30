@@ -14,18 +14,22 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { RegisterComponent } from './pages/register/register.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    TranslateModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,

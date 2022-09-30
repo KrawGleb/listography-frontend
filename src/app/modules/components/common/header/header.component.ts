@@ -8,6 +8,7 @@ import {
 import { FormControl } from '@angular/forms';
 import { DestroyableComponent } from '../helpers/destroyable/destroyable.component';
 import { filter, takeUntil, tap } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header',
@@ -18,14 +19,17 @@ export class HeaderComponent extends DestroyableComponent implements OnInit {
   @Output()
   public onThemeChanged = new EventEmitter<boolean>();
 
-  constructor() {
+  constructor(private readonly translateService: TranslateService) {
     super();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   public toggleTheme(isDarkMode: boolean = false) {
     this.onThemeChanged.emit(isDarkMode);
+  }
+
+  public toggleLanguage(language: string) {
+    this.translateService.use(language);
   }
 }

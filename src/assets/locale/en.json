@@ -1,5 +1,40 @@
 {
-  "Test": {
-    "Text": "Test text"
+  "Header" : {
+    "Menu" : {
+      "Title": "Menu",
+      "Items": {
+        "Themes": {
+          "Title": "Themes",
+          "Light": "Light",
+          "Dark": "Dark"
+        },
+        "Languages": {
+          "Title": "Languages",
+          "Russian": "Russian",
+          "English": "English"
+        }
+      }
+    },
+    "Toolbar": {
+      "Login" : "Login",
+      "Register": "Register"
+    }
+  },
+  "Login" : {
+    "Title": "Login",
+    "Action": "Login",
+    "Labels": {
+      "Email": "Email",
+      "Password": "Password"
+    }
+  },
+  "Register" : {
+    "Title": "Register",
+    "Action": "Register",
+    "Labels": {
+      "Email": "Email",
+      "Password": "Password",
+      "RepeatPassword": "Repeat Password"
+    }
   }
 }
