@@ -1,0 +1,23 @@
+.wrapper {
+  min-height: 100%;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  margin: 0;
+  padding: 0;
+}
+
+.body {
+  flex: 1 1 auto;
+
+  .content {
+    padding: 4px;
+  }
+}
+
+.footer {
+}

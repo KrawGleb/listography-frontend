@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'listography';
+  private readonly darkModeClassName = 'dark_mode';
+
+  @HostBinding('class') className = '';
+
+  public onThemeChanged(isDarkMode: boolean) {
+    this.className = isDarkMode ? this.darkModeClassName : '';
+  }
 }
