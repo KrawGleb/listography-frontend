@@ -1,16 +1,13 @@
 <div class="mat-app-background wrapper">
-  <div class="header">
-    <app-header (onThemeChanged)="onThemeChanged($event)"></app-header>
-  </div>
+  <app-header (onThemeChanged)="onThemeChanged($event)"></app-header>
 
   <div class="body">
     <div class="content">
       <router-outlet></router-outlet>
       <div>
-        Test
+        {{ "Test.Text" | translate }}
       </div>
     </div>
-
   </div>
 
   <div class="footer">

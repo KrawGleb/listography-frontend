@@ -1,24 +1,51 @@
-<p class="wrapper">
-  <mat-toolbar color="primary">
-    <button mat-icon-button>
+<div class="wrapper">
+  <nav>
+    <input type="checkbox" id="menu" name="menu" class="m-menu__checkbox">
+    <label class="m-menu__toggle" for="menu">
       <mat-icon>menu</mat-icon>
-    </button>
-    <span>Listography</span>
+    </label>
+    <label class="m-menu__overlay" for="menu"></label>
 
-    <span class="spacer"></span>
-
-    <div class="theme_slider">
-      <mat-icon>brightness_5</mat-icon>
-
-      <div class="slider">
-        <mat-slide-toggle [formControl]="themeToggleControl"></mat-slide-toggle>
+    <div class="m-menu">
+      <div class="m-menu__header">
+        <label class="m-menu__toggle" for="menu">
+          <mat-icon>close</mat-icon>
+        </label>
+        <span>MENU</span>
       </div>
+      <ul>
+        <li><label>Item 1</label></li>
+        <li>
+          <label class="a-label__chevron" for="item-2">Languages</label>
+          <input type="checkbox" id="item-2" name="item-2" class="m-menu__checkbox">
+          <div class="m-menu">
+            <div class="m-menu__header">
+              <label class="m-menu__toggle" for="item-2">
+                <mat-icon>arrow_back</mat-icon>
+              </label>
+              <span>Languages</span>
+            </div>
+            <ul>
+              <li><label>Russian</label></li>
+              <li><label>English</label></li>
+            </ul>
+          </div>
+        </li>
 
-      <mat-icon>bedtime</mat-icon>
+        <li>
+          <label class="a-label__chevron" for="item-2">Themes</label>
+          <input type="checkbox" id="item-2" name="item-2" class="m-menu__checkbox">
+          <div class="m-menu">
+            <div class="m-menu__header">
+              <span>Themes</span>
+            </div>
+            <ul>
+              <li><label>Dark</label></li>
+              <li><label>Light</label></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
     </div>
-
-    <button mat-icon-button>
-      <mat-icon>person</mat-icon>
-    </button>
-  </mat-toolbar>
-</p>
+  </nav>
+</div>
