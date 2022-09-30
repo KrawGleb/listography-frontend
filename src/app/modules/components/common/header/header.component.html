@@ -69,10 +69,14 @@
               </div>
               <ul>
                 <li (click)="toggleTheme(true)">
-                  <label>{{ "Header.Menu.Items.Themes.Dark" | translate }}</label>
+                  <label>{{
+                    "Header.Menu.Items.Themes.Dark" | translate
+                  }}</label>
                 </li>
                 <li (click)="toggleTheme(false)">
-                  <label>{{ "Header.Menu.Items.Themes.Light" | translate }}</label>
+                  <label>{{
+                    "Header.Menu.Items.Themes.Light" | translate
+                  }}</label>
                 </li>
               </ul>
             </div>
@@ -81,13 +85,18 @@
       </div>
 
       <div class="account">
-        <div class="account__buttons">
+        <div class="account__buttons" *ngIf="!isAuthorize">
           <a routerLink="/login" mat-button>{{
             "Header.Toolbar.Login" | translate
           }}</a>
           <a routerLink="/register" mat-button>{{
             "Header.Toolbar.Register" | translate
           }}</a>
+        </div>
+        <div *ngIf="isAuthorize">
+          <a mat-icon-button routerLink="/me">
+            <mat-icon>person</mat-icon>
+          </a>
         </div>
       </div>
     </mat-toolbar-row>

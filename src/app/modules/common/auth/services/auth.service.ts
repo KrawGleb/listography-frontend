@@ -19,9 +19,13 @@ export class AuthService {
     return this.httpService
       .post('/auth/login', request)
       .pipe(
-        tap((response) =>
-          localStorage.setItem(LocalStorageConstants.Token, response as string)
+        tap((response: any) =>
+          localStorage.setItem(LocalStorageConstants.Token, response.token)
         )
       );
+  }
+
+  public isAuthorize() {
+    return !!localStorage.getItem(LocalStorageConstants.Token);
   }
 }

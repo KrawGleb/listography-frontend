@@ -5,6 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RouterModule } from '@angular/router';
+import { RegisterComponent } from './pages/register/register.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { AccountComponent } from './pages/account/account.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatIconModule } from '@angular/material/icon'
@@ -14,15 +17,16 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
-import { RegisterComponent } from './pages/register/register.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { ListCardComponent } from './common/list-card/list-card.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AccountComponent,
+    ListCardComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +41,7 @@ import { TranslateModule } from '@ngx-translate/core';
     MatSidenavModule,
     MatFormFieldModule,
     MatCardModule,
-    MatInputModule
+    MatInputModule,
   ],
   exports: [
     HeaderComponent

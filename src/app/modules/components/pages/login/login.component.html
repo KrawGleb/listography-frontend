@@ -2,21 +2,29 @@
   <mat-card>
     <mat-card-title>{{ "Login.Title" | translate }}</mat-card-title>
     <mat-card-content>
-      <form>
+      <form [formGroup]="form">
         <p>
           <mat-form-field>
-            <input matInput [placeholder]="'Login.Labels.Email' | translate" />
+            <input
+              matInput
+              formControlName="email"
+              [placeholder]="'Login.Labels.Email' | translate"
+            />
           </mat-form-field>
         </p>
 
         <p>
           <mat-form-field>
-            <input matInput [placeholder]="'Login.Labels.Password' | translate" />
+            <input
+              matInput
+              formControlName="password"
+              [placeholder]="'Login.Labels.Password' | translate"
+            />
           </mat-form-field>
         </p>
 
         <div class="button">
-          <button type="submit" mat-button>
+          <button type="submit" mat-button (click)="login()">
             {{ "Login.Action" | translate }}
           </button>
         </div>
