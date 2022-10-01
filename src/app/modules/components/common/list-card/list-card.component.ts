@@ -8,9 +8,11 @@ import { Topic } from 'src/app/models/topic.model';
   styleUrls: ['./list-card.component.scss']
 })
 export class ListCardComponent {
-  @Input() public title: string = '';
-  @Input() public description: string = '';
-  @Input() public imageUrl: string = 'https://material.angular.io/assets/img/examples/shiba2.jpg';
-  @Input() public tags: Tag[] = [];
-  @Input() public topic!: Topic;
+  @Input() public id?: number = -1;
+  @Input() public title?: string = '';
+  @Input() public description?: string = '';
+  @Input() public imageUrl?: string = 'https://material.angular.io/assets/img/examples/shiba2.jpg';
+  @Input() public tags?: Tag[] = [];
+  @Input() public topic?: Topic;
+  @Input() public clickable?: boolean = false;
 }

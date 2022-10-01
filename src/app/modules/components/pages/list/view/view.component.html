@@ -1,0 +1,18 @@
+<app-list-card
+  [title]="list?.title"
+  [description]="list?.description"
+  [imageUrl]="list?.imageUrl"
+  [tags]="list?.tags"
+></app-list-card>
+
+<table mat-table [dataSource]="items" class="mat-elevation-z8">
+  <ng-container *ngFor="let column of columnNames" [matColumnDef]="column">
+    <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+    <td mat-cell *matCellDef="let element">
+      {{ getColumnValue(element, column) }}
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnNames"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnNames"></tr>
+</table>
