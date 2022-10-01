@@ -56,7 +56,7 @@ export class ListCreateComponent extends DestroyableComponent {
     const customFields = this.itemTemplateControls.map((control) => {
       return {
         name: control.value.name,
-        type: 0,
+        type: control.value.type,
         order: control.value.order,
       } as CustomField;
     });

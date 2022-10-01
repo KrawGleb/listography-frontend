@@ -29,7 +29,8 @@ export class ListViewComponent extends DestroyableComponent implements OnInit {
         takeUntil(this.onDestroy$),
         tap((list: List) => {
           this.setList(list);
-          console.log(this.list);
+          this.items = this.list?.items ?? [];
+          console.log(this.items);
         })
       )
       .subscribe();
@@ -46,7 +47,7 @@ export class ListViewComponent extends DestroyableComponent implements OnInit {
     this.columnNames = [
       'id',
       'name',
-      ...list.itemTemplate?.customFields.map((f) => f.name),
+      ...list.itemTemplate?.customFields.map((f) => f.name) ?? [],
     ];
   }
 }

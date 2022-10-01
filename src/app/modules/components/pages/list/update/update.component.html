@@ -1,0 +1,80 @@
+<mat-card>
+  <div class="card card__container">
+    <div class="card__body">
+      <div class="card__column">
+        <div class="card__title-group">
+          <mat-form-field class="title-group__select">
+            <mat-label><mat-icon>extension</mat-icon></mat-label>
+            <mat-select>
+              <mat-option value="1"><mat-icon>book</mat-icon></mat-option>
+              <mat-option value="2"><mat-icon>book</mat-icon></mat-option>
+              <mat-option value="3"><mat-icon>book</mat-icon></mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="title-group__title">
+            <mat-label>Title</mat-label>
+            <input matInput class="title__input" />
+          </mat-form-field>
+        </div>
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <textarea matInput></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="card__column">
+        <div class="other">
+          <div class="other__tags"></div>
+we
+          <div class="other__image-src"></div>
+        </div>
+      </div>
+
+      <div class="">
+        <div class="image-preview">
+          <img
+            src="https://p16-sign-sg.tiktokcdn.com/aweme/720x720/tos-alisg-avt-0068/f03afbe232af7a021d1a3b4c59e7069c.jpeg?x-expires=1664776800&x-signature=o4VuaQyYB9v07pPpihogxgIdxAc%3D"
+            width="160"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>
+
+<div class="table">
+  <table mat-table *ngIf="!!list" [dataSource]="items" class="mat-elevation-z8">
+    <div *ngFor="let column of columnNames">
+      <ng-container [matColumnDef]="column">
+        <th mat-header-cell *matHeaderCellDef>{{ column | titlecase }}</th>
+        <td mat-cell *matCellDef="let element">
+          {{ getColumnValue(element, column) }}
+        </td>
+      </ng-container>
+    </div>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-mini-fab class="edit__button">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-mini-fab class="delete__button" color="warn">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnNames.concat('actions')"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: columnNames.concat('actions')"
+    ></tr>
+  </table>
+  <div class="table__add">
+    <button mat-mini-fab (click)="openAddDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>

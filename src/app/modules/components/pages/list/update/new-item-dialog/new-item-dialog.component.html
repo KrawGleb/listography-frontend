@@ -1,0 +1,58 @@
+<div class="wrapper">
+  <div class="content">
+    <h1 mat-dialog-title class="title">Add item</h1>
+
+    <div mat-dialog-content>
+      <form [formGroup]="form">
+        <div class="content__name">
+          <mat-form-field>
+            <mat-label> Name </mat-label>
+            <input matInput type="text" formControlName="name" />
+          </mat-form-field>
+        </div>
+
+        <div
+          class="content__fields"
+          *ngFor="let field of itemTemplate.customFields"
+          [ngSwitch]="field.type"
+        >
+          <mat-form-field *ngSwitchCase="types.string">
+            <mat-label> {{ field.name }} </mat-label>
+            <input matInput type="text" [formControlName]="field.name" />
+          </mat-form-field>
+
+          <mat-form-field *ngSwitchCase="types.number">
+            <mat-label> {{ field.name }} </mat-label>
+            <input matInput type="text" [formControlName]="field.name" />
+          </mat-form-field>
+
+          <mat-form-field *ngSwitchCase="types.date">
+            <mat-label> {{ field.name }} </mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              [formControlName]="field.name"
+            />
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-checkbox
+            *ngSwitchCase="types.boolean"
+            [formControlName]="field.name"
+            >{{ field.name }}</mat-checkbox
+          >
+        </div>
+      </form>
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button cdkFocusInitial (click)="saveItem()">Save</button>
+    </div>
+  </div>
+</div>

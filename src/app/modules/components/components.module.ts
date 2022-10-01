@@ -11,6 +11,8 @@ import { AccountComponent } from './pages/account/account.component';
 import { ListCardComponent } from './common/list-card/list-card.component';
 import { ListCreateComponent } from './pages/list/create/create.component';
 import { ListViewComponent } from './pages/list/view/view.component';
+import { ListUpdateComponent } from './pages/list/update/update.component';
+import { NewItemDialogComponent } from './pages/list/update/new-item-dialog/new-item-dialog.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatIconModule } from '@angular/material/icon'
@@ -22,6 +24,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core'
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -32,7 +38,9 @@ import { MatTableModule } from '@angular/material/table';
     AccountComponent,
     ListCardComponent,
     ListCreateComponent,
-    ListViewComponent
+    ListViewComponent,
+    ListUpdateComponent,
+    NewItemDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -50,6 +58,10 @@ import { MatTableModule } from '@angular/material/table';
     MatInputModule,
     MatSelectModule,
     MatTableModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
   ],
   exports: [
     HeaderComponent
