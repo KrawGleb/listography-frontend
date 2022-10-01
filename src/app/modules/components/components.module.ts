@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 import { RegisterComponent } from './pages/register/register.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { AccountComponent } from './pages/account/account.component';
+import { ListCardComponent } from './common/list-card/list-card.component';
+import { ListCreateComponent } from './pages/list/create/create.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatIconModule } from '@angular/material/icon'
@@ -17,8 +19,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
-import { ListCardComponent } from './common/list-card/list-card.component';
-import { CreateComponent } from './pages/list/create/create.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { CreateComponent } from './pages/list/create/create.component';
     RegisterComponent,
     AccountComponent,
     ListCardComponent,
-    CreateComponent
+    ListCreateComponent
   ],
   imports: [
     CommonModule,
@@ -44,6 +45,7 @@ import { CreateComponent } from './pages/list/create/create.component';
     MatFormFieldModule,
     MatCardModule,
     MatInputModule,
+    MatSelectModule,
   ],
   exports: [
     HeaderComponent

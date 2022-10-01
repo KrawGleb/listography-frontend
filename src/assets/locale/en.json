@@ -36,5 +36,21 @@
       "Password": "Password",
       "RepeatPassword": "Repeat Password"
     }
+  },
+  "List": {
+    "Fields": {
+      "Title": "Title",
+      "Description": "Description",
+      "ImageUrl": "Image url",
+      "Topic": "Topic",
+      "ItemTemplate": {
+        "Label": "Item template",
+        "Name": "Name",
+        "CustomField": {
+          "Name": "Name",
+          "Type": "Type"
+        }
+      }
+    }
   }
 }

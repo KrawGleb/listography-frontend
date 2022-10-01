@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './modules/common/auth/guards/auth.guard';
 import { AccountComponent } from './modules/components/pages/account/account.component';
 import { HomeComponent } from './modules/components/pages/home/home.component';
+import { ListCreateComponent } from './modules/components/pages/list/create/create.component';
 import { LoginComponent } from './modules/components/pages/login/login.component';
 import { RegisterComponent } from './modules/components/pages/register/register.component';
 
@@ -12,6 +13,10 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'me', component: AccountComponent, canActivate: [AuthGuard] },
+  {
+    path: 'list',
+    children: [{ path: 'create', component: ListCreateComponent }],
+  },
 ];
 
 @NgModule({

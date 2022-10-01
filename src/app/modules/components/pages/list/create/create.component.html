@@ -1,0 +1,106 @@
+<div class="wrapper">
+  <div class="container">
+    <div class="column">
+      <div class="title">
+        <h1>Title</h1>
+      </div>
+
+      <div class="form">
+        <form [formGroup]="form">
+          <div class="form__title">
+            <mat-form-field>
+              <mat-label> {{ "List.Fields.Title" | translate }} </mat-label>
+              <input matInput type="text" formControlName="title" />
+            </mat-form-field>
+          </div>
+
+          <div class="form__desription">
+            <mat-form-field>
+              <mat-label>
+                {{ "List.Fields.Description" | translate }}
+              </mat-label>
+              <textarea
+                matInput
+                type="text"
+                formControlName="description"
+              ></textarea>
+            </mat-form-field>
+          </div>
+
+          <div class="form__image">
+            <mat-form-field>
+              <mat-label> {{ "List.Fields.ImageUrl" | translate }} </mat-label>
+              <input matInput type="text" formControlName="image" />
+            </mat-form-field>
+          </div>
+
+          <div class="form__topic">
+            <mat-form-field>
+              <mat-label> {{ "List.Fields.Topic" | translate }} </mat-label>
+              <mat-select formControlName="topic">
+                <mat-option value="books">Books</mat-option>
+                <mat-option value="movies">Movies</mat-option>
+                <mat-option value="animals">Animals</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="form__item item">
+            <div class="item__title">
+              {{ "List.Fields.ItemTemplate.Label" | translate }}
+            </div>
+
+            <div class="item__fields">
+              <mat-form-field>
+                <mat-label>
+                  {{ "List.Fields.ItemTemplate.Name" | translate }}
+                </mat-label>
+                <input
+                  matInput
+                  type="text"
+                  [disabled]="true"
+                />
+              </mat-form-field>
+
+              <div
+                class="item__custom-field custom"
+                *ngFor="let field of itemTemplateControls"
+              >
+                <form [formGroup]="field">
+                  <mat-form-field class="custom__name">
+                    <mat-label>
+                      {{
+                        "List.Fields.ItemTemplate.CustomField.Name" | translate
+                      }}
+                    </mat-label>
+                    <input matInput type="text" formControlName="name" />
+                  </mat-form-field>
+
+                  <mat-form-field class="custom__type">
+                    <mat-label>{{
+                      "List.Fields.ItemTemplate.CustomField.Type" | translate
+                    }}</mat-label>
+                    <mat-select formControlName="type">
+                      <mat-option [value]="customFieldTypes.string">String</mat-option>
+                      <mat-option [value]="customFieldTypes.boolean">Boolean</mat-option>
+                      <mat-option [value]="customFieldTypes.number">Number</mat-option>
+                      <mat-option [value]="customFieldTypes.date">Date</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </form>
+              </div>
+            </div>
+
+            <div class="item__buttons">
+              <button (click)="addCustomField()">Add</button>
+            </div>
+          </div>
+
+          <div class="form__buttons">
+            <button (click)="createList()">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
