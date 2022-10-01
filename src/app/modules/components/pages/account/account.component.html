@@ -1,23 +1,26 @@
+<div class="header">
+  <div class="header__row">
+    <div class="header__title title">
+
+    </div>
+
+    <div class="header__buttons">
+      
+    </div>
+  </div>
+</div>
+
+
 <div class="columns">
   <div class="container">
     <div class="columns__row">
-      <div class="columns__card">
-        <app-list-card></app-list-card>
+      <div class="columns__card" *ngFor="let list of lists">
+        <app-list-card
+          [title]="list.title"
+          [tags]="list.tags"
+          [description]="list.description"
+          [topic]="list.topic"></app-list-card>
       </div>
-
-      <div class="columns__card">
-        <app-list-card></app-list-card>
-      </div>
-
-      <div class="columns__card">
-        <app-list-card></app-list-card>
-      </div>
-
-      <div class="columns__card">
-        <app-list-card></app-list-card>
-      </div>
-
-
     </div>
   </div>
 </div>

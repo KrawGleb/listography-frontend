@@ -18,6 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { ListCardComponent } from './common/list-card/list-card.component';
+import { CreateComponent } from './pages/list/create/create.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ListCardComponent } from './common/list-card/list-card.component';
     LoginComponent,
     RegisterComponent,
     AccountComponent,
-    ListCardComponent
+    ListCardComponent,
+    CreateComponent
   ],
   imports: [
     CommonModule,
