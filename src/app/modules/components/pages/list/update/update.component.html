@@ -1,46 +1,69 @@
 <mat-card>
-  <div class="card card__container">
-    <div class="card__body">
-      <div class="card__column">
-        <div class="card__title-group">
-          <mat-form-field class="title-group__select">
-            <mat-label><mat-icon>extension</mat-icon></mat-label>
-            <mat-select>
-              <mat-option value="1"><mat-icon>book</mat-icon></mat-option>
-              <mat-option value="2"><mat-icon>book</mat-icon></mat-option>
-              <mat-option value="3"><mat-icon>book</mat-icon></mat-option>
-            </mat-select>
-          </mat-form-field>
+  <form [formGroup]="form">
+    <div class="card card__container">
+      <div class="card__body">
+        <div class="card__column">
+          <div class="card__title-group">
+            <mat-form-field class="title-group__select">
+              <mat-label><mat-icon>extension</mat-icon></mat-label>
+              <mat-select>
+                <mat-option value="1"><mat-icon>book</mat-icon></mat-option>
+                <mat-option value="2"><mat-icon>book</mat-icon></mat-option>
+                <mat-option value="3"><mat-icon>book</mat-icon></mat-option>
+              </mat-select>
+            </mat-form-field>
 
-          <mat-form-field class="title-group__title">
-            <mat-label>Title</mat-label>
-            <input matInput class="title__input" />
+            <mat-form-field class="title-group__title">
+              <mat-label>Title</mat-label>
+              <input matInput class="title__input" formControlName="title" />
+            </mat-form-field>
+          </div>
+          <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description"></textarea>
           </mat-form-field>
         </div>
-        <mat-form-field>
-          <mat-label>Description</mat-label>
-          <textarea matInput></textarea>
-        </mat-form-field>
-      </div>
 
-      <div class="card__column">
-        <div class="other">
-          <div class="other__tags"></div>
-we
-          <div class="other__image-src"></div>
+        <div class="card__column">
+          <div class="other">
+            <div class="other__image-src">
+              <mat-form-field class="image-src">
+                <mat-label>ImageUrl </mat-label>
+                <input matInput formControlName="imageUrl" />
+              </mat-form-field>
+            </div>
+            <div class="other__tags tags">
+              <div class="tags__title">Tags</div>
+              <div class="tags__list">
+                <div class="tag" *ngFor="let tag of tags">{{ tag }}</div>
+              </div>
+              <mat-form-field class="tags__input">
+                <mat-label>Tag</mat-label>
+                <input matInput (keyup.enter)="addTag()" formControlName="tag"/>
+              </mat-form-field>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="">
-        <div class="image-preview">
-          <img
-            src="https://p16-sign-sg.tiktokcdn.com/aweme/720x720/tos-alisg-avt-0068/f03afbe232af7a021d1a3b4c59e7069c.jpeg?x-expires=1664776800&x-signature=o4VuaQyYB9v07pPpihogxgIdxAc%3D"
-            width="160"
-          />
+        <div class="">
+          <div class="image-preview">
+            <img
+              [src]="getImageUrl()"
+              width="160"
+            />
+          </div>
         </div>
       </div>
     </div>
-  </div>
+
+    <mat-card-actions>
+      <div class="card__actions actions">
+        <button mat-raised-button class="actions__save" color="primary" (click)="saveListInfo()">
+          <mat-icon>save</mat-icon>
+        </button>
+      </div>
+    </mat-card-actions>
+  </form>
 </mat-card>
 
 <div class="table">

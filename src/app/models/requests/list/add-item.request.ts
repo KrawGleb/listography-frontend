@@ -1,4 +1,4 @@
-import { CustomField } from "../custom-field.model";
+import { CustomField } from "../../custom-field.model";
 
 export interface AddItemRequest {
   listId: number;

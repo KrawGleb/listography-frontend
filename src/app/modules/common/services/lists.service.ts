@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { List } from 'src/app/models/list.model';
-import { AddItemRequest } from 'src/app/models/requests/add-item.request';
+import { AddItemRequest } from 'src/app/models/requests/list/add-item.request';
+import { UpdateListInfoRequest } from 'src/app/models/requests/list/update-info.request';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +21,9 @@ export class ListsService {
 
   public addItem(request: AddItemRequest) {
     return this.httpService.post('/lists/add', request, true);
+  }
+
+  public updateInfo(request: UpdateListInfoRequest) {
+    console.log(request);
   }
 }

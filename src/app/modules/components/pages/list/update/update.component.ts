@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil, tap } from 'rxjs';
 import { CustomFieldType } from 'src/app/models/enums/custom-field-type.enum';
 import { Item } from 'src/app/models/item.model';
 import { List } from 'src/app/models/list.model';
+import { UpdateListInfoRequest } from 'src/app/models/requests/list/update-info.request';
+import { Tag } from 'src/app/models/tag.model';
 import { ListsService } from 'src/app/modules/common/services/lists.service';
 import { DestroyableComponent } from '../../../helpers/destroyable/destroyable.component';
 import { NewItemDialogComponent } from './new-item-dialog/new-item-dialog.component';
@@ -16,6 +19,16 @@ import { NewItemDialogComponent } from './new-item-dialog/new-item-dialog.compon
 })
 export class ListUpdateComponent extends DestroyableComponent {
   private id!: number;
+
+  public form = new FormGroup({
+    topic: new FormControl(),
+    title: new FormControl(),
+    description: new FormControl(),
+    imageUrl: new FormControl(),
+    tag: new FormControl(),
+  });
+  public tags: string[] = [];
+
   public list?: List;
   public columnNames: string[] = [];
   public items: any[] = [];
@@ -63,6 +76,10 @@ export class ListUpdateComponent extends DestroyableComponent {
     }
   }
 
+  public getImageUrl() {
+    return this.form.value.imageUrl;
+  }
+
   public openAddDialog() {
     this.dialog
       .open(NewItemDialogComponent, {
@@ -86,8 +103,38 @@ export class ListUpdateComponent extends DestroyableComponent {
       .subscribe();
   }
 
+  public addTag() {
+    const tag = this.form.value.tag;
+
+    if (this.tags.indexOf(tag) < 0) {
+      this.tags.push(tag);
+    }
+    this.form.controls.tag.setValue('');
+  }
+
+  public saveListInfo() {
+    const info = {
+      listId: this.id,
+      title: this.form.value.title,
+      description: this.form.value.description,
+      imageUrl: this.form.value.imageUrl,
+      tags: this.tags.map((t) => ({ name: t } as Tag)),
+      topic: { name: this.form.value.topic },
+    } as UpdateListInfoRequest;
+
+    this.listsService.updateInfo(info);
+  }
+
   private setList(list: List) {
-    console.log(list);
+    this.form.setValue({
+      topic: list.topic,
+      title: list.title,
+      description: list.description,
+      imageUrl: list.imageUrl,
+      tag: '',
+    });
+
+    this.tags = list.tags.map((tag) => tag.name);
     this.list = list;
 
     this.columnNames = [

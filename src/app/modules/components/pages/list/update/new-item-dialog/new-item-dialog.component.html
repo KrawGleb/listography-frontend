@@ -23,7 +23,7 @@
 
           <mat-form-field *ngSwitchCase="types.number">
             <mat-label> {{ field.name }} </mat-label>
-            <input matInput type="text" [formControlName]="field.name" />
+            <input matInput type="number" [formControlName]="field.name" />
           </mat-form-field>
 
           <mat-form-field *ngSwitchCase="types.date">
