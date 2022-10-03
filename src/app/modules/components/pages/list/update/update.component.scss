@@ -1,12 +1,8 @@
-.table {
+.table__container {
   position: relative;
-  table {
-    position: relative;
-    width: 100%;
-    margin-top: 10px;
-  }
+  margin-top: 12px;
 
-  &__add {
+  &__add-button {
     position: absolute;
     top: 0;
     right: 0;
@@ -14,7 +10,7 @@
   }
 }
 
-.card {
+.list-card {
   &__container {
   }
 
@@ -22,7 +18,7 @@
     .actions {
       &__save {
         margin: 0px 40px;
-        width: 40px
+        width: 40px;
       }
     }
   }

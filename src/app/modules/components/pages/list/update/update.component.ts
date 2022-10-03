@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil, tap } from 'rxjs';
+import { CustomField } from 'src/app/models/custom-field.model';
 import { CustomFieldType } from 'src/app/models/enums/custom-field-type.enum';
 import { Item } from 'src/app/models/item.model';
 import { List } from 'src/app/models/list.model';
@@ -47,6 +48,7 @@ export class ListUpdateComponent extends DestroyableComponent {
       .pipe(
         takeUntil(this.onDestroy$),
         tap((list: List) => {
+          console.log(list);
           this.setList(list);
           this.items = this.list?.items ?? [];
         })
@@ -68,6 +70,22 @@ export class ListUpdateComponent extends DestroyableComponent {
         return field.boolValue;
       case CustomFieldType.IntType:
         return field.intValue;
+      case CustomFieldType.DateTimeType:
+        return field.dateTimeValue?.toString().split('T')[0]; // TODO: Fix it
+      default:
+        return '';
+    }
+  }
+
+  public getCustomFieldValue(field: CustomField) {
+    console.log(field);
+    switch (field?.type) {
+      case CustomFieldType.StringType:
+        return field.stringValue ?? " ";
+      case CustomFieldType.BoolType:
+        return field.boolValue ?? false;
+      case CustomFieldType.IntType:
+        return field.intValue ?? " ";
       case CustomFieldType.DateTimeType:
         return field.dateTimeValue?.toString().split('T')[0]; // TODO: Fix it
       default:

@@ -65,6 +65,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   ],
   exports: [
     HeaderComponent
+  ],
+  bootstrap: [
+    ListUpdateComponent
   ]
 })
 export class ComponentsModule { }
