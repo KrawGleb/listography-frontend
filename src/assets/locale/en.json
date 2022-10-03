@@ -1,6 +1,11 @@
 {
-  "Header" : {
-    "Menu" : {
+  "Actions": {
+    "Save": "Save",
+    "Edit": "Edit",
+    "Add": "Add"
+  },
+  "Header": {
+    "Menu": {
       "Title": "Menu",
       "Items": {
         "Themes": {
@@ -16,11 +21,11 @@
       }
     },
     "Toolbar": {
-      "Login" : "Login",
+      "Login": "Login",
       "Register": "Register"
     }
   },
-  "Login" : {
+  "Login": {
     "Title": "Login",
     "Action": "Login",
     "Labels": {
@@ -28,7 +33,7 @@
       "Password": "Password"
     }
   },
-  "Register" : {
+  "Register": {
     "Title": "Register",
     "Action": "Register",
     "Labels": {
@@ -37,11 +42,14 @@
       "RepeatPassword": "Repeat Password"
     }
   },
+  "Update": {
+    "Actions": "Actions"
+  },
   "List": {
     "Fields": {
       "Title": "Title",
       "Description": "Description",
-      "ImageUrl": "Image url",
+      "ImageUrl": "Image URL",
       "Topic": "Topic",
       "ItemTemplate": {
         "Label": "Item template",
@@ -50,7 +58,9 @@
           "Name": "Name",
           "Type": "Type"
         }
-      }
+      },
+      "Tag": "Tag",
+      "Tags": "Tags"
     }
   }
 }

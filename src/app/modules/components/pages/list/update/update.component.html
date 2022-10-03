@@ -14,12 +14,12 @@
             </mat-form-field>
 
             <mat-form-field class="title-group__title">
-              <mat-label>Title</mat-label>
+              <mat-label>{{ "List.Fields.Title" | translate }}</mat-label>
               <input matInput class="title__input" formControlName="title" />
             </mat-form-field>
           </div>
           <mat-form-field>
-            <mat-label>Description</mat-label>
+            <mat-label>{{ "List.Fields.Description" | translate }}</mat-label>
             <textarea matInput formControlName="description"></textarea>
           </mat-form-field>
         </div>
@@ -28,12 +28,14 @@
           <div class="other">
             <div class="other__image-src">
               <mat-form-field class="image-src">
-                <mat-label>ImageUrl </mat-label>
+                <mat-label>{{ "List.Fields.ImageUrl" | translate }} </mat-label>
                 <input matInput formControlName="imageUrl" />
               </mat-form-field>
             </div>
             <div class="other__tags tags">
-              <div class="tags__title">Tags</div>
+              <div class="tags__title">
+                {{ "List.Fields.Tags" | translate }}
+              </div>
               <div class="tags__list">
                 <div class="tag" *ngFor="let tag of tags">
                   {{ tag }}
@@ -43,10 +45,16 @@
                 </div>
               </div>
               <mat-form-field class="tags__input">
-                <mat-label>Tag</mat-label>
-                <input matInput (keyup.enter)="addTag()" formControlName="tag"/>
+                <mat-label>{{ "List.Fields.Tag" | translate }}</mat-label>
+                <input
+                  matInput
+                  (keyup.enter)="addTag()"
+                  formControlName="tag"
+                />
               </mat-form-field>
-              <button mat-button (click)="addTag()">Add</button>
+              <button mat-button (click)="addTag()">
+                {{ "Actions.Add" | translate }}
+              </button>
             </div>
           </div>
         </div>
@@ -86,7 +94,9 @@
     </div>
 
     <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <th mat-header-cell *matHeaderCellDef>
+        {{ "Update.Actions" | translate }}
+      </th>
       <td mat-cell *matCellDef="let element">
         <button mat-mini-fab class="edit__button">
           <mat-icon>edit</mat-icon>
