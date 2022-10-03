@@ -12,7 +12,7 @@ import { ListCardComponent } from './common/list-card/list-card.component';
 import { ListCreateComponent } from './pages/list/create/create.component';
 import { ListViewComponent } from './pages/list/view/view.component';
 import { ListUpdateComponent } from './pages/list/update/update.component';
-import { NewItemDialogComponent } from './pages/list/update/new-item-dialog/new-item-dialog.component';
+import { ItemDialogComponent } from './pages/list/update/item-dialog/item-dialog.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatIconModule } from '@angular/material/icon'
@@ -40,7 +40,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ListCreateComponent,
     ListViewComponent,
     ListUpdateComponent,
-    NewItemDialogComponent,
+    ItemDialogComponent,
   ],
   imports: [
     CommonModule,

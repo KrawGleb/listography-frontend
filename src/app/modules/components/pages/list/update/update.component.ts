@@ -11,8 +11,9 @@ import { UpdateListInfoRequest } from 'src/app/models/requests/list/update-info.
 import { Tag } from 'src/app/models/tag.model';
 import { ListsService } from 'src/app/modules/common/services/lists.service';
 import { DestroyableComponent } from '../../../helpers/destroyable/destroyable.component';
-import { NewItemDialogComponent } from './new-item-dialog/new-item-dialog.component';
+import { ItemDialogComponent } from './item-dialog/item-dialog.component';
 import { CommonResponse } from 'src/app/models/responses/common-response.model';
+import { GetCustomFieldValue } from '../../../helpers/custom-field.helpers';
 
 @Component({
   selector: 'app-update',
@@ -29,8 +30,8 @@ export class ListUpdateComponent extends DestroyableComponent {
     imageUrl: new FormControl(),
     tag: new FormControl(),
   });
-  public tags: string[] = [];
 
+  public tags: string[] = [];
   public list?: List;
   public columnNames: string[] = [];
   public items: any[] = [];
@@ -64,33 +65,11 @@ export class ListUpdateComponent extends DestroyableComponent {
 
     const field = element.customFields.find((f) => f.name == column);
 
-    switch (field?.type) {
-      case CustomFieldType.StringType:
-        return field.stringValue;
-      case CustomFieldType.BoolType:
-        return field.boolValue;
-      case CustomFieldType.IntType:
-        return field.intValue;
-      case CustomFieldType.DateTimeType:
-        return field.dateTimeValue?.toString().split('T')[0]; // TODO: Fix it
-      default:
-        return '';
-    }
+    return GetCustomFieldValue(field);
   }
 
   public getCustomFieldValue(field: CustomField) {
-    switch (field?.type) {
-      case CustomFieldType.StringType:
-        return field.stringValue ?? ' ';
-      case CustomFieldType.BoolType:
-        return field.boolValue ?? false;
-      case CustomFieldType.IntType:
-        return field.intValue ?? ' ';
-      case CustomFieldType.DateTimeType:
-        return field.dateTimeValue; // TODO: Fix it
-      default:
-        return '';
-    }
+    return GetCustomFieldValue(field);
   }
 
   public getImageUrl() {
@@ -113,11 +92,12 @@ export class ListUpdateComponent extends DestroyableComponent {
       .subscribe();
   }
 
-  public openAddDialog() {
+  public openAddItemDialog() {
     this.dialog
-      .open(NewItemDialogComponent, {
+      .open(ItemDialogComponent, {
         data: {
-          itemTemplate: this.list?.itemTemplate,
+          item: this.list?.itemTemplate,
+          edit: false,
         },
       })
       .afterClosed()
@@ -142,6 +122,24 @@ export class ListUpdateComponent extends DestroyableComponent {
         })
       )
       .subscribe();
+  }
+
+  public openEditItemDialog(item: Item) {
+    this.dialog
+      .open(ItemDialogComponent, {
+        data: {
+          item: item,
+          edit: true,
+        },
+      })
+      .afterClosed()
+      .pipe(
+        takeUntil(this.onDestroy$),
+        filter((response: any) => !!response),
+        tap((editedItem: Item) => {
+          console.log(editedItem);
+        }
+      ));
   }
 
   public addTag() {
