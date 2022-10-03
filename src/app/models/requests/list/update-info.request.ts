@@ -2,7 +2,7 @@ import { Tag } from "../../tag.model";
 import { Topic } from "../../topic.model";
 
 export interface UpdateListInfoRequest {
-  listId: number;
+  id: number;
   topic?: Topic;
   title: string;
   description: string;

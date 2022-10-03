@@ -5,11 +5,10 @@ import { AddItemRequest } from 'src/app/models/requests/list/add-item.request';
 import { UpdateListInfoRequest } from 'src/app/models/requests/list/update-info.request';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ListsService {
-
-  constructor(private readonly httpService: HttpService) { }
+  constructor(private readonly httpService: HttpService) {}
 
   public create(list: List) {
     return this.httpService.post('/lists/create', list, true);
@@ -24,6 +23,6 @@ export class ListsService {
   }
 
   public updateInfo(request: UpdateListInfoRequest) {
-    console.log(request);
+    return this.httpService.post('/lists/update', request, true);
   }
 }

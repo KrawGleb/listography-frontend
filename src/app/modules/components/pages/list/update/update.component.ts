@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil, tap } from 'rxjs';
 import { CustomFieldType } from 'src/app/models/enums/custom-field-type.enum';
 import { Item } from 'src/app/models/item.model';
@@ -35,6 +35,7 @@ export class ListUpdateComponent extends DestroyableComponent {
 
   constructor(
     private readonly route: ActivatedRoute,
+    private readonly router: Router,
     private readonly listsService: ListsService,
     private readonly dialog: MatDialog
   ) {
@@ -52,8 +53,6 @@ export class ListUpdateComponent extends DestroyableComponent {
       )
       .subscribe();
   }
-
-  ngOnInit(): void {}
 
   public getColumnValue(element: Item, column: string) {
     if (column === 'id' || column === 'name') {
@@ -78,6 +77,10 @@ export class ListUpdateComponent extends DestroyableComponent {
 
   public getImageUrl() {
     return this.form.value.imageUrl;
+  }
+
+  public removeTag(tag: string) {
+    this.tags = this.tags.filter((t) => t !== tag);
   }
 
   public openAddDialog() {
@@ -106,7 +109,7 @@ export class ListUpdateComponent extends DestroyableComponent {
   public addTag() {
     const tag = this.form.value.tag;
 
-    if (this.tags.indexOf(tag) < 0) {
+    if (tag && this.tags.indexOf(tag) < 0) {
       this.tags.push(tag);
     }
     this.form.controls.tag.setValue('');
@@ -114,7 +117,7 @@ export class ListUpdateComponent extends DestroyableComponent {
 
   public saveListInfo() {
     const info = {
-      listId: this.id,
+      id: this.id,
       title: this.form.value.title,
       description: this.form.value.description,
       imageUrl: this.form.value.imageUrl,
@@ -122,7 +125,11 @@ export class ListUpdateComponent extends DestroyableComponent {
       topic: { name: this.form.value.topic },
     } as UpdateListInfoRequest;
 
-    this.listsService.updateInfo(info);
+    this.listsService.updateInfo(info)
+      .pipe(
+        takeUntil(this.onDestroy$),
+        tap(() => this.router.navigateByUrl('/me')))
+      .subscribe();
   }
 
   private setList(list: List) {

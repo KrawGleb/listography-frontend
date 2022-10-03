@@ -79,6 +79,16 @@
             padding: 2px 6px;
             border-radius: 4px;
             background-color: aquamarine;
+
+            button {
+              box-shadow: none;
+              background-color: aquamarine;
+              color: black;
+            }
+
+            button:focus {
+              background-color: red;
+            }
           }
         }
 

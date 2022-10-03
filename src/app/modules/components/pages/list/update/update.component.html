@@ -35,22 +35,25 @@
             <div class="other__tags tags">
               <div class="tags__title">Tags</div>
               <div class="tags__list">
-                <div class="tag" *ngFor="let tag of tags">{{ tag }}</div>
+                <div class="tag" *ngFor="let tag of tags">
+                  {{ tag }}
+                  <button mat-mini-fab (click)="removeTag(tag)">
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                </div>
               </div>
               <mat-form-field class="tags__input">
                 <mat-label>Tag</mat-label>
                 <input matInput (keyup.enter)="addTag()" formControlName="tag"/>
               </mat-form-field>
+              <button mat-button (click)="addTag()">Add</button>
             </div>
           </div>
         </div>
 
         <div class="">
           <div class="image-preview">
-            <img
-              [src]="getImageUrl()"
-              width="160"
-            />
+            <img [src]="getImageUrl()" width="160" />
           </div>
         </div>
       </div>
@@ -58,7 +61,12 @@
 
     <mat-card-actions>
       <div class="card__actions actions">
-        <button mat-raised-button class="actions__save" color="primary" (click)="saveListInfo()">
+        <button
+          mat-raised-button
+          class="actions__save"
+          color="primary"
+          (click)="saveListInfo()"
+        >
           <mat-icon>save</mat-icon>
         </button>
       </div>
