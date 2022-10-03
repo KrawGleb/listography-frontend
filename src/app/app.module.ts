@@ -8,6 +8,7 @@ import { ComponentsModule } from './modules/components/components.module';
 import { MissingTranslationHandler, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HttpLoaderFactory, MissingTranslationService } from './helpers/translation.helpers';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { HttpLoaderFactory, MissingTranslationService } from './helpers/translat
         useClass: MissingTranslationService
       },
       defaultLanguage: 'en',
-    })
+    }),
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
