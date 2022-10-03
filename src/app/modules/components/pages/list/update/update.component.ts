@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { takeUntil, tap } from 'rxjs';
+import { filter, takeUntil, tap } from 'rxjs';
 import { CustomField } from 'src/app/models/custom-field.model';
 import { CustomFieldType } from 'src/app/models/enums/custom-field-type.enum';
 import { Item } from 'src/app/models/item.model';
@@ -12,6 +12,7 @@ import { Tag } from 'src/app/models/tag.model';
 import { ListsService } from 'src/app/modules/common/services/lists.service';
 import { DestroyableComponent } from '../../../helpers/destroyable/destroyable.component';
 import { NewItemDialogComponent } from './new-item-dialog/new-item-dialog.component';
+import { CommonResponse } from 'src/app/models/responses/common-response.model';
 
 @Component({
   selector: 'app-update',
@@ -78,16 +79,15 @@ export class ListUpdateComponent extends DestroyableComponent {
   }
 
   public getCustomFieldValue(field: CustomField) {
-    console.log(field);
     switch (field?.type) {
       case CustomFieldType.StringType:
-        return field.stringValue ?? " ";
+        return field.stringValue ?? ' ';
       case CustomFieldType.BoolType:
         return field.boolValue ?? false;
       case CustomFieldType.IntType:
-        return field.intValue ?? " ";
+        return field.intValue ?? ' ';
       case CustomFieldType.DateTimeType:
-        return field.dateTimeValue?.toString().split('T')[0]; // TODO: Fix it
+        return field.dateTimeValue; // TODO: Fix it
       default:
         return '';
     }
@@ -101,6 +101,18 @@ export class ListUpdateComponent extends DestroyableComponent {
     this.tags = this.tags.filter((t) => t !== tag);
   }
 
+  public deleteItem(itemId: number) {
+    this.listsService
+      .deleteItem(itemId)
+      .pipe(
+        takeUntil(this.onDestroy$),
+        tap(() => {
+          this.items = this.items.filter((i) => i.id !== itemId);
+        })
+      )
+      .subscribe();
+  }
+
   public openAddDialog() {
     this.dialog
       .open(NewItemDialogComponent, {
@@ -110,6 +122,8 @@ export class ListUpdateComponent extends DestroyableComponent {
       })
       .afterClosed()
       .pipe(
+        takeUntil(this.onDestroy$),
+        filter((response: any) => !!response),
         tap((newItem: Item) => {
           this.listsService
             .addItem({
@@ -117,8 +131,14 @@ export class ListUpdateComponent extends DestroyableComponent {
               name: newItem.name,
               customFields: newItem.customFields,
             })
+            .pipe(
+              takeUntil(this.onDestroy$),
+              filter((response) => 'body' in response),
+              tap((response: CommonResponse) => {
+                this.items.push(response.body as Item);
+              })
+            )
             .subscribe();
-          this.items.push(newItem);
         })
       )
       .subscribe();
@@ -143,10 +163,12 @@ export class ListUpdateComponent extends DestroyableComponent {
       topic: { name: this.form.value.topic },
     } as UpdateListInfoRequest;
 
-    this.listsService.updateInfo(info)
+    this.listsService
+      .updateInfo(info)
       .pipe(
         takeUntil(this.onDestroy$),
-        tap(() => this.router.navigateByUrl('/me')))
+        tap(() => this.router.navigateByUrl('/me'))
+      )
       .subscribe();
   }
 

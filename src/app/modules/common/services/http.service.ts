@@ -24,6 +24,13 @@ export class HttpService {
     );
   }
 
+  public delete(url: string, body: any, includeToken: boolean = false) {
+    const options = this.getRequestOptions(includeToken) as any;
+    options.body = body;
+
+    return this.http.delete(HttpConstants.BaseApiUrl + url, options);
+  }
+
   private getRequestOptions(includeToken: boolean = false) {
     return includeToken ? { headers: this.getTokenHeader() } : {};
   }

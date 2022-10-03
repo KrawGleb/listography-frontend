@@ -10,7 +10,7 @@ import { DestroyableComponent } from '../../../helpers/destroyable/destroyable.c
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss'],
 })
-export class ListViewComponent extends DestroyableComponent implements OnInit {
+export class ListViewComponent extends DestroyableComponent {
   private id!: number;
   public list?: List;
   public columnNames: string[] = [];
@@ -35,8 +35,6 @@ export class ListViewComponent extends DestroyableComponent implements OnInit {
       )
       .subscribe();
   }
-
-  ngOnInit(): void {}
 
   public getColumnValue(element: any, column: string) {
     return '';

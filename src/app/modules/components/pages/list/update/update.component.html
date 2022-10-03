@@ -104,7 +104,12 @@
           <button mat-mini-fab class="edit__button">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-mini-fab class="delete__button" color="warn">
+          <button
+            mat-mini-fab
+            class="delete__button"
+            color="warn"
+            (click)="deleteItem(item.id)"
+          >
             <mat-icon>delete</mat-icon>
           </button>
         </td>
