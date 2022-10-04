@@ -11,6 +11,7 @@ import { MissingTranslationHandler, TranslateLoader, TranslateModule } from '@ng
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HttpLoaderFactory, MissingTranslationService } from './helpers/translation.helpers';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SharedModule } from './modules/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       messagingSenderId: '964387488071',
       appId: '1:964387488071:web:3d3c5189100cd089868c62',
     }),
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

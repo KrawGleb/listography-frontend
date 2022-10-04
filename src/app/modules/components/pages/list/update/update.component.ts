@@ -24,25 +24,14 @@ import { FirebaseService } from 'src/app/modules/common/services/firebase.servic
 export class ListUpdateComponent extends DestroyableComponent {
   private id!: number;
 
-  public form = new FormGroup({
-    topic: new FormControl(),
-    title: new FormControl(),
-    description: new FormControl(),
-    imageUrl: new FormControl(),
-    tag: new FormControl(),
-  });
-
-  public tags: string[] = [];
   public list?: List;
   public columnNames: string[] = [];
   public items: any[] = [];
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly router: Router,
     private readonly listsService: ListsService,
     private readonly dialog: MatDialog,
-    private readonly firebaseService: FirebaseService
   ) {
     super();
 
@@ -52,7 +41,6 @@ export class ListUpdateComponent extends DestroyableComponent {
       .pipe(
         takeUntil(this.onDestroy$),
         tap((list: List) => {
-          console.log(list);
           this.setList(list);
           this.items = this.list?.items ?? [];
         })
@@ -72,27 +60,6 @@ export class ListUpdateComponent extends DestroyableComponent {
 
   public getCustomFieldValue(field: CustomField) {
     return GetCustomFieldValue(field);
-  }
-
-  public getImageUrl() {
-    return this.form.value.imageUrl;
-  }
-
-  public uploadImage(event: any) {
-    const file = event.target.files[0];
-    const path = this.id.toString();
-
-    this.firebaseService.uploadImage(path, file).pipe(
-      takeUntil(this.onDestroy$),
-      tap((imageUrl) => {
-        console.log(imageUrl);
-        this.form.controls.imageUrl.setValue(imageUrl);
-      })
-    ).subscribe();
-  }
-
-  public removeTag(tag: string) {
-    this.tags = this.tags.filter((t) => t !== tag);
   }
 
   public deleteItem(itemId: number) {
@@ -157,44 +124,7 @@ export class ListUpdateComponent extends DestroyableComponent {
       );
   }
 
-  public addTag() {
-    const tag = this.form.value.tag;
-
-    if (tag && this.tags.indexOf(tag) < 0) {
-      this.tags.push(tag);
-    }
-    this.form.controls.tag.setValue('');
-  }
-
-  public saveListInfo() {
-    const info = {
-      id: this.id,
-      title: this.form.value.title,
-      description: this.form.value.description,
-      imageUrl: this.form.value.imageUrl,
-      tags: this.tags.map((t) => ({ name: t } as Tag)),
-      topic: { name: this.form.value.topic },
-    } as UpdateListInfoRequest;
-
-    this.listsService
-      .updateInfo(info)
-      .pipe(
-        takeUntil(this.onDestroy$),
-        tap(() => this.router.navigateByUrl('/me'))
-      )
-      .subscribe();
-  }
-
   private setList(list: List) {
-    this.form.setValue({
-      topic: list.topic,
-      title: list.title,
-      description: list.description,
-      imageUrl: list.imageUrl,
-      tag: '',
-    });
-
-    this.tags = list.tags.map((tag) => tag.name);
     this.list = list;
 
     this.columnNames = [

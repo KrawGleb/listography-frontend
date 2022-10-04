@@ -1,59 +1,4 @@
-<mat-card>
-  <form [formGroup]="form">
-    <div class="list-card list-card__container">
-      <div class="list-card__body">
-        <div class="list-card__column">
-          <div class="list-card__title-group">
-            <mat-form-field class="title-group__select">
-              <mat-label><mat-icon>extension</mat-icon></mat-label>
-              <mat-select>
-                <mat-option value="1"><mat-icon>book</mat-icon></mat-option>
-                <mat-option value="2"><mat-icon>book</mat-icon></mat-option>
-                <mat-option value="3"><mat-icon>book</mat-icon></mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="title-group__title">
-              <mat-label>{{ "List.Fields.Title" | translate }}</mat-label>
-              <input matInput class="title__input" formControlName="title" />
-            </mat-form-field>
-          </div>
-          <mat-form-field>
-            <mat-label>{{ "List.Fields.Description" | translate }}</mat-label>
-            <textarea matInput formControlName="description"></textarea>
-          </mat-form-field>
-        </div>
-
-        <div class="image">
-          <div class="image__preview">
-            <img [src]="getImageUrl()" width="160" />
-          </div>
-
-          <div class="image__upload">
-            <input
-              type="file"
-              accept="image/*"
-              (change)="uploadImage($event)"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <mat-card-actions>
-      <div class="card__actions actions">
-        <button
-          mat-raised-button
-          class="actions__save"
-          color="primary"
-          (click)="saveListInfo()"
-        >
-          <mat-icon>save</mat-icon>
-        </button>
-      </div>
-    </mat-card-actions>
-  </form>
-</mat-card>
+<app-list-header [isEdit]="true" [list]="list!"></app-list-header>
 
 <div class="table__container">
   <table class="table table-striped">
@@ -62,7 +7,6 @@
         <th scope="col" *ngFor="let column of columnNames">
           {{ column | titlecase }}
         </th>
-        <th scope="col">Actions</th>
       </tr>
     </thead>
 
@@ -72,23 +16,6 @@
         <td>{{ item.name }}</td>
         <td *ngFor="let customField of item.customFields">
           {{ getCustomFieldValue(customField) }}
-        </td>
-        <td>
-          <button
-            mat-mini-fab
-            class="edit__button"
-            (click)="openEditItemDialog(item)"
-          >
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button
-            mat-mini-fab
-            class="delete__button"
-            color="warn"
-            (click)="deleteItem(item.id)"
-          >
-            <mat-icon>delete</mat-icon>
-          </button>
         </td>
       </tr>
     </tbody>

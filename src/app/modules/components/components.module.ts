@@ -28,6 +28,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core'
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ItemComponent } from './pages/item/item/item.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ListViewComponent,
     ListUpdateComponent,
     ItemDialogComponent,
+    ItemComponent,
   ],
   imports: [
     CommonModule,
@@ -48,6 +51,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ReactiveFormsModule,
     RouterModule,
     TranslateModule,
+    SharedModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
