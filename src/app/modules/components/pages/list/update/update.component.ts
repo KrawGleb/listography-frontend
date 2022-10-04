@@ -14,6 +14,7 @@ import { DestroyableComponent } from '../../../helpers/destroyable/destroyable.c
 import { ItemDialogComponent } from './item-dialog/item-dialog.component';
 import { CommonResponse } from 'src/app/models/responses/common-response.model';
 import { GetCustomFieldValue } from '../../../helpers/custom-field.helpers';
+import { FirebaseService } from 'src/app/modules/common/services/firebase.service';
 
 @Component({
   selector: 'app-update',
@@ -40,7 +41,8 @@ export class ListUpdateComponent extends DestroyableComponent {
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly listsService: ListsService,
-    private readonly dialog: MatDialog
+    private readonly dialog: MatDialog,
+    private readonly firebaseService: FirebaseService
   ) {
     super();
 
@@ -74,6 +76,19 @@ export class ListUpdateComponent extends DestroyableComponent {
 
   public getImageUrl() {
     return this.form.value.imageUrl;
+  }
+
+  public uploadImage(event: any) {
+    const file = event.target.files[0];
+    const path = this.id.toString();
+
+    this.firebaseService.uploadImage(path, file).pipe(
+      takeUntil(this.onDestroy$),
+      tap((imageUrl) => {
+        console.log(imageUrl);
+        this.form.controls.imageUrl.setValue(imageUrl);
+      })
+    ).subscribe();
   }
 
   public removeTag(tag: string) {
@@ -138,8 +153,8 @@ export class ListUpdateComponent extends DestroyableComponent {
         filter((response: any) => !!response),
         tap((editedItem: Item) => {
           console.log(editedItem);
-        }
-      ));
+        })
+      );
   }
 
   public addTag() {

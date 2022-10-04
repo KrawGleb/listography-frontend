@@ -26,12 +26,14 @@
   &__body {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
   }
 
   &__column {
     display: flex;
     flex-direction: column;
-    flex: 1 1 33.333%;
+    flex: 0 0 50%;
     justify-content: space-between;
   }
 
@@ -87,22 +89,18 @@
             }
           }
         }
-
-        &__input {
-        }
-      }
-    }
-
-    &__image-src {
-      .image-src {
-        margin-top: 23px;
-        width: 50%;
       }
     }
   }
 
-  .image-preview {
-    flex: 0 1 auto;
+  .image {
+    &__preview {
+      flex: 0 1 auto;
+    }
+
+    &__upload {
+      margin-top: 4px;
+    }
   }
 }
 

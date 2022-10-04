@@ -16,13 +16,11 @@ export class AuthService {
   }
 
   public login(request: LoginRequest) {
-    return this.httpService
-      .post('/auth/login', request)
-      .pipe(
-        tap((response: any) =>
-          localStorage.setItem(LocalStorageConstants.Token, response.token)
-        )
-      );
+    return this.httpService.post('/auth/login', request).pipe(
+      tap((response: any) => {
+        localStorage.setItem(LocalStorageConstants.Token, response.token);
+      })
+    );
   }
 
   public isAuthorize() {
