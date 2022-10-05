@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { filter, takeUntil, tap } from 'rxjs';
+import { topicToIcon } from 'src/app/helpers/topic-to-icon.helper';
 import { Tag } from 'src/app/models/tag.model';
 import { Topic } from 'src/app/models/topic.model';
 import { ListsService } from 'src/app/modules/common/services/lists.service';
@@ -33,6 +34,8 @@ export class ListCardComponent extends DestroyableComponent {
   ) {
     super();
   }
+
+  public topicToIcon = topicToIcon;
 
   public editClick() {
     this.router.navigateByUrl(`/list/update/${this.id}`);

@@ -13,8 +13,6 @@ import { DestroyableComponent } from '../../../helpers/destroyable/destroyable.c
 export class ListViewComponent extends DestroyableComponent {
   private id!: number;
   public list?: List;
-  public columnNames: string[] = [];
-  public items: any[] = [];
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -28,24 +26,9 @@ export class ListViewComponent extends DestroyableComponent {
       .pipe(
         takeUntil(this.onDestroy$),
         tap((list: List) => {
-          this.setList(list);
-          this.items = this.list?.items ?? [];
-          console.log(this.items);
+          this.list = list;
         })
       )
       .subscribe();
-  }
-
-  public getColumnValue(element: any, column: string) {
-    return '';
-  }
-
-  private setList(list: List) {
-    this.list = list;
-    this.columnNames = [
-      'id',
-      'name',
-      ...list.itemTemplate?.customFields.map((f) => f.name) ?? [],
-    ];
   }
 }

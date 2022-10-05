@@ -10,6 +10,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { BehaviorSubject, takeUntil, takeWhile, tap } from 'rxjs';
+import { topicToIcon } from 'src/app/helpers/topic-to-icon.helper';
+import { Topics } from 'src/app/models/constants/topics.constants';
 import { List } from 'src/app/models/list.model';
 import { SaveListInfoRequest } from 'src/app/models/requests/list/save-info.request';
 import { FirebaseService } from 'src/app/modules/common/services/firebase.service';
@@ -32,16 +34,22 @@ export class ListEditableHeaderComponent
     this.list$.next(value);
   }
 
-  @Input() public createNew: boolean = false;
-
-  @Output() public onSave = new EventEmitter<SaveListInfoRequest>();
-
   public get list() {
     return this.list$.getValue();
   }
 
+  @Input() public createNew: boolean = false;
+  @Output() public onSave = new EventEmitter<SaveListInfoRequest>();
+
+  public topics = Topics.Topics;
+  public topicToIcon = topicToIcon;
+
   public get imageUrl() {
     return this.form.value.imageUrl;
+  }
+
+  public get topic() {
+    return this.form.value.topic;
   }
 
   public form = new FormGroup({
