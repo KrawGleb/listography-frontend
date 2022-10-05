@@ -9,7 +9,11 @@
     </thead>
 
     <tbody>
-      <tr class="table__row" *ngFor="let item of items" [routerLink]="['/item/', item.id]">
+      <tr
+        class="table__row"
+        *ngFor="let item of items"
+        [routerLink]="['/item/', item.id]"
+      >
         <th scope="row">{{ item.id }}</th>
         <td>{{ item.name }}</td>
         <td *ngFor="let customField of item.customFields">

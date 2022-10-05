@@ -37,6 +37,7 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
   ],
   exports: [
     ListHeaderComponent,
+    ListEditableHeaderComponent,
     ListTableComponent,
     ConfirmationDialogComponent
   ]

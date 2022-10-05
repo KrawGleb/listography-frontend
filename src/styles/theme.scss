@@ -1,21 +1,22 @@
-@import '@angular/material/theming';
-@import './component-themes';
+@import "@angular/material/theming";
+@import "./component-themes";
+
 
 @include mat-core();
 
 $primary: mat-palette($mat-indigo);
-$accent: mat-palette($mat-pink, A200, A100, A400);
+$accent: mat-palette($mat-green, A200, A100, A400);
 $warn: mat-palette($mat-red);
 $theme: mat-light-theme($primary, $accent, $warn);
 
 @include angular-material-theme($theme);
 @include component-themes($theme);
 
-// Our dark theme
+// Dark theme
 .dark-theme {
   color: $light-primary-text;
-  $dark-primary: mat-palette($mat-yellow);
-  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+  $dark-primary: mat-palette($mat-deep-purple);
+  $dark-accent: mat-palette($mat-green, A400, A100, A700);
   $dark-warn: mat-palette($mat-red);
   $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 

@@ -8,6 +8,7 @@ import { List } from 'src/app/models/list.model';
 })
 export class ListHeaderComponent implements OnInit {
   @Input() public isEdit: boolean = false;
+  @Input() public createNew: boolean = false;
   @Input() public list!: List;
 
   constructor() { }

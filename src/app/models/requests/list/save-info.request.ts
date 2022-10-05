@@ -1,7 +1,7 @@
 import { Tag } from "../../tag.model";
 import { Topic } from "../../topic.model";
 
-export interface UpdateListInfoRequest {
+export interface SaveListInfoRequest {
   id: number;
   topic?: Topic;
   title: string;

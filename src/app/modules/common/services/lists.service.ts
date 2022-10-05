@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { List } from 'src/app/models/list.model';
 import { AddItemRequest } from 'src/app/models/requests/list/add-item.request';
-import { UpdateListInfoRequest } from 'src/app/models/requests/list/update-info.request';
+import { SaveListInfoRequest } from 'src/app/models/requests/list/save-info.request';
 import { CommonResponse } from 'src/app/models/responses/common-response.model';
 import { ErrorResponse } from 'src/app/models/responses/error-response.model';
 
@@ -20,7 +20,7 @@ export class ListsService {
     return this.httpService.get<List>(`/lists/${id}`);
   }
 
-  public updateInfo(request: UpdateListInfoRequest) {
+  public updateInfo(request: SaveListInfoRequest) {
     return this.httpService.post('/lists/update', request, true);
   }
 

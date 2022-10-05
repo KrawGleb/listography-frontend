@@ -1,9 +1,17 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Guid } from 'guid-typescript';
 import { BehaviorSubject, takeUntil, takeWhile, tap } from 'rxjs';
 import { List } from 'src/app/models/list.model';
-import { UpdateListInfoRequest } from 'src/app/models/requests/list/update-info.request';
+import { SaveListInfoRequest } from 'src/app/models/requests/list/save-info.request';
 import { FirebaseService } from 'src/app/modules/common/services/firebase.service';
 import { ListsService } from 'src/app/modules/common/services/lists.service';
 import { DestroyableComponent } from 'src/app/modules/components/helpers/destroyable/destroyable.component';
@@ -24,6 +32,10 @@ export class ListEditableHeaderComponent
     this.list$.next(value);
   }
 
+  @Input() public createNew: boolean = false;
+
+  @Output() public onSave = new EventEmitter<SaveListInfoRequest>();
+
   public get list() {
     return this.list$.getValue();
   }
@@ -33,8 +45,8 @@ export class ListEditableHeaderComponent
   }
 
   public form = new FormGroup({
-    topic: new FormControl(''),
     title: new FormControl(''),
+    topic: new FormControl(''),
     description: new FormControl(''),
     imageUrl: new FormControl(''),
   });
@@ -58,13 +70,18 @@ export class ListEditableHeaderComponent
 
   public uploadImage(event: any) {
     const file = event.target.files[0];
-    const path = this.list.id.toString();
+    const path = Guid.create().toString();
+
+    console.log(path);
 
     this.firebaseService
       .uploadImage(path, file)
       .pipe(
         takeUntil(this.onDestroy$),
-        tap((imageUrl) => this.form.controls.imageUrl.setValue(imageUrl))
+        tap((imageUrl) => {
+          console.log(imageUrl);
+          this.form.controls.imageUrl.setValue(imageUrl);
+        })
       )
       .subscribe();
   }
@@ -76,15 +93,9 @@ export class ListEditableHeaderComponent
       description: this.form.value.description,
       imageUrl: this.form.value.imageUrl,
       topic: { name: this.form.value.topic },
-    } as UpdateListInfoRequest;
+    } as SaveListInfoRequest;
 
-    this.listsService
-      .updateInfo(info)
-      .pipe(
-        takeUntil(this.onDestroy$),
-        tap(() => this.router.navigateByUrl('/me'))
-      )
-      .subscribe();
+    this.onSave.emit(info);
   }
 
   private initForm(list: List) {
@@ -92,9 +103,9 @@ export class ListEditableHeaderComponent
 
     this.form.setValue({
       topic: list.topic?.name ?? '',
-      title: list.title,
-      description: list.description,
-      imageUrl: list.imageUrl,
+      title: list.title ?? '',
+      description: list.description ?? '',
+      imageUrl: list.imageUrl ?? '',
     });
   }
 }

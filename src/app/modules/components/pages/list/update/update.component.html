@@ -1,4 +1,7 @@
-<app-list-header [isEdit]="true" [list]="list!"></app-list-header>
+<app-list-editable-header
+  [list]="list!"
+  (onSave)="saveChanges($event)"
+></app-list-editable-header>
 
 <app-list-table
   [isEdit]="true"
