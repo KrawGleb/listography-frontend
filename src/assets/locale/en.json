@@ -4,6 +4,12 @@
     "Edit": "Edit",
     "Add": "Add"
   },
+  "Validation": {
+    "Required": "{{field}} is required",
+    "MinLength": "{{field}} min length is {{value}} symbols",
+    "Email": "Invalid email",
+    "NotMatchPasswords": "Passwords are not the same"
+  },
   "Header": {
     "Menu": {
       "Title": "Menu",
@@ -38,6 +44,7 @@
     "Action": "Register",
     "Labels": {
       "Email": "Email",
+      "Username": "Username",
       "Password": "Password",
       "RepeatPassword": "Repeat Password"
     }
