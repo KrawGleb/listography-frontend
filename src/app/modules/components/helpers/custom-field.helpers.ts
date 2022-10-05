@@ -1,7 +1,7 @@
 import { CustomField } from 'src/app/models/custom-field.model';
 import { CustomFieldType } from 'src/app/models/enums/custom-field-type.enum';
 
-export function GetCustomFieldValue(field: CustomField | undefined) {
+export function getCustomFieldValue(field: CustomField | undefined) {
   if (!field) {
     throw new Error('Field is undefined.');
   }
@@ -20,7 +20,7 @@ export function GetCustomFieldValue(field: CustomField | undefined) {
   }
 }
 
-export function SetCustomFieldValue(
+export function setCustomFieldValue(
   field: CustomField | undefined,
   value: any
 ) {

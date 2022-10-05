@@ -1,0 +1,26 @@
+<div class="table__container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col" *ngFor="let column of columnNames">
+          {{ column | titlecase }}
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr class="table__row" *ngFor="let item of items" [routerLink]="['/item/', item.id]">
+        <th scope="row">{{ item.id }}</th>
+        <td>{{ item.name }}</td>
+        <td *ngFor="let customField of item.customFields">
+          {{ getCustomFieldValue(customField) }}
+        </td>
+      </tr>
+    </tbody>
+    <div class="table__container__add-button" *ngIf="isEdit">
+      <button mat-mini-fab (click)="openAddItemDialog()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </table>
+</div>

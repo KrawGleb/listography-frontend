@@ -11,17 +11,21 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ListHeaderComponent } from './components/list-header/list-header.component';
 import { ListEditableHeaderComponent } from './components/list-header/list-editable-header/list-editable-header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ListTableComponent } from './components/list-table/list-table.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     ListHeaderComponent,
-    ListEditableHeaderComponent
+    ListEditableHeaderComponent,
+    ListTableComponent
   ],
   imports: [
     CommonModule,
     TranslateModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule,
     MatFormFieldModule,
     MatButtonModule,
     MatSelectModule,
@@ -31,6 +35,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   exports: [
     ListHeaderComponent,
+    ListTableComponent,
   ]
 })
 export class SharedModule { }

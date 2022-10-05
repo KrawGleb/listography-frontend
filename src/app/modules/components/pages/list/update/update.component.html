@@ -1,28 +1,8 @@
 <app-list-header [isEdit]="true" [list]="list!"></app-list-header>
 
-<div class="table__container">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col" *ngFor="let column of columnNames">
-          {{ column | titlecase }}
-        </th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr *ngFor="let item of items">
-        <th scope="row">{{ item.id }}</th>
-        <td>{{ item.name }}</td>
-        <td *ngFor="let customField of item.customFields">
-          {{ getCustomFieldValue(customField) }}
-        </td>
-      </tr>
-    </tbody>
-    <div class="table__container__add-button">
-      <button mat-mini-fab (click)="openAddItemDialog()">
-        <mat-icon>add</mat-icon>
-      </button>
-    </div>
-  </table>
-</div>
+<app-list-table
+  [isEdit]="true"
+  [id]="id"
+  [items]="list!.items"
+  [itemTemplate]="list!.itemTemplate"
+></app-list-table>

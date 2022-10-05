@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CustomField } from 'src/app/models/custom-field.model';
 import { CustomFieldType } from 'src/app/models/enums/custom-field-type.enum';
 import { Item } from 'src/app/models/item.model';
-import { GetCustomFieldValue, SetCustomFieldValue } from 'src/app/modules/components/helpers/custom-field.helpers';
+import { getCustomFieldValue, setCustomFieldValue } from 'src/app/modules/components/helpers/custom-field.helpers';
 
 @Component({
   selector: 'app-item-dialog',
@@ -36,7 +36,7 @@ export class ItemDialogComponent {
     this.item.customFields
       .forEach((field: CustomField) => {
         const controlValue = this.isEdit
-          ? GetCustomFieldValue(field)
+          ? getCustomFieldValue(field)
           : '';
 
         this.form.addControl(field.name, new FormControl(controlValue));
@@ -49,7 +49,7 @@ export class ItemDialogComponent {
       .forEach((key) => {
         const field = this.item.customFields.find((f) => f.name == key);
         const value = (this.form.value as any)[key];
-        SetCustomFieldValue(field, value);
+        setCustomFieldValue(field, value);
       });
 
     this.item.name = (this.form.value as any).name;

@@ -1,0 +1,30 @@
+.table__container {
+  position: relative;
+  margin-top: 12px;
+
+  &__add-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 6px;
+  }
+}
+
+.table {
+  &__row {
+    cursor: pointer;
+  }
+}
+
+mat-dialog-container {
+  padding: 0;
+  margin: 0;
+}
+
+.delete__button {
+  margin-left: 4px;
+}
+
+.edit__button {
+  background-color: darkcyan;
+}
