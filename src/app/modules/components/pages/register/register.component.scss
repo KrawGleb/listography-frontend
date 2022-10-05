@@ -1,7 +1,35 @@
 :host {
   display: flex;
   justify-content: center;
-  margin: 100px 0px;
+  margin: 10px 0px;
+}
+
+.wrapper {
+  width: 600px;
+}
+
+.register {
+  display: flex;
+
+  &__form {
+    flex: 1 1 auto;
+
+    .form__field {
+      margin-bottom: 8px;
+    }
+  }
+
+  &__image {
+    display: flex;
+    justify-content: center;
+  }
+
+  mat-card-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .mat-form-field {

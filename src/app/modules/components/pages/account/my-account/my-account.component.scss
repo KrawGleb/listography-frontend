@@ -1,0 +1,14 @@
+.account {
+  &__actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    .actions {
+      margin-top: 4px;
+      &__add {
+        margin-right: 16px;
+      }
+    }
+  }
+}

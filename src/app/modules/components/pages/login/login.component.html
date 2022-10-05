@@ -1,27 +1,42 @@
 <div class="wrapper">
   <mat-card>
-    <mat-card-title>{{ "Login.Title" | translate }}</mat-card-title>
+    <mat-card-title>
+      <div class="login__title">
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/listography-690a0.appspot.com/o/log.png?alt=media&token=b1063a10-a83b-4f7a-8403-3cc9975d8074"
+          alt=""
+          width="80%"
+        />
+        {{ "Login.Title" | translate }}
+      </div>
+    </mat-card-title>
     <mat-card-content>
       <form [formGroup]="form">
-        <p>
-          <mat-form-field>
-            <input
-              matInput
-              formControlName="email"
-              [placeholder]="'Login.Labels.Email' | translate"
-            />
-          </mat-form-field>
-        </p>
+        <mat-form-field>
+          <mat-label>{{ "Login.Labels.Email" | translate }}</mat-label>
+          <input matInput formControlName="email" />
+          <mat-error *ngIf="hasError('email', 'required')">{{
+            "Validation.Required" | translate: { field: "Email" }
+          }}</mat-error>
+          <mat-error *ngIf="hasError('email', 'email')">{{
+            "Validation.Email" | translate
+          }}</mat-error>
+        </mat-form-field>
 
-        <p>
-          <mat-form-field>
-            <input
-              matInput
-              formControlName="password"
-              [placeholder]="'Login.Labels.Password' | translate"
-            />
-          </mat-form-field>
-        </p>
+        <mat-form-field>
+          <mat-label>{{ "Login.Labels.Password" | translate }}</mat-label>
+          <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            formControlName="password"
+          />
+          <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{
+            hidePassword ? "visibility_off" : "visibility"
+          }}</mat-icon>
+          <mat-error *ngIf="hasError('password', 'required')">{{
+            "Validation.Required" | translate: { field: "Password" }
+          }}</mat-error>
+        </mat-form-field>
 
         <div class="button">
           <button type="submit" mat-button (click)="login()">

@@ -15,7 +15,6 @@
           <span>{{ "Header.Menu.Title" | translate }}</span>
         </div>
         <ul>
-          <li><label>Item 1</label></li>
           <li>
             <label class="a-label__chevron" for="languages">{{
               "Header.Menu.Items.Languages.Title" | translate
@@ -81,6 +80,7 @@
               </ul>
             </div>
           </li>
+          <li *ngIf="isAuthorize" (click)="signOut()" class="sign-out"><label>Sign out</label></li>
         </ul>
       </div>
 
