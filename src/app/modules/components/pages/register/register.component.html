@@ -1,41 +1,52 @@
-<div class="wrapper">
-  <mat-card>
-    <mat-card-title>{{ "Register.Title" | translate }}</mat-card-title>
-    <mat-card-content>
-      <form>
-        <p>
-          <mat-form-field>
-            <input
-              matInput
-              [placeholder]="'Register.Labels.Email' | translate"
-            />
-          </mat-form-field>
-        </p>
-
-        <p>
-          <mat-form-field>
-            <input
-              matInput
-              [placeholder]="'Register.Labels.Password' | translate"
-            />
-          </mat-form-field>
-        </p>
-
-        <p>
-          <mat-form-field>
-            <input
-              matInput
-              [placeholder]="'Register.Labels.RepeatPassword' | translate"
-            />
-          </mat-form-field>
-        </p>
-
-        <div class="button">
-          <button type="submit" mat-button>
-            {{ "Register.Action" | translate }}
-          </button>
+<div class="wrapper register">
+  <div class="register__form">
+    <mat-card>
+      <mat-card-title>
+        <div class="register__image">
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/listography-690a0.appspot.com/o/reg.png?alt=media&token=bf43dbc6-1c6a-4ff3-adf7-4082e60f96a3"
+            alt=""
+            width="400"
+          />
         </div>
-      </form>
-    </mat-card-content>
-  </mat-card>
+        {{ "Register.Title" | translate }}
+      </mat-card-title>
+      <mat-card-content>
+        <form>
+          <p>
+            <mat-form-field>
+              <input
+                matInput
+                [placeholder]="'Register.Labels.Email' | translate"
+              />
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field>
+              <input
+                matInput
+                [placeholder]="'Register.Labels.Password' | translate"
+              />
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field>
+              <input
+                matInput
+                [placeholder]="'Register.Labels.RepeatPassword' | translate"
+              />
+            </mat-form-field>
+          </p>
+
+          <div class="button">
+            <button type="submit" mat-button>
+              {{ "Register.Action" | translate }}
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
