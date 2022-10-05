@@ -1,1 +1,10 @@
-<app-account [lists]="lists" [editable]="true"></app-account>
+<div class="account">
+  <div class="account__actions">
+    <div class="actions">
+      <button mat-raised-button class="actions__add" [routerLink]="['/list/create']"><mat-icon>add</mat-icon></button>
+    </div>
+  </div>
+  <div class="account__lists">
+    <app-account [lists]="lists" [editable]="true"></app-account>
+  </div>
+</div>

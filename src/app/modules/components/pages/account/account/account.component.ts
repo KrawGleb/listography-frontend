@@ -10,4 +10,8 @@ import { DestroyableComponent } from '../../../helpers/destroyable/destroyable.c
 export class AccountComponent extends DestroyableComponent {
   @Input() public lists!: List[];
   @Input() public editable: boolean = false;
+
+  public removeList(id: number) {
+    this.lists = this.lists.filter(l => l.id !== id);
+  }
 }

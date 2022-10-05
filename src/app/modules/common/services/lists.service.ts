@@ -41,4 +41,14 @@ export class ListsService {
       true
     );
   }
+
+  public delete(listId: number) {
+    return this.httpService.delete(
+      '/lists/delete',
+      {
+        id: listId,
+      },
+      true
+    );
+  }
 }

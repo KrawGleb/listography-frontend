@@ -54,7 +54,6 @@ export class RegisterComponent extends DestroyableComponent {
       .pipe(
         takeUntil(this.onDestroy$),
         tap((response: any) => {
-          console.log(response);
           if (response.succeeded) {
             this.login(request.email, request.password);
           } else if (response.errors) {

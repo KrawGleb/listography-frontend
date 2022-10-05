@@ -2,7 +2,9 @@
   "Actions": {
     "Save": "Save",
     "Edit": "Edit",
-    "Add": "Add"
+    "Add": "Add",
+    "Yes": "Yes",
+    "No": "No"
   },
   "Validation": {
     "Required": "{{field}} is required",
@@ -53,6 +55,12 @@
     "Actions": "Actions"
   },
   "List": {
+    "Actions": {
+      "Delete": {
+        "ConfirmationTitle": "Delete confirmation",
+        "ConfirmationMessage": "Are you sure you want do delete list?"
+      }
+    },
     "Fields": {
       "Title": "Title",
       "Description": "Description",

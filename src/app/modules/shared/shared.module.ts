@@ -13,12 +13,14 @@ import { ListEditableHeaderComponent } from './components/list-header/list-edita
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListTableComponent } from './components/list-table/list-table.component';
 import { RouterModule } from '@angular/router';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
     ListHeaderComponent,
     ListEditableHeaderComponent,
-    ListTableComponent
+    ListTableComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     CommonModule,
@@ -36,6 +38,7 @@ import { RouterModule } from '@angular/router';
   exports: [
     ListHeaderComponent,
     ListTableComponent,
+    ConfirmationDialogComponent
   ]
 })
 export class SharedModule { }
