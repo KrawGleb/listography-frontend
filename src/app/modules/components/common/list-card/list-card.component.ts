@@ -17,6 +17,7 @@ export class ListCardComponent {
   @Input() public tags?: Tag[] = [];
   @Input() public topic?: Topic;
   @Input() public clickable?: boolean = false;
+  @Input() public editable?: boolean = false;
 
   constructor(private readonly router: Router) {}
 

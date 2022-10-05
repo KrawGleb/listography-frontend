@@ -1,3 +1,26 @@
+:host {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.list-card {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 24px;
+}
+
+.list-image {
+  border-radius: 12px;
+}
+
+.list-actions {
+  margin-left: 12px;
+}
+
 .clickable {
   cursor: pointer;
 }

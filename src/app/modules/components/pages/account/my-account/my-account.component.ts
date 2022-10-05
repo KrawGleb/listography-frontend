@@ -3,14 +3,14 @@ import { takeUntil, tap } from 'rxjs';
 import { Account } from 'src/app/models/account.model';
 import { List } from 'src/app/models/list.model';
 import { AccountsService } from 'src/app/modules/common/services/accounts.service';
-import { DestroyableComponent } from '../../helpers/destroyable/destroyable.component';
+import { DestroyableComponent } from '../../../helpers/destroyable/destroyable.component';
 
 @Component({
-  selector: 'app-account',
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.scss'],
+  selector: 'app-my-account',
+  templateUrl: './my-account.component.html',
+  styleUrls: ['./my-account.component.scss'],
 })
-export class AccountComponent extends DestroyableComponent implements OnInit {
+export class MyAccountComponent extends DestroyableComponent {
   public account!: Account;
   public lists!: List[];
 
@@ -27,6 +27,4 @@ export class AccountComponent extends DestroyableComponent implements OnInit {
       )
       .subscribe();
   }
-
-  ngOnInit(): void {}
 }

@@ -23,7 +23,6 @@ import { LoginComponent } from './pages/login/login.component';
 import { RouterModule } from '@angular/router';
 import { RegisterComponent } from './pages/register/register.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { AccountComponent } from './pages/account/account.component';
 import { ListCardComponent } from './common/list-card/list-card.component';
 import { ListCreateComponent } from './pages/list/create/create.component';
 import { ListViewComponent } from './pages/list/view/view.component';
@@ -31,6 +30,9 @@ import { ListUpdateComponent } from './pages/list/update/update.component';
 import { ItemDialogComponent } from './pages/list/update/item-dialog/item-dialog.component';
 import { ItemComponent } from './pages/item/item/item.component';
 import { SharedModule } from '../shared/shared.module';
+import { AccountComponent } from './pages/account/account/account.component';
+import { MyAccountComponent } from './pages/account/my-account/my-account.component';
+import { ForeignAccountComponent } from './pages/account/foreign-account/foreign-account.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,8 @@ import { SharedModule } from '../shared/shared.module';
     ListUpdateComponent,
     ItemDialogComponent,
     ItemComponent,
+    MyAccountComponent,
+    ForeignAccountComponent,
   ],
   imports: [
     CommonModule,

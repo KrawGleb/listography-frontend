@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="list-card">
   <div class="clickable" [routerLink]="['/list/', id]">
     <mat-card-title-group>
       <mat-card-title> <mat-icon>book</mat-icon> {{ title }}</mat-card-title>
@@ -7,13 +7,13 @@
           {{ tag.name + " " }}
         </span>
       </mat-card-subtitle>
-      <img mat-card-md-image [src]="imageUrl" />
+      <img mat-card-md-image class="list-image" [src]="imageUrl" />
     </mat-card-title-group>
     <mat-card-content>
       {{ description }}
     </mat-card-content>
   </div>
-  <mat-card-actions>
+  <mat-card-actions class="list-actions" *ngIf="editable">
     <button mat-raised-button (click)="editClick()">Edit</button>
     <button mat-raised-button color="warn">Delete</button>
   </mat-card-actions>
