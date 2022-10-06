@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import { takeUntil, tap } from 'rxjs';
 import { checkPasswords } from 'src/app/helpers/repeat-password-validation.helper';
 import { RegisterRequest } from 'src/app/models/requests/register.request';
-import { AuthService } from 'src/app/modules/common/auth/services/auth.service';
-import { DestroyableComponent } from '../../helpers/destroyable/destroyable.component';
+import { DestroyableComponent } from '../../../shared/helpers/destroyable/destroyable.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',

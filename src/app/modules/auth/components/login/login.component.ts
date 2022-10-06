@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { filter, takeUntil, tap } from 'rxjs';
+import { takeUntil, tap } from 'rxjs';
 import { LoginRequest } from 'src/app/models/requests/login.request';
-import { AuthService } from 'src/app/modules/common/auth/services/auth.service';
-import { DestroyableComponent } from '../../helpers/destroyable/destroyable.component';
+import { DestroyableComponent } from '../../../shared/helpers/destroyable/destroyable.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +39,7 @@ export class LoginComponent extends DestroyableComponent {
         .login(request)
         .pipe(
           takeUntil(this.onDestroy$),
-          tap((response) => {
+          tap((response: any) => {
             if (response.succeeded) {
               this.router.navigateByUrl('/home');
             }

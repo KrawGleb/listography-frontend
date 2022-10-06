@@ -31,6 +31,14 @@ export class HttpService {
     return this.http.delete(HttpConstants.BaseApiUrl + url, options);
   }
 
+  public patch<T>(url: string, body: any, includeToken: boolean) {
+    return this.http.patch<T>(
+      HttpConstants.BaseApiUrl + url,
+      body,
+      this.getRequestOptions(includeToken)
+    );
+  }
+
   private getRequestOptions(includeToken: boolean = false) {
     return includeToken ? { headers: this.getTokenHeader() } : {};
   }

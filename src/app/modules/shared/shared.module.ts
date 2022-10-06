@@ -1,4 +1,5 @@
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -14,13 +15,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListTableComponent } from './components/list-table/list-table.component';
 import { RouterModule } from '@angular/router';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { HeaderComponent } from './components/header/header.component';
+import { ListCardComponent } from './components/list-card/list-card.component';
 
 @NgModule({
   declarations: [
     ListHeaderComponent,
     ListEditableHeaderComponent,
     ListTableComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    HeaderComponent,
+    ListCardComponent
   ],
   imports: [
     CommonModule,
@@ -29,6 +34,7 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     ReactiveFormsModule,
     RouterModule,
     MatFormFieldModule,
+    MatToolbarModule,
     MatButtonModule,
     MatSelectModule,
     MatInputModule,
@@ -39,7 +45,9 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     ListHeaderComponent,
     ListEditableHeaderComponent,
     ListTableComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    HeaderComponent,
+    ListCardComponent
   ]
 })
 export class SharedModule { }

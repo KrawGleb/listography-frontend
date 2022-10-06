@@ -14,9 +14,9 @@ import { topicToIcon } from 'src/app/helpers/topic-to-icon.helper';
 import { Topics } from 'src/app/models/constants/topics.constants';
 import { List } from 'src/app/models/list.model';
 import { SaveListInfoRequest } from 'src/app/models/requests/list/save-info.request';
-import { FirebaseService } from 'src/app/modules/common/services/firebase.service';
-import { ListsService } from 'src/app/modules/common/services/lists.service';
-import { DestroyableComponent } from 'src/app/modules/components/helpers/destroyable/destroyable.component';
+import { FirebaseService } from 'src/app/modules/shared/services/firebase.service';
+import { ListsService } from 'src/app/modules/shared/services/lists.service';
+import { DestroyableComponent } from 'src/app/modules/shared/helpers/destroyable/destroyable.component';
 
 @Component({
   selector: 'app-list-editable-header',
@@ -96,7 +96,7 @@ export class ListEditableHeaderComponent
 
   public saveListInfo() {
     const info = {
-      id: this.list.id,
+      listId: this.list.id,
       title: this.form.value.title,
       description: this.form.value.description,
       imageUrl: this.form.value.imageUrl,

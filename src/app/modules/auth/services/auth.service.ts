@@ -3,7 +3,7 @@ import { tap } from 'rxjs';
 import { LocalStorageConstants } from 'src/app/models/constants/local-storage.constants';
 import { LoginRequest } from 'src/app/models/requests/login.request';
 import { RegisterRequest } from 'src/app/models/requests/register.request';
-import { HttpService } from '../../services/http.service';
+import { HttpService } from '../../shared/services/http.service';
 
 @Injectable({
   providedIn: 'root',

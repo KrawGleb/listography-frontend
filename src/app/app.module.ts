@@ -12,6 +12,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HttpLoaderFactory, MissingTranslationService } from './helpers/translation.helpers';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './modules/shared/shared.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { SharedModule } from './modules/shared/shared.module';
     ComponentsModule,
     HttpClientModule,
     NgbModule,
+    AuthModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

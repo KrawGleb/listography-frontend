@@ -4,9 +4,9 @@ import { filter, takeUntil, tap } from 'rxjs';
 import { CustomField } from 'src/app/models/custom-field.model';
 import { Item } from 'src/app/models/item.model';
 import { CommonResponse } from 'src/app/models/responses/common-response.model';
-import { ListsService } from 'src/app/modules/common/services/lists.service';
-import { getCustomFieldValue } from 'src/app/modules/components/helpers/custom-field.helpers';
-import { DestroyableComponent } from 'src/app/modules/components/helpers/destroyable/destroyable.component';
+import { ListsService } from 'src/app/modules/shared/services/lists.service';
+import { getCustomFieldValue } from 'src/app/helpers/custom-field.helpers';
+import { DestroyableComponent } from 'src/app/modules/shared/helpers/destroyable/destroyable.component';
 import { ItemDialogComponent } from 'src/app/modules/components/pages/list/update/item-dialog/item-dialog.component';
 
 @Component({
@@ -61,8 +61,9 @@ export class ListTableComponent extends DestroyableComponent implements OnInit {
             })
             .pipe(
               takeUntil(this.onDestroy$),
-              filter((response) => 'body' in response),
-              tap((response: CommonResponse) => {
+              filter((response) => response.succeeded),
+              tap((response) => {
+                response = response as CommonResponse<Item>;
                 this.items.push(response.body as Item);
               })
             )

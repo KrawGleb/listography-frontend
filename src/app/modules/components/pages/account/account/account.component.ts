@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { List } from 'src/app/models/list.model';
-import { DestroyableComponent } from '../../../helpers/destroyable/destroyable.component';
+import { DestroyableComponent } from '../../../../shared/helpers/destroyable/destroyable.component';
 
 @Component({
   selector: 'app-account',

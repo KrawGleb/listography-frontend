@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil, tap } from 'rxjs';
 import { List } from 'src/app/models/list.model';
 import { SaveListInfoRequest } from 'src/app/models/requests/list/save-info.request';
-import { ListsService } from 'src/app/modules/common/services/lists.service';
-import { DestroyableComponent } from '../../../helpers/destroyable/destroyable.component';
+import { ListsService } from 'src/app/modules/shared/services/lists.service';
+import { DestroyableComponent } from '../../../../shared/helpers/destroyable/destroyable.component';
 
 @Component({
   selector: 'app-update',
