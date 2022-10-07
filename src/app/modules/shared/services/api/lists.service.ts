@@ -33,7 +33,7 @@ export class ListsService {
     return this.httpService.delete(
       '/lists/delete',
       {
-        id: listId,
+        listId: listId,
       },
       true
     );

@@ -7,6 +7,8 @@ import { DestroyableComponent } from 'src/app/modules/shared/helpers/destroyable
 import { ListsService } from '../../services/api/lists.service';
 import { RouteService } from '../../services/common/route.service';
 import { Router } from '@angular/router';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { filter, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-list-table',
@@ -15,63 +17,45 @@ import { Router } from '@angular/router';
 })
 export class ListTableComponent extends DestroyableComponent implements OnInit {
   @Input() public id!: number;
-  @Input() public itemTemplate!: Item;
   @Input() public items!: Item[];
   @Input() public isEdit: boolean = false;
+
+  @Input()
+  public get itemTemplate(): Item | undefined {
+    return this._itemTemplate;
+  }
+  public set itemTemplate(value: Item | undefined) {
+    if (value) {
+      this._itemTemplate = value;
+
+      this.columnNames = [
+        'id',
+        'name',
+        ...(this._itemTemplate.customFields.map((f) => f.name) ?? []),
+      ];
+    }
+  }
+
+  private _itemTemplate?: Item;
 
   public columnNames: string[] = [];
 
   constructor(
     private readonly routerService: RouteService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly dialog: MatDialog,
+    private readonly listsService: ListsService
   ) {
     super();
   }
 
-  ngOnInit(): void {
-    this.columnNames = [
-      'id',
-      'name',
-      ...(this.itemTemplate.customFields.map((f) => f.name) ?? []),
-    ];
-  }
+  ngOnInit(): void {}
 
   public getCustomFieldValue(field: CustomField) {
     return getCustomFieldValue(field);
   }
 
-  public openAddItemDialog() {
-    // this.dialog
-    //   .open(ItemDialogComponent, {
-    //     data: {
-    //       item: this.itemTemplate,
-    //       edit: false,
-    //     },
-    //   })
-    //   .afterClosed()
-    //   .pipe(
-    //     takeUntil(this.onDestroy$),
-    //     filter((response: any) => !!response),
-    //     tap((newItem: Item) => {
-    //       this.listsService
-    //         .addItem({
-    //           listId: this.id,
-    //           name: newItem.name,
-    //           customFields: newItem.customFields,
-    //         })
-    //         .pipe(
-    //           takeUntil(this.onDestroy$),
-    //           filter((response) => response.succeeded),
-    //           tap((response) => {
-    //             response = response as CommonResponse<Item>;
-    //             this.items.push(response.body as Item);
-    //           })
-    //         )
-    //         .subscribe();
-    //     })
-    //   )
-    //   .subscribe();
-
+  public addItem() {
     this.routerService.pushData({
       listId: this.id,
       template: this.itemTemplate,
@@ -79,4 +63,33 @@ export class ListTableComponent extends DestroyableComponent implements OnInit {
 
     this.router.navigateByUrl('/item/new');
   }
+
+  public deleteItem(id: number) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      maxWidth: '400px',
+      data: {
+        title: 'Item.Actions.Delete.ConfirmationTitle',
+        message: 'Item.Actions.Delete.ConfirmationMessage',
+      },
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(
+        filter((res) => res),
+        takeUntil(this.onDestroy$),
+        tap(() => {
+          this.listsService
+            .deleteItem(id)
+            .pipe(
+              takeUntil(this.onDestroy$),
+              tap(() => (this.items = this.items.filter((i) => i.id !== id)))
+            )
+            .subscribe();
+        })
+      )
+      .subscribe();
+  }
+
+  public editItem(id: number) {}
 }

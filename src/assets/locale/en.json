@@ -58,7 +58,7 @@
     "Actions": {
       "Delete": {
         "ConfirmationTitle": "Delete confirmation",
-        "ConfirmationMessage": "Are you sure you want do delete list?"
+        "ConfirmationMessage": "Are you sure you want to delete list?"
       }
     },
     "Fields": {
@@ -79,6 +79,12 @@
   "Item": {
     "Form": {
       "Title": "Create item form"
+    },
+    "Actions": {
+      "Delete": {
+        "ConfirmationTitle": "Delete confirmation",
+        "ConfirmationMessage": "Are you sure you want to delete item?"
+      }
     },
     "Fields": {
       "Name": "Name",

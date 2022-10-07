@@ -1,12 +1,15 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs';
 import { getCustomFieldValue } from 'src/app/helpers/custom-field.helpers';
 import { getRandomColor } from 'src/app/helpers/random-color.helper';
 import { CustomField } from 'src/app/models/custom-field.model';
 import { Item } from 'src/app/models/item.model';
-import { CreateItemRequest } from 'src/app/models/requests/item/create-item.request';
+import { AddItemRequest } from 'src/app/models/requests/list/add-item.request';
 import { Tag } from 'src/app/models/tag.model';
+import { ListsService } from 'src/app/modules/shared/services/api/lists.service';
 import { RouteService } from 'src/app/modules/shared/services/common/route.service';
 
 @Component({
@@ -28,7 +31,9 @@ export class CreateItemComponent implements OnInit {
   constructor(
     private readonly routeService: RouteService,
     private readonly router: Router,
-    private readonly cdr: ChangeDetectorRef
+    private readonly cdr: ChangeDetectorRef,
+    private readonly listsService: ListsService,
+    private readonly snackBar: MatSnackBar
   ) {
     const data = this.routeService.popData();
 
@@ -49,8 +54,7 @@ export class CreateItemComponent implements OnInit {
   public getBackgroundColor = getRandomColor;
 
   public areFormsInvalid() {
-    return this.form.invalid
-      || this.customFieldsForm.invalid;
+    return this.form.invalid || this.customFieldsForm.invalid;
   }
 
   public getFormControl(formControlName: string) {
@@ -63,7 +67,11 @@ export class CreateItemComponent implements OnInit {
       color: getRandomColor(),
     };
 
-    this.tags.push(tag);
+    if (this.tags.every((t) => t.name !== tag.name)) {
+      this.tags.push(tag);
+    }
+
+    this.form.controls.tag.setValue('');
   }
 
   public removeTag(tag: Tag) {
@@ -79,9 +87,22 @@ export class CreateItemComponent implements OnInit {
       name: formValue.name,
       tags: tags,
       customFields: Object.values(this.customFieldsForm.value),
-    } as CreateItemRequest;
+    } as AddItemRequest;
 
-    console.log(request);
+    this.listsService
+      .addItem(request)
+      .pipe(
+        tap((response) => {
+          if (response.succeeded) {
+            this.router.navigateByUrl('/me');
+          } else {
+            this.snackBar.open((response as any).errors[0], 'Ok', {
+              duration: 2000,
+            });
+          }
+        })
+      )
+      .subscribe();
   }
 
   private initForm() {
