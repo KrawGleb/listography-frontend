@@ -1,4 +1,4 @@
-import { CustomFieldType } from "./enums/custom-field-type.enum";
+import { CustomFieldType } from './enums/custom-field-type.enum';
 
 export interface CustomField {
   id: number;
@@ -10,4 +10,5 @@ export interface CustomField {
   intValue?: number | null;
   dateTimeValue?: Date | null;
   boolValue?: boolean | null;
+  textValue?: string | null;
 }

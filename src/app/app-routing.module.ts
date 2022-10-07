@@ -10,6 +10,7 @@ import { ListUpdateComponent } from './modules/components/pages/list/update/upda
 import { ListViewComponent } from './modules/components/pages/list/view/view.component';
 import { LoginComponent } from './modules/auth/components/login/login.component';
 import { RegisterComponent } from './modules/auth/components/register/register.component';
+import { CreateItemComponent } from './modules/components/pages/item/create-item/create-item.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -27,7 +28,13 @@ const routes: Routes = [
   },
   {
     path: 'item',
-    children: [{ path: ':id', component: ItemComponent }],
+    children: [
+      {
+        path: 'new',
+        component: CreateItemComponent,
+      },
+      { path: ':id', component: ItemComponent },
+    ],
   },
   {
     path: 'user',

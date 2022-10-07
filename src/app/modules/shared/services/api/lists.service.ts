@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from './http.service';
 import { List } from 'src/app/models/list.model';
 import { AddItemRequest } from 'src/app/models/requests/list/add-item.request';
 import { SaveListInfoRequest } from 'src/app/models/requests/list/save-info.request';
@@ -8,6 +7,7 @@ import { ErrorResponse } from 'src/app/models/responses/error-response.model';
 import { Item } from 'src/app/models/item.model';
 import { ApiResponse } from 'src/app/models/responses/api-response.model';
 import { map } from 'rxjs';
+import { HttpService } from '../common/http.service';
 
 @Injectable({
   providedIn: 'root',

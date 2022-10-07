@@ -1,5 +1,4 @@
 import {
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -7,16 +6,14 @@ import {
   Output,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { BehaviorSubject, takeUntil, takeWhile, tap } from 'rxjs';
 import { topicToIcon } from 'src/app/helpers/topic-to-icon.helper';
 import { Topics } from 'src/app/models/constants/topics.constants';
 import { List } from 'src/app/models/list.model';
 import { SaveListInfoRequest } from 'src/app/models/requests/list/save-info.request';
-import { FirebaseService } from 'src/app/modules/shared/services/firebase.service';
-import { ListsService } from 'src/app/modules/shared/services/lists.service';
 import { DestroyableComponent } from 'src/app/modules/shared/helpers/destroyable/destroyable.component';
+import { FirebaseService } from '../../../services/api/firebase.service';
 
 @Component({
   selector: 'app-list-editable-header',
@@ -61,8 +58,6 @@ export class ListEditableHeaderComponent
 
   constructor(
     private readonly firebaseService: FirebaseService,
-    private readonly listsService: ListsService,
-    private readonly router: Router
   ) {
     super();
   }

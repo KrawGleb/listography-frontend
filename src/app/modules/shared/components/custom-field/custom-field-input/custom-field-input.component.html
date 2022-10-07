@@ -1,0 +1,59 @@
+<div class="custom-field">
+  <div class="custom-field__input" [ngSwitch]="field.type">
+    <form [formGroup]="form">
+      <mat-form-field *ngSwitchCase="CustomFieldTypes.StringType">
+        <mat-label> {{ field.name }} </mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="value"
+          [required]="required"
+          (input)="_handleInput()"
+        />
+      </mat-form-field>
+
+      <mat-form-field *ngSwitchCase="CustomFieldTypes.IntType">
+        <mat-label> {{ field.name }} </mat-label>
+        <input
+          matInput
+          type="number"
+          formControlName="value"
+          [required]="required"
+          (input)="_handleInput()"
+        />
+      </mat-form-field>
+
+      <mat-form-field *ngSwitchCase="CustomFieldTypes.TextType">
+        <mat-label> {{ field.name }} </mat-label>
+        <textarea
+          matInput
+          type="textarea"
+          formControlName="value"
+          [required]="required"
+          (input)="_handleInput()"
+        ></textarea>
+      </mat-form-field>
+
+      <mat-form-field *ngSwitchCase="CustomFieldTypes.DateTimeType">
+        <mat-label> {{ field.name }} </mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="value"
+          [required]="required"
+          (dateInput)="_handleInput()"
+        />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-checkbox
+        *ngSwitchCase="CustomFieldTypes.BoolType"
+        formControlName="value"
+        (input)="_handleInput()"
+        >{{ field.name }}</mat-checkbox
+      >
+    </form>
+  </div>
+</div>

@@ -3,9 +3,11 @@
   (onSave)="saveChanges($event)"
 ></app-list-editable-header>
 
+
 <app-list-table
+  *ngIf="list"
   [isEdit]="true"
   [id]="id"
-  [items]="list!.items"
-  [itemTemplate]="list!.itemTemplate"
+  [items]="list.items"
+  [itemTemplate]="list.itemTemplate"
 ></app-list-table>

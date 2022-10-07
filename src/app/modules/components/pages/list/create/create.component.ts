@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { List } from 'src/app/models/list.model';
 import { CustomField } from 'src/app/models/custom-field.model';
 import { Item } from 'src/app/models/item.model';
 import { CustomFieldType } from 'src/app/models/enums/custom-field-type.enum';
-import { ListsService } from 'src/app/modules/shared/services/lists.service';
 import { DestroyableComponent } from '../../../../shared/helpers/destroyable/destroyable.component';
 import { takeUntil, tap } from 'rxjs';
 import { SaveListInfoRequest } from 'src/app/models/requests/list/save-info.request';
 import { Router } from '@angular/router';
+import { ListsService } from 'src/app/modules/shared/services/api/lists.service';
 
 @Component({
   selector: 'app-create',

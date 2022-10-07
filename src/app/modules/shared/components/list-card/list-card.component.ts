@@ -5,9 +5,9 @@ import { filter, takeUntil, tap } from 'rxjs';
 import { topicToIcon } from 'src/app/helpers/topic-to-icon.helper';
 import { Tag } from 'src/app/models/tag.model';
 import { Topic } from 'src/app/models/topic.model';
-import { ListsService } from 'src/app/modules/shared/services/lists.service';
 import { ConfirmationDialogComponent } from 'src/app/modules/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { DestroyableComponent } from '../../helpers/destroyable/destroyable.component';
+import { ListsService } from '../../services/api/lists.service';
 
 @Component({
   selector: 'app-list-card',

@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon'
+import { MatIconModule } from '@angular/material/icon';
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -17,6 +17,10 @@ import { RouterModule } from '@angular/router';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ListCardComponent } from './components/list-card/list-card.component';
+import { RouteService } from './services/common/route.service';
+import { CustomFieldModule } from './components/custom-field/custom-field.module';
+import { CustomFieldInputComponent } from './components/custom-field/custom-field-input/custom-field-input.component';
+import { CustomFieldComponent } from './components/custom-field/custom-field/custom-field.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,7 @@ import { ListCardComponent } from './components/list-card/list-card.component';
     ListTableComponent,
     ConfirmationDialogComponent,
     HeaderComponent,
-    ListCardComponent
+    ListCardComponent,
   ],
   imports: [
     CommonModule,
@@ -33,6 +37,7 @@ import { ListCardComponent } from './components/list-card/list-card.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    CustomFieldModule,
     MatFormFieldModule,
     MatToolbarModule,
     MatButtonModule,
@@ -47,7 +52,10 @@ import { ListCardComponent } from './components/list-card/list-card.component';
     ListTableComponent,
     ConfirmationDialogComponent,
     HeaderComponent,
-    ListCardComponent
-  ]
+    ListCardComponent,
+    CustomFieldInputComponent,
+    CustomFieldComponent,
+  ],
+  providers: [RouteService],
 })
-export class SharedModule { }
+export class SharedModule {}

@@ -73,9 +73,17 @@
           "Name": "Name",
           "Type": "Type"
         }
-      },
-      "Tag": "Tag",
-      "Tags": "Tags"
+      }
+    }
+  },
+  "Item": {
+    "Form": {
+      "Title": "Create item form"
+    },
+    "Fields": {
+      "Name": "Name",
+      "Tags": "Tags",
+      "Tag": "Tag"
     }
   }
 }

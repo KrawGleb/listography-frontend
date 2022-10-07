@@ -29,6 +29,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AccountComponent } from './pages/account/account/account.component';
 import { MyAccountComponent } from './pages/account/my-account/my-account.component';
 import { ForeignAccountComponent } from './pages/account/foreign-account/foreign-account.component';
+import { ItemModule } from './pages/item/item.module';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,9 @@ import { ForeignAccountComponent } from './pages/account/foreign-account/foreign
     MatNativeDateModule,
     MatCheckboxModule,
     MatSnackBarModule,
+    ItemModule,
   ],
   bootstrap: [ListUpdateComponent],
+  providers: []
 })
 export class ComponentsModule {}

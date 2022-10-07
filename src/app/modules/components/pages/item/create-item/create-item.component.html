@@ -1,0 +1,71 @@
+<div class="item">
+  <div class="row">
+    <div class="item__title">{{ "Item.Form.Title" | translate }}</div>
+  </div>
+
+  <div class="row">
+    <div class="item__form">
+      <div class="item__form__row">
+        <div class="item-form">
+          <form [formGroup]="form">
+            <div class="item-form__name">
+              <mat-form-field>
+                <mat-label> {{ "Item.Fields.Name" | translate }} </mat-label>
+                <input matInput type="text" formControlName="name" required />
+              </mat-form-field>
+            </div>
+            <div class="item-form__tags">
+              <div class="item-form__tags-list">
+                <span
+                  class="tag"
+                  *ngFor="let tag of tags"
+                  (click)="removeTag(tag)"
+                  [ngStyle]="{ 'background-color': tag.color }"
+                >
+                  <span>{{ tag.name }}</span>
+                  <mat-icon>remove</mat-icon>
+                </span>
+              </div>
+              <mat-form-field>
+                <mat-label> {{ "Item.Fields.Tag" | translate }} </mat-label>
+                <input matInput type="text" formControlName="tag" />
+              </mat-form-field>
+              <button mat-raised-button (click)="addTag()">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </form>
+
+          <form [formGroup]="customFieldsForm">
+            <div class="item-form__custom-fields">
+              <app-custom-field-input
+                class="custom-field"
+                *ngFor="let field of template.customFields"
+                [formControlName]="field.name"
+                [field]="field"
+                [required]="true"
+              ></app-custom-field-input>
+            </div>
+          </form>
+        </div>
+
+        <div class="item-image">
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/listography-690a0.appspot.com/o/note.png?alt=media&token=1d857909-8908-4be7-8057-2e109ebea304"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="actions">
+  <button
+    mat-raised-button
+    (click)="create()"
+    color="accent"
+    [disabled]="areFormsInvalid()"
+  >
+    Create
+  </button>
+</div>

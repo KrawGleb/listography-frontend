@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { takeUntil, tap } from 'rxjs';
 import { Account } from 'src/app/models/account.model';
 import { List } from 'src/app/models/list.model';
-import { AccountsService } from 'src/app/modules/shared/services/accounts.service';
+import { AccountsService } from 'src/app/modules/shared/services/api/accounts.service';
 import { DestroyableComponent } from '../../../../shared/helpers/destroyable/destroyable.component';
 
 @Component({
