@@ -51,6 +51,11 @@
       "RepeatPassword": "Repeat Password"
     }
   },
+  "Home": {
+    "Collections": "Top 5 collections",
+    "Items": "Last added items",
+    "Tags": "Tags"
+  },
   "Update": {
     "Actions": "Actions"
   },

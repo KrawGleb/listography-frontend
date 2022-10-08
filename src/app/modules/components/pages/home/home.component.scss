@@ -49,6 +49,14 @@
     text-align: center;
   }
 
+  li {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   .collection {
     display: flex;
     align-items: center;
@@ -79,7 +87,8 @@
       color: rgb(205, 127, 50);
     }
 
-    &-3, &-4 {
+    &-3,
+    &-4 {
       mat-icon {
         display: none;
       }
@@ -110,6 +119,13 @@
   .item {
     padding: 0px 0px 0px 14px;
     margin-bottom: 4px;
+    background-color: inherit;
+
+    h3:hover,
+    mat-card-subtitle:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
 
     &:last-child {
       margin-bottom: 0px;
@@ -137,7 +153,11 @@
     padding: 10px 18px;
     border-radius: 20px;
     font-weight: bold;
+    cursor: pointer;
 
+    &:hover {
+      text-decoration: underline;
+    }
 
     &:last-child {
       margin-bottom: 0px;

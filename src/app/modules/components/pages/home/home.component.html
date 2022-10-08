@@ -4,8 +4,8 @@
       <div class="columns__row">
         <div class="columns__card-small">
           <mat-card class="collections">
-            <mat-card-title class="collections__title"
-              >Top 5 collections
+            <mat-card-title class="collections__title">
+              {{ "Home.Collections" | translate }}
             </mat-card-title>
             <div>
               <ul>
@@ -28,17 +28,16 @@
 
         <div class="columns__card">
           <mat-card class="items"
-            ><mat-card-title class="items__title"
-              >Last added items</mat-card-title
-            >
+            ><mat-card-title class="items__title">
+              {{ "Home.Items" | translate }}
+            </mat-card-title>
             <mat-card-content>
               <div
                 *ngFor="let item of info?.lastCreatedItems"
                 class="card item"
-                [routerLink]="['/item', item.id]"
               >
-                <h3>{{ item.name }}</h3>
-                <mat-card-subtitle>
+                <h3 [routerLink]="['/item', item.id]">{{ item.name }}</h3>
+                <mat-card-subtitle [routerLink]="['/user', item.author]">
                   {{ item.author }} - {{ item.listName }}
                 </mat-card-subtitle>
               </div>
@@ -48,7 +47,9 @@
 
         <div class="columns__card-small">
           <mat-card class="tags">
-            <mat-card-title class="tags__title">Tags</mat-card-title>
+            <mat-card-title class="tags__title">
+              {{ "Home.Tags" | translate }}
+            </mat-card-title>
 
             <div class="tags__body">
               <div
