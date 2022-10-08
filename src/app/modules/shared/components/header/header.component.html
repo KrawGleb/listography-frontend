@@ -84,6 +84,10 @@
         </ul>
       </div>
 
+      <div class="logo" [routerLink]="['/home']">
+        Listography
+      </div>
+
       <div class="account">
         <div class="account__buttons" *ngIf="!isAuthorize">
           <a routerLink="/login" mat-button>{{

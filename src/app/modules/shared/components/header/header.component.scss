@@ -57,7 +57,6 @@
   mat-toolbar-row {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     padding: 0;
     @include flexBox();
     @include align-items(center);
@@ -73,6 +72,7 @@
     label.m-menu__toggle {
       cursor: pointer;
       margin-left: 10px;
+      justify-self: flex-start;
     }
 
     .m-menu {
@@ -180,9 +180,21 @@
   color: red;
 }
 
-body {
-  background-color: #f1f1f1;
-  padding: 0;
-  margin: 0;
-  font-family: sans-serif;
+.account {
+  justify-self: flex-end;
+}
+
+.logo {
+  flex: 1;
+  justify-self: flex-start;
+  font-family: 'Dancing Script', cursive;
+  font-size: 34px;
+  margin-left: 20px;
+  cursor: pointer;
+  transition: font-size 1s;
+
+  &:hover {
+    transition: font-size 1s;
+    font-size: 40px;
+  }
 }
