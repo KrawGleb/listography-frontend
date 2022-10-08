@@ -51,6 +51,7 @@ export class CustomFieldInputComponent
   public id: string = `custom-field-input-${CustomFieldInputComponent.nextId++}`;
   public onChange = (_: any) => {};
   public onTouched = () => {};
+  public getCustomFieldValue = getCustomFieldValue;
 
   get empty() {
     return !this.form.value.value;
@@ -104,10 +105,10 @@ export class CustomFieldInputComponent
   }
   set value(field: CustomField | null) {
     if (field) {
-      if (field.type === CustomFieldType.BoolType) {
-        field.boolValue = false;
-        this.form.controls.value.markAsTouched();
-      }
+      // if (field.type === CustomFieldType.BoolType) {
+      //   field.boolValue = false;
+      //   this.form.controls.value.markAsTouched();
+      // }
 
       this.field = field;
 

@@ -1,9 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs';
-import { getCustomFieldValue } from 'src/app/helpers/custom-field.helpers';
 import { getRandomColor } from 'src/app/helpers/random-color.helper';
 import { CustomField } from 'src/app/models/custom-field.model';
 import { Item } from 'src/app/models/item.model';
@@ -20,7 +19,11 @@ import { RouteService } from 'src/app/modules/shared/services/common/route.servi
 export class CreateItemComponent implements OnInit {
   private listId!: number;
   public template!: Item;
+  public itemId?: number;
+  public item?: Item;
   public tags: any[] = [];
+  public isEdit: boolean = false;
+  public customFields: CustomField[] = [];
 
   public form = new FormGroup({
     name: new FormControl(''),
@@ -30,19 +33,29 @@ export class CreateItemComponent implements OnInit {
 
   constructor(
     private readonly routeService: RouteService,
+    private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly cdr: ChangeDetectorRef,
     private readonly listsService: ListsService,
     private readonly snackBar: MatSnackBar
   ) {
     const data = this.routeService.popData();
+    console.log(data);
 
     if (!data) {
       this.router.navigateByUrl('/home');
     }
 
     this.listId = data.listId;
-    this.template = data.template;
+    this.isEdit = !!data.isEdit;
+
+    if (this.isEdit) {
+      this.item = data.item;
+      this.template = data.item;
+      this.itemId = +this.route.snapshot.paramMap.get('id')!;
+    } else {
+      this.template = data.template;
+    }
   }
 
   ngOnInit(): void {
@@ -106,13 +119,18 @@ export class CreateItemComponent implements OnInit {
   }
 
   private initForm() {
-    this.template.customFields.forEach((field: CustomField) => {
-      const controlValue = getCustomFieldValue(field);
+    this.form.controls.name.setValue(this.item?.name ?? '');
+    this.tags =
+      this.item?.tags?.map((tag) => {
+        return { ...tag, color: getRandomColor() };
+      }) ?? [];
 
-      this.customFieldsForm.addControl(
-        field.name,
-        new FormControl(controlValue)
-      );
+    this.customFields = this.isEdit
+      ? this.item?.customFields!
+      : this.template.customFields;
+
+    this.customFields.forEach((field: CustomField) => {
+      this.customFieldsForm.addControl(field.name, new FormControl(field));
     });
   }
 }

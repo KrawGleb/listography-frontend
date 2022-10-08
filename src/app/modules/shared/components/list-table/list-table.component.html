@@ -19,8 +19,8 @@
         >
           {{ getCustomFieldValue(customField) }}
         </td>
-        <td>
-          <button mat-mini-fab color="accent" (click)="editItem(item.id)">
+        <td *ngIf="isEdit">
+          <button mat-mini-fab color="accent" (click)="editItem(item)">
             <mat-icon>edit</mat-icon>
           </button>
           <button

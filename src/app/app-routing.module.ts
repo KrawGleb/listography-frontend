@@ -33,6 +33,9 @@ const routes: Routes = [
         path: 'new',
         component: CreateItemComponent,
       },
+      {
+        path: 'edit/:id', component: CreateItemComponent
+      },
       { path: ':id', component: ItemComponent },
     ],
   },

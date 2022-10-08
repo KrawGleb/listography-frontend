@@ -91,5 +91,13 @@ export class ListTableComponent extends DestroyableComponent implements OnInit {
       .subscribe();
   }
 
-  public editItem(id: number) {}
+  public editItem(item: Item) {
+    this.routerService.pushData({
+      listId: this.id,
+      item: item,
+      isEdit: true
+    });
+
+    this.router.navigateByUrl(`/item/edit/${item.id}`);
+  }
 }

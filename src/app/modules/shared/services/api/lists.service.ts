@@ -56,4 +56,11 @@ export class ListsService {
       true
     );
   }
+
+  public getItem(itemId: number) {
+    return this.httpService.get<CommonResponse<Item>>(
+      `/items/${itemId}`,
+      false
+    );
+  }
 }

@@ -78,7 +78,8 @@
   },
   "Item": {
     "Form": {
-      "Title": "Create item form"
+      "CreateTitle": "Create item form",
+      "EditTitle": "Edit item form"
     },
     "Actions": {
       "Delete": {

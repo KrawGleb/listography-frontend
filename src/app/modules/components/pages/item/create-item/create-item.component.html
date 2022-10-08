@@ -1,6 +1,10 @@
 <div class="item">
   <div class="row">
-    <div class="item__title">{{ "Item.Form.Title" | translate }}</div>
+    <div class="item__title">
+      {{
+        (isEdit ? "Item.Form.EditTitle" : "Item.Form.CreateTitle") | translate
+      }}
+    </div>
   </div>
 
   <div class="row">
@@ -40,9 +44,10 @@
             <div class="item-form__custom-fields">
               <app-custom-field-input
                 class="custom-field"
-                *ngFor="let field of template.customFields"
+                *ngFor="let field of customFields"
                 [formControlName]="field.name"
                 [field]="field"
+                [value]="field"
                 [required]="true"
               ></app-custom-field-input>
             </div>
@@ -66,6 +71,6 @@
     color="accent"
     [disabled]="areFormsInvalid()"
   >
-    Create
+    {{ "Actions.Save" | translate }}
   </button>
 </div>

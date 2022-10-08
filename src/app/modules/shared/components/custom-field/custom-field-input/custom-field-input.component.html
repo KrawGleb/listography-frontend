@@ -9,6 +9,7 @@
           formControlName="value"
           [required]="required"
           (input)="_handleInput()"
+          [value]="getCustomFieldValue(field)"
         />
       </mat-form-field>
 
