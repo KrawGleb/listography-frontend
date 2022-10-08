@@ -14,7 +14,7 @@ import { ListsService } from 'src/app/modules/shared/services/api/lists.service'
 export class ItemComponent extends DestroyableComponent {
   private id!: number;
 
-  public item!: Item;
+  public item?: Item;
 
   constructor(
     private readonly route: ActivatedRoute,
