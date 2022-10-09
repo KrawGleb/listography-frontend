@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LocalStorageConstants } from 'src/app/models/constants/local-storage.constants';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
@@ -11,8 +12,11 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent extends DestroyableComponent {
-  @Output()
-  public onThemeChanged = new EventEmitter<boolean>();
+  public form = new FormGroup({
+    search: new FormControl()
+  });
+
+  @Output() public onThemeChanged = new EventEmitter<boolean>();
 
   constructor(
     private readonly translateService: TranslateService,
@@ -37,5 +41,13 @@ export class HeaderComponent extends DestroyableComponent {
   public signOut() {
     localStorage.removeItem(LocalStorageConstants.Token);
     this.router.navigateByUrl('/login');
+  }
+
+  public search() {
+    if (this.form.value.search)
+    {
+      // this.router.navigate(['/search', this.form.value.search]);
+      this.router.navigateByUrl(`/search/${this.form.value.search}`);
+    }
   }
 }

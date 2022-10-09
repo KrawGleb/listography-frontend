@@ -63,4 +63,8 @@ export class ListsService {
       false
     );
   }
+
+  public updateItem(item: Item) {
+    return this.httpService.patch<Response>('/items/update', item, true);
+  }
 }

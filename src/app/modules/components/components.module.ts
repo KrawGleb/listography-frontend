@@ -30,6 +30,7 @@ import { AccountComponent } from './pages/account/account/account.component';
 import { MyAccountComponent } from './pages/account/my-account/my-account.component';
 import { ForeignAccountComponent } from './pages/account/foreign-account/foreign-account.component';
 import { ItemModule } from './pages/item/item.module';
+import { SearchComponent } from './pages/search/search.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ItemModule } from './pages/item/item.module';
     ItemComponent,
     MyAccountComponent,
     ForeignAccountComponent,
+    SearchComponent,
   ],
   imports: [
     CommonModule,

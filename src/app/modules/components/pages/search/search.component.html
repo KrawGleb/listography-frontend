@@ -1,0 +1,6 @@
+<div *ngFor="let item of items$ | async" class="card item">
+  <h3 [routerLink]="['/item', item.id]">{{ item.name }}</h3>
+  <mat-card-subtitle [routerLink]="['/user', item.author]">
+    {{ item.author }} - {{ item.list }}
+  </mat-card-subtitle>
+</div>
