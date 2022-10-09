@@ -1,0 +1,30 @@
+<mat-card class="list-card">
+  <div class="clickable" [routerLink]="['/list/', id]">
+    <mat-card-title-group>
+      <mat-card-title>
+        <mat-icon>{{ topicToIcon(topic?.name!) }}</mat-icon>
+        {{ title }}</mat-card-title
+      >
+      <mat-card-subtitle>
+        <span *ngFor="let tag of tags">
+          {{ tag.name + " " }}
+        </span>
+      </mat-card-subtitle>
+      <img
+        *ngIf="imageUrl"
+        mat-card-md-image
+        class="list-image"
+        [src]="imageUrl"
+      />
+    </mat-card-title-group>
+    <mat-card-content>
+      {{ description }}
+    </mat-card-content>
+  </div>
+  <mat-card-actions class="list-actions" *ngIf="editable">
+    <button mat-raised-button (click)="editClick()" color="accent">Edit</button>
+    <button mat-raised-button (click)="deleteClick()" color="warn">
+      Delete
+    </button>
+  </mat-card-actions>
+</mat-card>

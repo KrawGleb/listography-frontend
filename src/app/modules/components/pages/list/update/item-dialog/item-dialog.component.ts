@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CustomField } from 'src/app/models/custom-field.model';
 import { CustomFieldType } from 'src/app/models/enums/custom-field-type.enum';
 import { Item } from 'src/app/models/item.model';
-import { getCustomFieldValue, setCustomFieldValue } from 'src/app/modules/components/helpers/custom-field.helpers';
+import { getCustomFieldValue, setCustomFieldValue } from 'src/app/helpers/custom-field.helpers';
 
 @Component({
   selector: 'app-item-dialog',

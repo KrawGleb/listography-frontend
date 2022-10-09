@@ -51,6 +51,11 @@
       "RepeatPassword": "Repeat Password"
     }
   },
+  "Home": {
+    "Collections": "Top 5 collections",
+    "Items": "Last added items",
+    "Tags": "Tags"
+  },
   "Update": {
     "Actions": "Actions"
   },
@@ -58,7 +63,7 @@
     "Actions": {
       "Delete": {
         "ConfirmationTitle": "Delete confirmation",
-        "ConfirmationMessage": "Are you sure you want do delete list?"
+        "ConfirmationMessage": "Are you sure you want to delete list?"
       }
     },
     "Fields": {
@@ -73,9 +78,24 @@
           "Name": "Name",
           "Type": "Type"
         }
-      },
-      "Tag": "Tag",
-      "Tags": "Tags"
+      }
+    }
+  },
+  "Item": {
+    "Form": {
+      "CreateTitle": "Create item form",
+      "EditTitle": "Edit item form"
+    },
+    "Actions": {
+      "Delete": {
+        "ConfirmationTitle": "Delete confirmation",
+        "ConfirmationMessage": "Are you sure you want to delete item?"
+      }
+    },
+    "Fields": {
+      "Name": "Name",
+      "Tags": "Tags",
+      "Tag": "Tag"
     }
   }
 }

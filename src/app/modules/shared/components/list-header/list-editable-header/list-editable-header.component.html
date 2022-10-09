@@ -5,11 +5,15 @@
         <div class="list-card__column">
           <div class="list-card__title-group">
             <mat-form-field class="title-group__select">
-              <mat-label><mat-icon>extension</mat-icon></mat-label>
-              <mat-select>
-                <mat-option value="1"><mat-icon>book</mat-icon></mat-option>
-                <mat-option value="2"><mat-icon>book</mat-icon></mat-option>
-                <mat-option value="3"><mat-icon>book</mat-icon></mat-option>
+              <mat-select formControlName="topic" required>
+                <mat-select-trigger>
+                  <mat-icon>{{ topicToIcon(topic!) }}</mat-icon>&nbsp;
+                </mat-select-trigger>
+                <mat-option *ngFor="let topic of topics; first as isFirst" [value]="topic.name"
+                  ><mat-icon>{{
+                    topicToIcon(topic.name)
+                  }}</mat-icon></mat-option
+                >
               </mat-select>
             </mat-form-field>
 

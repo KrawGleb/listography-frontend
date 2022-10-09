@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil, tap } from 'rxjs';
 import { List } from 'src/app/models/list.model';
-import { ListsService } from 'src/app/modules/common/services/lists.service';
-import { DestroyableComponent } from '../../../helpers/destroyable/destroyable.component';
+import { SaveListInfoRequest } from 'src/app/models/requests/list/save-info.request';
+import { ListsService } from 'src/app/modules/shared/services/api/lists.service';
+import { DestroyableComponent } from '../../../../shared/helpers/destroyable/destroyable.component';
 
 @Component({
   selector: 'app-update',
@@ -15,6 +16,7 @@ export class ListUpdateComponent extends DestroyableComponent {
   public list!: List;
 
   constructor(
+    private readonly router: Router,
     private readonly route: ActivatedRoute,
     private readonly listsService: ListsService
   ) {
@@ -26,6 +28,16 @@ export class ListUpdateComponent extends DestroyableComponent {
       .pipe(
         takeUntil(this.onDestroy$),
         tap((list: List) => (this.list = list))
+      )
+      .subscribe();
+  }
+
+  public saveChanges(info: SaveListInfoRequest) {
+    this.listsService
+      .updateInfo(info)
+      .pipe(
+        takeUntil(this.onDestroy$),
+        tap(() => this.router.navigateByUrl('/me'))
       )
       .subscribe();
   }

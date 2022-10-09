@@ -1,13 +1,14 @@
 import { Component, Input, OnInit, ɵComponentFactory } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { filter, takeUntil, tap } from 'rxjs';
 import { CustomField } from 'src/app/models/custom-field.model';
 import { Item } from 'src/app/models/item.model';
-import { CommonResponse } from 'src/app/models/responses/common-response.model';
-import { ListsService } from 'src/app/modules/common/services/lists.service';
-import { getCustomFieldValue } from 'src/app/modules/components/helpers/custom-field.helpers';
-import { DestroyableComponent } from 'src/app/modules/components/helpers/destroyable/destroyable.component';
-import { ItemDialogComponent } from 'src/app/modules/components/pages/list/update/item-dialog/item-dialog.component';
+import { getCustomFieldValue } from 'src/app/helpers/custom-field.helpers';
+import { DestroyableComponent } from 'src/app/modules/shared/helpers/destroyable/destroyable.component';
+import { ListsService } from '../../services/api/lists.service';
+import { RouteService } from '../../services/common/route.service';
+import { Router } from '@angular/router';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { filter, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-list-table',
@@ -16,59 +17,87 @@ import { ItemDialogComponent } from 'src/app/modules/components/pages/list/updat
 })
 export class ListTableComponent extends DestroyableComponent implements OnInit {
   @Input() public id!: number;
-  @Input() public itemTemplate!: Item;
   @Input() public items!: Item[];
   @Input() public isEdit: boolean = false;
+
+  @Input()
+  public get itemTemplate(): Item | undefined {
+    return this._itemTemplate;
+  }
+  public set itemTemplate(value: Item | undefined) {
+    if (value) {
+      this._itemTemplate = value;
+
+      this.columnNames = [
+        'id',
+        'name',
+        ...(this._itemTemplate.customFields.map((f) => f.name) ?? []),
+      ];
+    }
+  }
+
+  private _itemTemplate?: Item;
 
   public columnNames: string[] = [];
 
   constructor(
-    private readonly listsService: ListsService,
-    private readonly dialog: MatDialog) {
+    private readonly routerService: RouteService,
+    private readonly router: Router,
+    private readonly dialog: MatDialog,
+    private readonly listsService: ListsService
+  ) {
     super();
   }
 
-  ngOnInit(): void {
-    this.columnNames = [
-      'id',
-      'name',
-      ...(this.itemTemplate.customFields.map((f) => f.name) ?? []),
-    ];
-  }
+  ngOnInit(): void {}
 
   public getCustomFieldValue(field: CustomField) {
     return getCustomFieldValue(field);
   }
 
-  public openAddItemDialog() {
-    this.dialog
-      .open(ItemDialogComponent, {
-        data: {
-          item: this.itemTemplate,
-          edit: false,
-        },
-      })
+  public addItem() {
+    this.routerService.pushData({
+      listId: this.id,
+      template: this.itemTemplate,
+    });
+
+    this.router.navigateByUrl('/item/new');
+  }
+
+  public deleteItem(id: number) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      maxWidth: '400px',
+      data: {
+        title: 'Item.Actions.Delete.ConfirmationTitle',
+        message: 'Item.Actions.Delete.ConfirmationMessage',
+      },
+    });
+
+    dialogRef
       .afterClosed()
       .pipe(
+        filter((res) => res),
         takeUntil(this.onDestroy$),
-        filter((response: any) => !!response),
-        tap((newItem: Item) => {
+        tap(() => {
           this.listsService
-            .addItem({
-              listId: this.id,
-              name: newItem.name,
-              customFields: newItem.customFields,
-            })
+            .deleteItem(id)
             .pipe(
               takeUntil(this.onDestroy$),
-              filter((response) => 'body' in response),
-              tap((response: CommonResponse) => {
-                this.items.push(response.body as Item);
-              })
+              tap(() => (this.items = this.items.filter((i) => i.id !== id)))
             )
             .subscribe();
         })
       )
       .subscribe();
+  }
+
+  public editItem(item: Item) {
+    this.routerService.pushData({
+      listId: this.id,
+      item: item,
+      isEdit: true
+    });
+
+    this.router.navigateByUrl(`/item/edit/${item.id}`);
   }
 }

@@ -4,11 +4,12 @@
   [description]="list?.description"
   [imageUrl]="list?.imageUrl"
   [tags]="list?.tags"
+  [topic]="list?.topic"
 ></app-list-card>
 
 <app-list-table
   [isEdit]="false"
-  [id]="list!.id"
-  [itemTemplate]="list!.itemTemplate"
-  [items]="list!.items"
+  [id]="list?.id!"
+  [itemTemplate]="list?.itemTemplate!"
+  [items]="list?.items!"
 ></app-list-table>

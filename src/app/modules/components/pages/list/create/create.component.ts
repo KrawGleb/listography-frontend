@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { List } from 'src/app/models/list.model';
 import { CustomField } from 'src/app/models/custom-field.model';
 import { Item } from 'src/app/models/item.model';
 import { CustomFieldType } from 'src/app/models/enums/custom-field-type.enum';
-import { ListsService } from 'src/app/modules/common/services/lists.service';
-import { DestroyableComponent } from '../../../helpers/destroyable/destroyable.component';
-import { takeUntil } from 'rxjs';
+import { DestroyableComponent } from '../../../../shared/helpers/destroyable/destroyable.component';
+import { takeUntil, tap } from 'rxjs';
+import { SaveListInfoRequest } from 'src/app/models/requests/list/save-info.request';
+import { Router } from '@angular/router';
+import { ListsService } from 'src/app/modules/shared/services/api/lists.service';
 
 @Component({
   selector: 'app-create',
@@ -14,22 +16,13 @@ import { takeUntil } from 'rxjs';
   styleUrls: ['./create.component.scss'],
 })
 export class ListCreateComponent extends DestroyableComponent {
-  public itemTemplateControls: any[] = [];
-  public customFieldTypes = {
-    string: CustomFieldType.StringType,
-    number: CustomFieldType.IntType,
-    date: CustomFieldType.DateTimeType,
-    boolean: CustomFieldType.BoolType,
-  };
+  public itemTemplateControls: FormGroup[] = [];
+  public CustomFieldTypes = CustomFieldType;
 
-  public form = new FormGroup({
-    title: new FormControl(),
-    description: new FormControl(),
-    image: new FormControl(),
-    topic: new FormControl(),
-  });
-
-  constructor(private readonly listsService: ListsService) {
+  constructor(
+    private readonly listsService: ListsService,
+    private readonly router: Router
+  ) {
     super();
   }
 
@@ -43,16 +36,17 @@ export class ListCreateComponent extends DestroyableComponent {
     this.itemTemplateControls.push(group);
   }
 
-  public createList() {
-    const list = {
-      title: this.form.value.title,
-      description: this.form.value.description,
-      imageUrl: this.form.value.image,
-      topic: {
-        name: this.form.value.topic,
-      },
-    } as List;
+  public removeCustomField(field: FormGroup) {
+    this.itemTemplateControls = this.itemTemplateControls.filter(
+      (f) => f !== field
+    );
+  }
 
+  public onSave(request: SaveListInfoRequest) {
+    this.createList(request);
+  }
+
+  private createList(listInfo: SaveListInfoRequest) {
     const customFields = this.itemTemplateControls.map((control) => {
       return {
         name: control.value.name,
@@ -61,11 +55,22 @@ export class ListCreateComponent extends DestroyableComponent {
       } as CustomField;
     });
 
-    list.itemTemplate = {
-      customFields,
-    } as Item;
+    const list = {
+      title: listInfo.title,
+      description: listInfo.description,
+      imageUrl: listInfo.imageUrl,
+      topic: listInfo.topic,
+      itemTemplate: {
+        customFields: customFields,
+      } as Item,
+    } as List;
 
-    console.log(list);
-    this.listsService.create(list).pipe(takeUntil(this.onDestroy$)).subscribe();
+    this.listsService
+      .create(list)
+      .pipe(
+        takeUntil(this.onDestroy$),
+        tap(() => this.router.navigateByUrl('/me'))
+      )
+      .subscribe();
   }
 }
