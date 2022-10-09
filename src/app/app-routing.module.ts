@@ -11,6 +11,7 @@ import { ListViewComponent } from './modules/components/pages/list/view/view.com
 import { LoginComponent } from './modules/auth/components/login/login.component';
 import { RegisterComponent } from './modules/auth/components/register/register.component';
 import { CreateItemComponent } from './modules/components/pages/item/create-item/create-item.component';
+import { SearchComponent } from './modules/components/pages/search/search.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -34,7 +35,8 @@ const routes: Routes = [
         component: CreateItemComponent,
       },
       {
-        path: 'edit/:id', component: CreateItemComponent
+        path: 'edit/:id',
+        component: CreateItemComponent,
       },
       { path: ':id', component: ItemComponent },
     ],
@@ -42,6 +44,10 @@ const routes: Routes = [
   {
     path: 'user',
     children: [{ path: ':username', component: ForeignAccountComponent }],
+  },
+  {
+    path: 'search/:value',
+    component: SearchComponent,
   },
 ];
 

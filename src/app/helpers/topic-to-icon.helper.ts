@@ -9,5 +9,5 @@ const matches = {
 } as any;
 
 export function topicToIcon(topic: string) {
-  return matches[topic.toLowerCase()] ?? 'extension';
+  return matches[topic?.toLowerCase()] ?? 'extension';
 }

@@ -1,0 +1,15 @@
+.item {
+  padding: 0px 0px 0px 14px;
+  margin-bottom: 4px;
+  background-color: inherit;
+
+  h3:hover,
+  mat-card-subtitle:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  &:last-child {
+    margin-bottom: 0px;
+  }
+}

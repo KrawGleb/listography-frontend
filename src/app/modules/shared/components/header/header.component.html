@@ -80,13 +80,24 @@
               </ul>
             </div>
           </li>
-          <li *ngIf="isAuthorize" (click)="signOut()" class="sign-out"><label>Sign out</label></li>
+          <li *ngIf="isAuthorize" (click)="signOut()" class="sign-out">
+            <label>Sign out</label>
+          </li>
         </ul>
       </div>
 
-      <div class="logo" [routerLink]="['/home']">
-        Listography
-      </div>
+      <div class="logo" [routerLink]="['/home']">Listography</div>
+
+      <div class="spacer"></div>
+      <form [formGroup]="form" class="search">
+        <mat-form-field class="search__input">
+          <input matInput formControlName="search" />
+        </mat-form-field>
+        <button mat-raised-button class="search__button" (click)="search()">
+          <mat-icon>search</mat-icon>
+        </button>
+      </form>
+      <div class="spacer"></div>
 
       <div class="account">
         <div class="account__buttons" *ngIf="!isAuthorize">
@@ -97,10 +108,8 @@
             "Header.Toolbar.Register" | translate
           }}</a>
         </div>
-        <div *ngIf="isAuthorize">
-          <a mat-icon-button routerLink="/me">
-            <mat-icon>person</mat-icon>
-          </a>
+        <div class="account__me" *ngIf="isAuthorize" [routerLink]="['/me']">
+          <mat-icon>person</mat-icon>
         </div>
       </div>
     </mat-toolbar-row>
