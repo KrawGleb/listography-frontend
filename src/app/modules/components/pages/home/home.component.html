@@ -1,1 +1,70 @@
-<p>home works!</p>
+<div class="cards__lists">
+  <div class="columns">
+    <div class="container">
+      <div class="columns__row">
+        <div class="columns__card-small">
+          <mat-card class="collections">
+            <mat-card-title class="collections__title">
+              {{ "Home.Collections" | translate }}
+            </mat-card-title>
+            <div>
+              <ul>
+                <li
+                  *ngFor="let list of info?.largestLists; let i = index"
+                  class="collection"
+                  [routerLink]="['/list', list.id]"
+                >
+                  <span [ngClass]="'collection-' + i">
+                    <mat-icon>workspace_premium</mat-icon>
+                  </span>
+                  <span class="collection-title">
+                    {{ list.title }}
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </mat-card>
+        </div>
+
+        <div class="columns__card">
+          <mat-card class="items"
+            ><mat-card-title class="items__title">
+              {{ "Home.Items" | translate }}
+            </mat-card-title>
+            <mat-card-content>
+              <div
+                *ngFor="let item of info?.lastCreatedItems"
+                class="card item"
+              >
+                <h3 [routerLink]="['/item', item.id]">{{ item.name }}</h3>
+                <mat-card-subtitle [routerLink]="['/user', item.author]">
+                  {{ item.author }} - {{ item.listName }}
+                </mat-card-subtitle>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <div class="columns__card-small">
+          <mat-card class="tags">
+            <mat-card-title class="tags__title">
+              {{ "Home.Tags" | translate }}
+            </mat-card-title>
+
+            <div class="tags__body">
+              <div
+                class="tag"
+                *ngFor="let tag of info?.tags"
+                [ngStyle]="{
+                  'background-color': getRandomColor()
+                }"
+              >
+                {{ tag.name }}
+              </div>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

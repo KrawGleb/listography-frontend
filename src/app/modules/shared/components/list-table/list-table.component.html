@@ -1,0 +1,44 @@
+<div class="table__container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col" *ngFor="let column of columnNames">
+          {{ column | titlecase }}
+        </th>
+        <th scope="col" *ngIf="isEdit">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr class="table__row" *ngFor="let item of items">
+        <th scope="row" [routerLink]="['/item/', item.id]">{{ item.id }}</th>
+        <td [routerLink]="['/item/', item.id]">{{ item.name }}</td>
+        <td
+          *ngFor="let customField of item.customFields"
+          [routerLink]="['/item/', item.id]"
+        >
+          {{ getCustomFieldValue(customField) }}
+        </td>
+        <td *ngIf="isEdit">
+          <button mat-mini-fab color="accent" (click)="editItem(item)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-mini-fab
+            color="warn"
+            class="delete__button"
+            (click)="deleteItem(item.id)"
+          >
+            <mat-icon>remove</mat-icon>
+          </button>
+        </td>
+      </tr>
+      <tr></tr>
+    </tbody>
+    <div class="table__container__add-button" *ngIf="isEdit">
+      <button mat-mini-fab (click)="addItem()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </table>
+</div>

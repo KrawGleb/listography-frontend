@@ -1,0 +1,37 @@
+<div class="custom-field" [ngSwitch]="field.type">
+  <div class="custom-field__bool" *ngSwitchCase="CustomFieldType.BoolType">
+    <div class="custom-field__title">{{ field.name }}:</div>
+    <div class="custom-field__value">
+      <mat-icon *ngIf="field.boolValue" color="accent">done</mat-icon>
+      <mat-icon *ngIf="!field.boolValue" color="warn">close</mat-icon>
+    </div>
+  </div>
+
+  <div class="custom-field__string" *ngSwitchCase="CustomFieldType.StringType">
+    <div class="custom-field__title">{{ field.name }}:</div>
+    <div class="custom-field__value">
+      {{ field.stringValue }}
+    </div>
+  </div>
+
+  <div class="custom-field__text" *ngSwitchCase="CustomFieldType.TextType">
+    <div class="custom-field__title">{{ field.name }}:</div>
+    <div class="custom-field__value">
+      {{ field.textValue }}
+    </div>
+  </div>
+
+  <div class="custom-field__date" *ngSwitchCase="CustomFieldType.DateTimeType">
+    <div class="custom-field__title">{{ field.name }}:</div>
+    <div class="custom-field__value">
+      {{ field.dateTimeValue | date }}
+    </div>
+  </div>
+
+  <div class="custom-field__number" *ngSwitchCase="CustomFieldType.IntType">
+    <div class="custom-field__title">{{ field.name }}:</div>
+    <div class="custom-field__value">
+      {{ field.intValue }}
+    </div>
+  </div>
+</div>

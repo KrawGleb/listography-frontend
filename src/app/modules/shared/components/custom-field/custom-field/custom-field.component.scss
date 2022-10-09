@@ -1,0 +1,61 @@
+.custom-field {
+  font-size: 16px;
+  margin-bottom: 20px;
+
+  &__bool {
+    display: flex;
+
+    .custom-field__title {
+      margin-right: 14px;
+      line-height: 1.5;
+    }
+
+    .custom-field__value {
+      line-height: 10px;
+    }
+  }
+
+  &__string {
+    display: flex;
+    flex-wrap: wrap;
+
+    .custom-field__title {
+      margin-right: 14px;
+    }
+
+    .custom-field__value {
+      font-weight: bold;
+    }
+  }
+
+  &__text {
+    .custom-field__title {
+      margin-bottom: 4px;
+    }
+
+    .custom-field__value {
+    }
+  }
+
+  &__date {
+    display: flex;
+
+    .custom-field__title {
+      margin-right: 14px;
+    }
+
+    .custom-field__value {
+    }
+  }
+
+  &__number {
+    display: flex;
+
+    .custom-field__title {
+      margin-right: 14px;
+    }
+
+    .custom-field__value {
+    }
+  }
+}

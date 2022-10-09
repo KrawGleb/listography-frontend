@@ -1,0 +1,33 @@
+.item {
+  &__title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin: 24px 0px;
+  }
+
+  &__body {
+    padding: 14px;
+  }
+
+  &__tags-title{
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  &__tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+
+    .tag {
+      margin: 10px;
+      padding: 10px 20px;
+      border-radius: 14px;
+    }
+  }
+
+  &__custom-fields {
+  }
+}

@@ -1,0 +1,15 @@
+.template {
+  margin-top: 14px;
+}
+
+.custom-field {
+  &__form {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__type {
+    margin-left: 10px;
+    margin-right: 14px;
+  }
+}

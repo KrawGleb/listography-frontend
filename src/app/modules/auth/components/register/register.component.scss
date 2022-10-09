@@ -1,0 +1,56 @@
+:host {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0px;
+}
+
+.wrapper {
+  width: 600px;
+}
+
+.register {
+  display: flex;
+
+  &__form {
+    flex: 1 1 auto;
+
+    .form__field {
+      margin-bottom: 8px;
+    }
+  }
+
+  &__image {
+    display: flex;
+    justify-content: center;
+  }
+
+  mat-card-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.mat-form-field {
+  width: 100%;
+  min-width: 300px;
+}
+
+mat-card-title,
+mat-card-content {
+  display: flex;
+  justify-content: center;
+}
+
+.error {
+  padding: 16px;
+  width: 300px;
+  color: white;
+  background-color: red;
+}
+
+.button {
+  display: flex;
+  justify-content: flex-end;
+}

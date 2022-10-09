@@ -1,0 +1,66 @@
+.list-card {
+  &__container {
+  }
+
+  &__actions {
+    .actions {
+      &__save {
+        margin: 0px 40px;
+        width: 40px;
+      }
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 50%;
+    justify-content: space-between;
+  }
+
+  &__title-group {
+    display: flex;
+    flex-direction: row;
+
+    .title-group {
+      &__select {
+        margin-right: 6px;
+        width: 60px;
+        text-align: center;
+        font-size: 22px;
+      }
+
+      &__title {
+        width: 100%;
+        font-size: 22px;
+      }
+    }
+  }
+
+  .image {
+    &__preview {
+      flex: 0 1 auto;
+    }
+
+    &__upload {
+      margin-top: 4px;
+    }
+  }
+}
+
+.description__area {
+  font-size: 22px;
+}
+
+.card__content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

@@ -1,0 +1,61 @@
+<mat-card>
+  <form [formGroup]="form">
+    <div class="list-card list-card__container">
+      <div class="list-card__body">
+        <div class="list-card__column">
+          <div class="list-card__title-group">
+            <mat-form-field class="title-group__select">
+              <mat-select formControlName="topic" required>
+                <mat-select-trigger>
+                  <mat-icon>{{ topicToIcon(topic!) }}</mat-icon>&nbsp;
+                </mat-select-trigger>
+                <mat-option *ngFor="let topic of topics; first as isFirst" [value]="topic.name"
+                  ><mat-icon>{{
+                    topicToIcon(topic.name)
+                  }}</mat-icon></mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="title-group__title">
+              <mat-label>{{ "List.Fields.Title" | translate }}</mat-label>
+              <input matInput class="title__input" formControlName="title" />
+            </mat-form-field>
+          </div>
+
+          <mat-form-field>
+            <mat-label>{{ "List.Fields.Description" | translate }}</mat-label>
+            <textarea matInput formControlName="description"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="image">
+          <div class="image__preview">
+            <img [src]="imageUrl" width="160" />
+          </div>
+
+          <div class="image__upload">
+            <input
+              type="file"
+              accept="image/*"
+              (change)="uploadImage($event)"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <mat-card-actions>
+      <div class="card__actions actions">
+        <button
+          mat-raised-button
+          class="actions__save"
+          color="primary"
+          (click)="saveListInfo()"
+        >
+          <mat-icon>save</mat-icon>
+        </button>
+      </div>
+    </mat-card-actions>
+  </form>
+</mat-card>

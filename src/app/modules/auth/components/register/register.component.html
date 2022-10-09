@@ -1,0 +1,98 @@
+<div class="wrapper register">
+  <div class="register__form">
+    <mat-card>
+      <mat-card-title>
+        <div class="register__image">
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/listography-690a0.appspot.com/o/reg.png?alt=media&token=bf43dbc6-1c6a-4ff3-adf7-4082e60f96a3"
+            alt=""
+            width="80%"
+          />
+        </div>
+        {{ "Register.Title" | translate }}
+      </mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="form" class="form">
+          <mat-form-field class="form__field">
+            <mat-label> {{ "Register.Labels.Email" | translate }} </mat-label>
+            <input type="email" matInput required formControlName="email" />
+            <mat-error *ngIf="hasError('email', 'required')">{{
+              "Validation.Required" | translate: { field: "Email" }
+            }}</mat-error>
+            <mat-error *ngIf="hasError('email', 'email')">{{
+              "Validation.Email" | translate
+            }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="form__field">
+            <mat-label>
+              {{ "Register.Labels.Username" | translate }}
+            </mat-label>
+            <input type="text" matInput required formControlName="username" />
+            <mat-error *ngIf="hasError('username', 'required')">{{
+              "Validation.Required" | translate: { field: "Username" }
+            }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="form__field">
+            <mat-label>
+              {{ "Register.Labels.Password" | translate }}
+            </mat-label>
+            <input
+              [type]="hidePassword ? 'password' : 'text'"
+              matInput
+              required
+              formControlName="password"
+            />
+            <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{
+              hidePassword ? "visibility_off" : "visibility"
+            }}</mat-icon>
+            <mat-error *ngIf="hasError('password', 'required')">{{
+              "Validation.Required" | translate: { field: "Password" }
+            }}</mat-error>
+            <mat-error *ngIf="hasError('password', 'minlength')">{{
+              "Validation.MinLength"
+                | translate: { field: "Password", value: 6 }
+            }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="form__field">
+            <mat-label>
+              {{ "Register.Labels.RepeatPassword" | translate }}
+            </mat-label>
+            <input
+              [type]="hideRepeatPassword ? 'password' : 'text'"
+              matInput
+              required
+              formControlName="repeatPassword"
+            />
+            <mat-icon
+              matSuffix
+              (click)="hideRepeatPassword = !hideRepeatPassword"
+              >{{
+                hideRepeatPassword ? "visibility_off" : "visibility"
+              }}</mat-icon
+            >
+            <mat-error *ngIf="hasError('repeatPassword', 'required')">{{
+              "Validation.Required" | translate: { field: "Repeat password" }
+            }}</mat-error>
+            <mat-error *ngIf="hasError('repeatPassword', 'notMatch')">{{
+              "Validation.NotMatchPasswords" | translate
+            }}</mat-error>
+          </mat-form-field>
+
+          <div class="button">
+            <button
+              type="submit"
+              mat-button
+              [disabled]="form.invalid"
+              (click)="register()"
+            >
+              {{ "Register.Action" | translate }}
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

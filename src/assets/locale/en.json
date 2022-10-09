@@ -1,6 +1,19 @@
 {
-  "Header" : {
-    "Menu" : {
+  "Actions": {
+    "Save": "Save",
+    "Edit": "Edit",
+    "Add": "Add",
+    "Yes": "Yes",
+    "No": "No"
+  },
+  "Validation": {
+    "Required": "{{field}} is required",
+    "MinLength": "{{field}} min length is {{value}} symbols",
+    "Email": "Invalid email",
+    "NotMatchPasswords": "Passwords are not the same"
+  },
+  "Header": {
+    "Menu": {
       "Title": "Menu",
       "Items": {
         "Themes": {
@@ -16,11 +29,11 @@
       }
     },
     "Toolbar": {
-      "Login" : "Login",
+      "Login": "Login",
       "Register": "Register"
     }
   },
-  "Login" : {
+  "Login": {
     "Title": "Login",
     "Action": "Login",
     "Labels": {
@@ -28,13 +41,61 @@
       "Password": "Password"
     }
   },
-  "Register" : {
+  "Register": {
     "Title": "Register",
     "Action": "Register",
     "Labels": {
       "Email": "Email",
+      "Username": "Username",
       "Password": "Password",
       "RepeatPassword": "Repeat Password"
+    }
+  },
+  "Home": {
+    "Collections": "Top 5 collections",
+    "Items": "Last added items",
+    "Tags": "Tags"
+  },
+  "Update": {
+    "Actions": "Actions"
+  },
+  "List": {
+    "Actions": {
+      "Delete": {
+        "ConfirmationTitle": "Delete confirmation",
+        "ConfirmationMessage": "Are you sure you want to delete list?"
+      }
+    },
+    "Fields": {
+      "Title": "Title",
+      "Description": "Description",
+      "ImageUrl": "Image URL",
+      "Topic": "Topic",
+      "ItemTemplate": {
+        "Label": "Item template",
+        "Name": "Name",
+        "CustomField": {
+          "Name": "Name",
+          "Type": "Type"
+        }
+      }
+    }
+  },
+  "Item": {
+    "Form": {
+      "CreateTitle": "Create item form",
+      "EditTitle": "Edit item form"
+    },
+    "Actions": {
+      "Delete": {
+        "ConfirmationTitle": "Delete confirmation",
+        "ConfirmationMessage": "Are you sure you want to delete item?"
+      }
+    },
+    "Fields": {
+      "Name": "Name",
+      "Tags": "Tags",
+      "Tag": "Tag"
     }
   }
 }
