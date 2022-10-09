@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { getRandomColor } from 'src/app/helpers/random-color.helper';
 import { CustomField } from 'src/app/models/custom-field.model';
 import { Item } from 'src/app/models/item.model';
@@ -94,16 +94,28 @@ export class CreateItemComponent implements OnInit {
   public create() {
     const formValue = this.form.value;
     const tags = this.tags.map((t) => t as Tag);
+    let response$: Observable<any>;
+    if (this.isEdit) {
+      const item = {
+        id: this.itemId,
+        tags: tags,
+        name: formValue.name,
+        customFields: Object.values(this.customFieldsForm.value),
+      } as Item;
 
-    const request = {
-      listId: this.listId,
-      name: formValue.name,
-      tags: tags,
-      customFields: Object.values(this.customFieldsForm.value),
-    } as AddItemRequest;
+      response$ = this.listsService.updateItem(item);
+    } else {
+      const request = {
+        listId: this.listId,
+        name: formValue.name,
+        tags: tags,
+        customFields: Object.values(this.customFieldsForm.value),
+      } as AddItemRequest;
 
-    this.listsService
-      .addItem(request)
+      response$ = this.listsService.addItem(request);
+    }
+
+    response$
       .pipe(
         tap((response) => {
           if (response.succeeded) {
