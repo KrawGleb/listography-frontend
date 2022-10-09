@@ -182,12 +182,18 @@
 
 .account {
   justify-self: flex-end;
+  margin-right: 10px;
+
+  &__me {
+    mat-icon {
+      font-size: 30px;
+    }
+  }
 }
 
 .logo {
-  flex: 1;
   justify-self: flex-start;
-  font-family: 'Dancing Script', cursive;
+  font-family: "Dancing Script", cursive;
   font-size: 34px;
   margin-left: 20px;
   cursor: pointer;
@@ -197,4 +203,27 @@
     transition: font-size 1s;
     font-size: 40px;
   }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.search {
+  justify-self: center;
+
+  &__button {
+    margin-left: 10px;
+    padding: 0px;
+    display: inline-block;
+
+    @media (max-width: 768px) {
+      width: 2.5rem !important;
+      min-width: unset !important;
+    }
+  }
+}
+
+.spacer {
+  flex: 1;
 }
