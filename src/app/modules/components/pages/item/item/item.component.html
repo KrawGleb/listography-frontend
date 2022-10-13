@@ -1,5 +1,5 @@
 <div class="item">
-  <div class="item__title">{{ item?.name ?? '' }}</div>
+  <div class="item__title">{{ item?.name ?? "" }}</div>
   <div class="item__body">
     <div class="item__tags-title">
       {{ "Item.Fields.Tags" | translate }}
@@ -7,8 +7,8 @@
     <div class="item__tags">
       <div
         class="tag"
-        *ngFor="let tag of item?.tags"
-        [ngStyle]="{ 'background-color': getRandomColor() }"
+        *ngFor="let tag of item?.tags; let i = index"
+        [ngStyle]="{ 'background-color': preparedColors[i] }"
       >
         {{ tag.name }}
       </div>
@@ -19,6 +19,47 @@
         *ngFor="let field of item?.customFields"
         [field]="field"
       ></app-custom-field>
+    </div>
+  </div>
+  <div class="item__social social">
+    <div class="social__likes likes">
+      <button
+        mat-mini-fab
+        class="likes-button"
+        [ngClass]="item?.liked ? 'liked' : ''"
+        (click)="likeButtonClick()"
+      >
+        <mat-icon>favorite</mat-icon>
+      </button>
+      <span class="likes-count">{{ item?.totalLikesCount }}</span>
+    </div>
+    <div class="social__comments comments">
+      <div class="comments__title">
+        {{ "Item.Page.Comments" | translate }}
+      </div>
+      <div>
+        <form [formGroup]="commentsForm" class="comments__input">
+          <mat-form-field>
+            <mat-label>{{ "Item.Page.Comment" | translate }}</mat-label>
+            <textarea type="text" matInput formControlName="comment"></textarea>
+          </mat-form-field>
+
+          <button
+            mat-mini-fab
+            class="comments_button"
+            color="primary"
+            (click)="commentButtonClick()"
+          >
+            <mat-icon>send</mat-icon>
+          </button>
+        </form>
+      </div>
+      <div class="comments__body">
+        <mat-card *ngFor="let comment of comments" class="comment">
+          <mat-card-subtitle> {{ comment.from }} </mat-card-subtitle>
+          {{ comment.content }}
+        </mat-card>
+      </div>
     </div>
   </div>
 </div>
