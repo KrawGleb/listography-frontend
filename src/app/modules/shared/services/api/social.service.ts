@@ -37,4 +37,8 @@ export class SocialService {
       true
     );
   }
+
+  public getComments(itemId: number) {
+    return this.httpService.get(`/social/comments/${itemId}`, false);
+  }
 }

@@ -65,7 +65,7 @@
       .comments {
 
         &__title {
-          font-size: large;
+          font-size: 16px;
           font-weight: bold;
         }
 
@@ -89,6 +89,14 @@
         &__body {
           .comment {
             margin-bottom: 4px;
+
+            &__link {
+              cursor: pointer;
+
+              &:hover {
+                text-decoration: underline;
+              }
+            }
           }
         }
       }

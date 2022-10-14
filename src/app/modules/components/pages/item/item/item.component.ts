@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { map, takeUntil, tap } from 'rxjs';
+import { map, Observable, switchMap, takeUntil, tap, timer } from 'rxjs';
 import { getRandomColor } from 'src/app/helpers/random-color.helper';
 import { CommentModel } from 'src/app/models/comment.model';
 import { Item } from 'src/app/models/item.model';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { DestroyableComponent } from 'src/app/modules/shared/helpers/destroyable/destroyable.component';
 import { ListsService } from 'src/app/modules/shared/services/api/lists.service';
 import { SocialService } from 'src/app/modules/shared/services/api/social.service';
@@ -17,6 +18,7 @@ import { SocialService } from 'src/app/modules/shared/services/api/social.servic
 export class ItemComponent extends DestroyableComponent {
   private id!: number;
 
+  public isAuthorize = false;
   public item?: Item;
   public preparedColors: string[] = [];
   public comments: CommentModel[] = [];
@@ -27,11 +29,13 @@ export class ItemComponent extends DestroyableComponent {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly listsService: ListsService,
-    private readonly socialService: SocialService
+    private readonly socialService: SocialService,
+    private readonly authService: AuthService
   ) {
     super();
 
     this.id = +this.route.snapshot.paramMap.get('id')!;
+    this.isAuthorize = this.authService.isAuthorize();
 
     this.listsService
       .getItem(this.id)
@@ -46,6 +50,8 @@ export class ItemComponent extends DestroyableComponent {
         })
       )
       .subscribe();
+
+    this.reloadComments();
   }
 
   public getRandomColor = getRandomColor;
@@ -62,11 +68,36 @@ export class ItemComponent extends DestroyableComponent {
     if (content) {
       this.socialService
         .comment(this.id, content)
-        .pipe(takeUntil(this.onDestroy$))
+        .pipe(
+          takeUntil(this.onDestroy$),
+          tap(() => {})
+        )
         .subscribe();
     }
 
     this.commentsForm.controls.comment.setValue('');
+  }
+
+  private reloadComments() {
+    timer(5000, 5000)
+      .pipe(
+        takeUntil(this.onDestroy$),
+        switchMap(() => this.socialService.getComments(this.id)),
+        tap((response: any) => {
+          if (response.succeeded) {
+            const latestComments = response.body;
+            const newComments = latestComments.filter((c: CommentModel) =>
+              this.comments.every((s) => s.id !== c.id)
+            );
+
+            if (newComments.length > 0) {
+              this.comments.push(...newComments);
+              console.log(newComments);
+            }
+          }
+        })
+      )
+      .subscribe();
   }
 
   private like() {

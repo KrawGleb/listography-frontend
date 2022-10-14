@@ -28,6 +28,7 @@
         class="likes-button"
         [ngClass]="item?.liked ? 'liked' : ''"
         (click)="likeButtonClick()"
+        [disabled]="!isAuthorize"
       >
         <mat-icon>favorite</mat-icon>
       </button>
@@ -37,11 +38,16 @@
       <div class="comments__title">
         {{ "Item.Page.Comments" | translate }}
       </div>
-      <div>
+      <div *ngIf="isAuthorize">
         <form [formGroup]="commentsForm" class="comments__input">
           <mat-form-field>
             <mat-label>{{ "Item.Page.Comment" | translate }}</mat-label>
-            <textarea type="text" matInput formControlName="comment"></textarea>
+            <textarea
+              type="text"
+              matInput
+              formControlName="comment"
+              maxlength="300"
+            ></textarea>
           </mat-form-field>
 
           <button
@@ -55,8 +61,16 @@
         </form>
       </div>
       <div class="comments__body">
-        <mat-card *ngFor="let comment of comments" class="comment">
-          <mat-card-subtitle> {{ comment.from }} </mat-card-subtitle>
+        <mat-card
+          *ngFor="let comment of comments.slice().reverse()"
+          class="comment"
+        >
+          <mat-card-subtitle
+            [routerLink]="['/user', comment.from]"
+            class="comment__link"
+          >
+            {{ comment.from }}
+          </mat-card-subtitle>
           {{ comment.content }}
         </mat-card>
       </div>
