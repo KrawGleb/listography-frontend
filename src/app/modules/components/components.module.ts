@@ -31,6 +31,7 @@ import { MyAccountComponent } from './pages/account/my-account/my-account.compon
 import { ForeignAccountComponent } from './pages/account/foreign-account/foreign-account.component';
 import { ItemModule } from './pages/item/item.module';
 import { SearchComponent } from './pages/search/search.component';
+import { AdminModule } from '../shared/components/admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { SearchComponent } from './pages/search/search.component';
     RouterModule,
     TranslateModule,
     SharedModule,
+    AdminModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,

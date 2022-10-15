@@ -11,6 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CustomFieldComponent } from './custom-field/custom-field.component';
 import { CustomFieldInputComponent } from './custom-field-input/custom-field-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxEditorModule } from 'ngx-editor';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TranslateModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxEditorModule,
     MatDatepickerModule,
     MatFormFieldModule,
     MatCheckboxModule,

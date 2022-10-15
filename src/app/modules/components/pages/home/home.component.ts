@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { map, takeUntil, tap } from 'rxjs';
 import { getRandomColor } from 'src/app/helpers/random-color.helper';
 import { HomeInfo } from 'src/app/models/home-info.model';
@@ -14,7 +15,9 @@ import { HomeService } from 'src/app/modules/shared/services/api/home.service';
 export class HomeComponent extends DestroyableComponent implements OnInit {
   public info?: HomeInfo;
 
-  constructor(private readonly homeService: HomeService) {
+  constructor(
+    private readonly homeService: HomeService,
+    private readonly router: Router) {
     super();
 
     this.homeService
@@ -30,4 +33,8 @@ export class HomeComponent extends DestroyableComponent implements OnInit {
   public getRandomColor = getRandomColor;
 
   ngOnInit(): void {}
+
+  public searchByTag(tag: string) {
+    this.router.navigateByUrl(`/search/${tag}`);
+  }
 }

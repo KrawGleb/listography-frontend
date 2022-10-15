@@ -16,8 +16,7 @@
 
   <div class="custom-field__text" *ngSwitchCase="CustomFieldType.TextType">
     <div class="custom-field__title">{{ field.name }}:</div>
-    <div class="custom-field__value">
-      {{ field.textValue }}
+    <div class="custom-field__value" [innerHtml]="field.textValue">
     </div>
   </div>
 

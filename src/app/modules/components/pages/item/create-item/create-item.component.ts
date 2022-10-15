@@ -94,13 +94,16 @@ export class CreateItemComponent implements OnInit {
   public create() {
     const formValue = this.form.value;
     const tags = this.tags.map((t) => t as Tag);
+    const customFieldsValues = Object.values(this.customFieldsForm.value).map(v => v as CustomField)
     let response$: Observable<any>;
+
+
     if (this.isEdit) {
       const item = {
         id: this.itemId,
         tags: tags,
         name: formValue.name,
-        customFields: Object.values(this.customFieldsForm.value),
+        customFields: customFieldsValues,
       } as Item;
 
       response$ = this.listsService.updateItem(item);
@@ -109,7 +112,7 @@ export class CreateItemComponent implements OnInit {
         listId: this.listId,
         name: formValue.name,
         tags: tags,
-        customFields: Object.values(this.customFieldsForm.value),
+        customFields: customFieldsValues,
       } as AddItemRequest;
 
       response$ = this.listsService.addItem(request);

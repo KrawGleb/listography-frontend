@@ -60,7 +60,7 @@ export class ListsService {
   public getItem(itemId: number) {
     return this.httpService.get<CommonResponse<Item>>(
       `/items/${itemId}`,
-      false
+      true
     );
   }
 

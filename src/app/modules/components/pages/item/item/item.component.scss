@@ -10,7 +10,7 @@
     padding: 14px;
   }
 
-  &__tags-title{
+  &__tags-title {
     font-size: 16px;
     font-weight: bold;
   }
@@ -29,5 +29,77 @@
   }
 
   &__custom-fields {
+  }
+
+  &__social {
+  }
+
+  .social {
+    margin-left: 16px;
+
+    &__likes {
+    }
+
+    .likes {
+      &-button {
+        background-color: #d8d9cf;
+        margin-right: 12px;
+
+        mat-icon {
+          color: #ededed;
+        }
+      }
+
+      &-count {
+      }
+
+      .liked {
+        mat-icon {
+          color: #ff8787;
+        }
+      }
+    }
+
+    &__comments {
+      margin-top: 34px;
+      .comments {
+
+        &__title {
+          font-size: 16px;
+          font-weight: bold;
+        }
+
+        &__input {
+          display: flex;
+
+          mat-form-field {
+            width: 70%;
+
+            textarea {
+              min-height: 76px;
+            }
+          }
+
+          button {
+            margin-left: 10px;
+            align-self: center;
+          }
+        }
+
+        &__body {
+          .comment {
+            margin-bottom: 4px;
+
+            &__link {
+              cursor: pointer;
+
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

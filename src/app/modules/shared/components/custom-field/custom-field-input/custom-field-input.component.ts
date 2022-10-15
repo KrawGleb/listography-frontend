@@ -1,7 +1,5 @@
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
-  AfterViewInit,
-  ChangeDetectorRef,
   Component,
   Input,
   OnDestroy,
@@ -16,7 +14,8 @@ import {
   NgControl,
 } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
-import { Observable, Subject } from 'rxjs';
+import { Editor, toHTML } from 'ngx-editor';
+import { Subject, tap } from 'rxjs';
 import {
   getCustomFieldValue,
   setCustomFieldValue,
@@ -43,6 +42,7 @@ export class CustomFieldInputComponent
     value: new FormControl(),
   });
 
+  public editor = new Editor();
   public autofilled?: boolean | undefined;
   public stateChanges = new Subject<void>();
   public focused: boolean = false;
@@ -105,11 +105,6 @@ export class CustomFieldInputComponent
   }
   set value(field: CustomField | null) {
     if (field) {
-      // if (field.type === CustomFieldType.BoolType) {
-      //   field.boolValue = false;
-      //   this.form.controls.value.markAsTouched();
-      // }
-
       this.field = field;
 
       this.form.setValue({
@@ -130,6 +125,9 @@ export class CustomFieldInputComponent
   }
 
   ngOnInit(): void {
+    this.editor.valueChanges
+      .pipe(tap((value) => setCustomFieldValue(this.field, toHTML(value))))
+      .subscribe();
     if (this.field.type == CustomFieldType.BoolType) {
       this.field.boolValue = false;
       this.onChange(this.field);
@@ -137,6 +135,7 @@ export class CustomFieldInputComponent
   }
 
   ngOnDestroy(): void {
+    this.editor.destroy();
     this.stateChanges.complete();
   }
 

@@ -24,16 +24,10 @@
         />
       </mat-form-field>
 
-      <mat-form-field *ngSwitchCase="CustomFieldTypes.TextType">
-        <mat-label> {{ field.name }} </mat-label>
-        <textarea
-          matInput
-          type="textarea"
-          formControlName="value"
-          [required]="required"
-          (input)="_handleInput()"
-        ></textarea>
-      </mat-form-field>
+      <div class="NgxEditor__Wrapper" *ngSwitchCase="CustomFieldTypes.TextType">
+        <ngx-editor-menu [editor]="editor"></ngx-editor-menu>
+        <ngx-editor [editor]="editor"></ngx-editor>
+      </div>
 
       <mat-form-field *ngSwitchCase="CustomFieldTypes.DateTimeType">
         <mat-label> {{ field.name }} </mat-label>

@@ -196,8 +196,9 @@
   font-family: "Dancing Script", cursive;
   font-size: 34px;
   margin-left: 20px;
-  cursor: pointer;
   transition: font-size 1s;
+  width: 2rem;
+  cursor: pointer;
 
   &:hover {
     transition: font-size 1s;

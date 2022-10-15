@@ -1,1 +1,2 @@
-<app-account [lists]="lists"></app-account>
+<app-account [lists]="lists" [editable]="isAdmin"></app-account>
+<app-toolbar *ngIf="isAdmin" [username]="username"></app-toolbar>

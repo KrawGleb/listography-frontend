@@ -20,6 +20,9 @@ export class AuthService {
       tap((response: any) => {
         if (response.succeeded) {
           localStorage.setItem(LocalStorageConstants.Token, response.token);
+
+          if (response.isAdmin)
+            localStorage.setItem(LocalStorageConstants.IsAdmin, response.isAdmin);
         }
       })
     );
