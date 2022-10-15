@@ -22,6 +22,7 @@ import { CustomFieldModule } from './components/custom-field/custom-field.module
 import { CustomFieldInputComponent } from './components/custom-field/custom-field-input/custom-field-input.component';
 import { CustomFieldComponent } from './components/custom-field/custom-field/custom-field.component';
 import { AdminModule } from './components/admin/admin.module';
+import { NgxEditorModule } from 'ngx-editor';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { AdminModule } from './components/admin/admin.module';
     ReactiveFormsModule,
     RouterModule,
     CustomFieldModule,
+    NgxEditorModule,
     MatFormFieldModule,
     MatToolbarModule,
     MatButtonModule,
