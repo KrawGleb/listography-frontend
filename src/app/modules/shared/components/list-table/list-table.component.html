@@ -16,9 +16,9 @@
         <td
           *ngFor="let customField of item.customFields"
           [routerLink]="['/item/', item.id]"
-        >
-          {{ getCustomFieldValue(customField) }}
-        </td>
+          [innerHtml]="getCustomFieldValue(customField)"
+        ></td>
+        
         <td *ngIf="isEdit">
           <button mat-mini-fab color="accent" (click)="editItem(item)">
             <mat-icon>edit</mat-icon>

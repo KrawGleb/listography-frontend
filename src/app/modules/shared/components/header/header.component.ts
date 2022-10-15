@@ -46,7 +46,6 @@ export class HeaderComponent extends DestroyableComponent {
   public search() {
     if (this.form.value.search)
     {
-      // this.router.navigate(['/search', this.form.value.search]);
       this.router.navigateByUrl(`/search/${this.form.value.search}`);
     }
   }

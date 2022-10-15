@@ -1,12 +1,7 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Guid } from 'guid-typescript';
+import { Editor, toHTML } from 'ngx-editor';
 import { BehaviorSubject, takeUntil, takeWhile, tap } from 'rxjs';
 import { topicToIcon } from 'src/app/helpers/topic-to-icon.helper';
 import { Topics } from 'src/app/models/constants/topics.constants';
@@ -25,6 +20,9 @@ export class ListEditableHeaderComponent
   implements OnInit
 {
   private list$ = new BehaviorSubject<List>({} as List);
+  public editor = new Editor();
+
+  private editorValue: string = '';
 
   @Input()
   public set list(value: List) {
@@ -52,13 +50,10 @@ export class ListEditableHeaderComponent
   public form = new FormGroup({
     title: new FormControl(''),
     topic: new FormControl(''),
-    description: new FormControl(''),
     imageUrl: new FormControl(''),
   });
 
-  constructor(
-    private readonly firebaseService: FirebaseService,
-  ) {
+  constructor(private readonly firebaseService: FirebaseService) {
     super();
   }
 
@@ -67,6 +62,13 @@ export class ListEditableHeaderComponent
       .pipe(
         takeUntil(this.onDestroy$),
         tap((list) => this.initForm(list))
+      )
+      .subscribe();
+
+    this.editor.valueChanges
+      .pipe(
+        takeUntil(this.onDestroy$),
+        tap((value) => (this.editorValue = toHTML(value)))
       )
       .subscribe();
   }
@@ -93,7 +95,7 @@ export class ListEditableHeaderComponent
     const info = {
       listId: this.list.id,
       title: this.form.value.title,
-      description: this.form.value.description,
+      description: this.editorValue,
       imageUrl: this.form.value.imageUrl,
       topic: { name: this.form.value.topic },
     } as SaveListInfoRequest;
@@ -107,8 +109,10 @@ export class ListEditableHeaderComponent
     this.form.setValue({
       topic: list.topic?.name ?? '',
       title: list.title ?? '',
-      description: list.description ?? '',
       imageUrl: list.imageUrl ?? '',
     });
+
+    if (list.description)
+      this.editor.setContent(list.description);
   }
 }

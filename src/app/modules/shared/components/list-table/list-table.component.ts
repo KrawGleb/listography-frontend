@@ -33,6 +33,9 @@ export class ListTableComponent extends DestroyableComponent implements OnInit {
         'name',
         ...(this._itemTemplate.customFields.map((f) => f.name) ?? []),
       ];
+
+      console.log(this._itemTemplate);
+      console.log(this.columnNames);
     }
   }
 
@@ -95,7 +98,7 @@ export class ListTableComponent extends DestroyableComponent implements OnInit {
     this.routerService.pushData({
       listId: this.id,
       item: item,
-      isEdit: true
+      isEdit: true,
     });
 
     this.router.navigateByUrl(`/item/edit/${item.id}`);

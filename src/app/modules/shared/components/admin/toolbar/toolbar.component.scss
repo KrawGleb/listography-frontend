@@ -1,0 +1,32 @@
+.toolbar {
+  right: 20px;
+  top: 150px;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  position: absolute;
+  margin: 10px;
+  padding: 10px;
+  &__title {
+    text-align: center;
+    font-weight: bold;
+    margin: 10px;
+  }
+
+  hr {
+    margin: 0px;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+
+    :last-child {
+      margin-bottom: 0px;
+    }
+  }
+
+  &__btn {
+    margin-bottom: 4px;
+  }
+}

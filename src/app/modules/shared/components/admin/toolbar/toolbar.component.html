@@ -1,0 +1,26 @@
+<div class="toolbar card">
+  <div class="toolbar__title">{{ username }}</div>
+  <hr />
+  <div class="toolbar__body">
+    <mat-checkbox
+      [checked]="isAdmin"
+      (change)="adminCheckboxChanged($event.checked)"
+    >
+      Admin
+    </mat-checkbox>
+    <mat-checkbox
+      [checked]="blocked"
+      (change)="blockedCheckboxChanged($event.checked)"
+    >
+      Blocked
+    </mat-checkbox>
+    <button
+      mat-raised-button
+      class="toolbar__btn"
+      color="warn"
+      (click)="deleteClick()"
+    >
+      Delete
+    </button>
+  </div>
+</div>

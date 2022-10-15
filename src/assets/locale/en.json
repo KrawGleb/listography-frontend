@@ -4,7 +4,8 @@
     "Edit": "Edit",
     "Add": "Add",
     "Yes": "Yes",
-    "No": "No"
+    "No": "No",
+    "Send": "Send"
   },
   "Validation": {
     "Required": "{{field}} is required",
@@ -96,6 +97,10 @@
       "Name": "Name",
       "Tags": "Tags",
       "Tag": "Tag"
+    },
+    "Page": {
+      "Comments": "Comments",
+      "Comment": "Your comment"
     }
   }
 }

@@ -58,6 +58,7 @@
                 [ngStyle]="{
                   'background-color': getRandomColor()
                 }"
+                (click)="searchByTag(tag.name)"
               >
                 {{ tag.name }}
               </div>

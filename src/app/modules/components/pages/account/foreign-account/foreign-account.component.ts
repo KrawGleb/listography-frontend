@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil, tap } from 'rxjs';
-import { Account } from 'src/app/models/account.model';
+import { LocalStorageConstants } from 'src/app/models/constants/local-storage.constants';
 import { List } from 'src/app/models/list.model';
 import { AccountsService } from 'src/app/modules/shared/services/api/accounts.service';
 import { DestroyableComponent } from '../../../../shared/helpers/destroyable/destroyable.component';
@@ -12,8 +12,9 @@ import { DestroyableComponent } from '../../../../shared/helpers/destroyable/des
   styleUrls: ['./foreign-account.component.scss'],
 })
 export class ForeignAccountComponent extends DestroyableComponent {
-  private username!: string;
+  public username!: string;
   public lists!: List[];
+  public isAdmin = !!localStorage.getItem(LocalStorageConstants.IsAdmin);
 
   constructor(
     private readonly route: ActivatedRoute,
