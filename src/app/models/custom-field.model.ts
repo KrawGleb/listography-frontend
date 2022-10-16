@@ -7,7 +7,7 @@ export interface CustomField {
   type: CustomFieldType;
 
   stringValue?: string | null;
-  intValue?: number | null;
+  numberValue?: number | null;
   dateTimeValue?: Date | null;
   boolValue?: boolean | null;
   textValue?: string | null;

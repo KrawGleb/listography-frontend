@@ -34,7 +34,11 @@
         margin-right: 6px;
         width: 60px;
         text-align: center;
-        font-size: 22px;
+        font-size: 20px;
+
+        mat-select {
+          height: 28px;
+        }
       }
 
       &__title {
