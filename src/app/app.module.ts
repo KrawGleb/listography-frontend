@@ -26,6 +26,7 @@ import { AuthModule } from './modules/auth/auth.module';
     HttpClientModule,
     NgbModule,
     AuthModule,
+    SharedModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { takeUntil, tap } from 'rxjs';
 import { LocalStorageConstants } from 'src/app/models/constants/local-storage.constants';
 import { List } from 'src/app/models/list.model';
+import { GlobalSpinnerService } from 'src/app/modules/shared/components/spinner/global-spinner.service';
 import { AccountsService } from 'src/app/modules/shared/services/api/accounts.service';
 import { DestroyableComponent } from '../../../../shared/helpers/destroyable/destroyable.component';
 
@@ -18,16 +19,19 @@ export class ForeignAccountComponent extends DestroyableComponent {
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly accountsService: AccountsService
+    private readonly accountsService: AccountsService,
+    private readonly spinnerService: GlobalSpinnerService
   ) {
     super();
 
     this.username = this.route.snapshot.paramMap.get('username')!;
 
-    this.accountsService.getAccountLists(this.username).pipe(
-      takeUntil(this.onDestroy$),
-      tap((response) => (this.lists = response))
-    )
-    .subscribe();
+    this.spinnerService
+      .wrap(this.accountsService.getAccountLists(this.username))
+      .pipe(
+        takeUntil(this.onDestroy$),
+        tap((response) => (this.lists = response))
+      )
+      .subscribe();
   }
 }
