@@ -23,7 +23,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ListCreateComponent } from './pages/list/create/create.component';
 import { ListViewComponent } from './pages/list/view/view.component';
 import { ListUpdateComponent } from './pages/list/update/update.component';
-import { ItemDialogComponent } from './pages/list/update/item-dialog/item-dialog.component';
 import { ItemComponent } from './pages/item/item/item.component';
 import { SharedModule } from '../shared/shared.module';
 import { AccountComponent } from './pages/account/account/account.component';
@@ -40,7 +39,6 @@ import { AdminModule } from '../shared/components/admin/admin.module';
     ListCreateComponent,
     ListViewComponent,
     ListUpdateComponent,
-    ItemDialogComponent,
     ItemComponent,
     MyAccountComponent,
     ForeignAccountComponent,
@@ -72,6 +70,6 @@ import { AdminModule } from '../shared/components/admin/admin.module';
     ItemModule,
   ],
   bootstrap: [ListUpdateComponent],
-  providers: []
+  providers: [],
 })
 export class ComponentsModule {}

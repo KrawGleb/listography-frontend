@@ -11,8 +11,8 @@ export function getCustomFieldValue(field: CustomField | undefined) {
       return field.boolValue;
     case CustomFieldType.DateTimeType:
       return field.dateTimeValue;
-    case CustomFieldType.IntType:
-      return field.intValue;
+    case CustomFieldType.NumberType:
+      return field.numberValue;
     case CustomFieldType.StringType:
       return field.stringValue;
     case CustomFieldType.TextType:
@@ -37,8 +37,8 @@ export function setCustomFieldValue(
     case CustomFieldType.DateTimeType:
       field.dateTimeValue = value as Date;
       return field;
-    case CustomFieldType.IntType:
-      field.intValue = value as number;
+    case CustomFieldType.NumberType:
+      field.numberValue = value as number;
       return field;
     case CustomFieldType.StringType:
       field.stringValue = value as string;

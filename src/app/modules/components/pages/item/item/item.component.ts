@@ -6,6 +6,7 @@ import { getRandomColor } from 'src/app/helpers/random-color.helper';
 import { CommentModel } from 'src/app/models/comment.model';
 import { Item } from 'src/app/models/item.model';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { GlobalSpinnerService } from 'src/app/modules/shared/components/spinner/global-spinner.service';
 import { DestroyableComponent } from 'src/app/modules/shared/helpers/destroyable/destroyable.component';
 import { ListsService } from 'src/app/modules/shared/services/api/lists.service';
 import { SocialService } from 'src/app/modules/shared/services/api/social.service';
@@ -30,15 +31,18 @@ export class ItemComponent extends DestroyableComponent {
     private readonly route: ActivatedRoute,
     private readonly listsService: ListsService,
     private readonly socialService: SocialService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly spinnerService: GlobalSpinnerService
   ) {
     super();
 
     this.id = +this.route.snapshot.paramMap.get('id')!;
     this.isAuthorize = this.authService.isAuthorize();
 
-    this.listsService
-      .getItem(this.id)
+    let item$ = this.listsService.getItem(this.id);
+
+    this.spinnerService
+      .wrap(item$)
       .pipe(
         takeUntil(this.onDestroy$),
         map((response) => response.body),
@@ -69,8 +73,7 @@ export class ItemComponent extends DestroyableComponent {
       this.socialService
         .comment(this.id, content)
         .pipe(
-          takeUntil(this.onDestroy$),
-          tap(() => {})
+          takeUntil(this.onDestroy$)
         )
         .subscribe();
     }
