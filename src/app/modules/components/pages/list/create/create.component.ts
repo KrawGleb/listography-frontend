@@ -9,6 +9,7 @@ import { takeUntil, tap } from 'rxjs';
 import { SaveListInfoRequest } from 'src/app/models/requests/list/save-info.request';
 import { Router } from '@angular/router';
 import { ListsService } from 'src/app/modules/shared/services/api/lists.service';
+import { GlobalSpinnerService } from 'src/app/modules/shared/components/spinner/global-spinner.service';
 
 @Component({
   selector: 'app-create',
@@ -21,7 +22,8 @@ export class ListCreateComponent extends DestroyableComponent {
 
   constructor(
     private readonly listsService: ListsService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly spinnerService: GlobalSpinnerService
   ) {
     super();
   }
@@ -65,8 +67,10 @@ export class ListCreateComponent extends DestroyableComponent {
       } as Item,
     } as List;
 
-    this.listsService
-      .create(list)
+    let createList$ = this.listsService.create(list);
+
+    this.spinnerService
+      .wrap(createList$)
       .pipe(
         takeUntil(this.onDestroy$),
         tap(() => this.router.navigateByUrl('/me'))

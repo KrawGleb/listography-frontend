@@ -23,6 +23,9 @@ import { CustomFieldInputComponent } from './components/custom-field/custom-fiel
 import { CustomFieldComponent } from './components/custom-field/custom-field/custom-field.component';
 import { AdminModule } from './components/admin/admin.module';
 import { NgxEditorModule } from 'ngx-editor';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { GlobalSpinnerComponent } from './components/spinner/global-spinner.component';
+import { GlobalSpinnerService } from './components/spinner/global-spinner.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,8 @@ import { NgxEditorModule } from 'ngx-editor';
     ConfirmationDialogComponent,
     HeaderComponent,
     ListCardComponent,
+    SpinnerComponent,
+    GlobalSpinnerComponent,
   ],
   imports: [
     CommonModule,
@@ -59,7 +64,10 @@ import { NgxEditorModule } from 'ngx-editor';
     ListCardComponent,
     CustomFieldInputComponent,
     CustomFieldComponent,
+    GlobalSpinnerComponent
   ],
-  providers: [RouteService],
+  providers: [
+    RouteService,
+    GlobalSpinnerService],
 })
 export class SharedModule {}

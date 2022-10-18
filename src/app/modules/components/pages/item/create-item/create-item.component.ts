@@ -8,6 +8,7 @@ import { CustomField } from 'src/app/models/custom-field.model';
 import { Item } from 'src/app/models/item.model';
 import { AddItemRequest } from 'src/app/models/requests/list/add-item.request';
 import { Tag } from 'src/app/models/tag.model';
+import { GlobalSpinnerService } from 'src/app/modules/shared/components/spinner/global-spinner.service';
 import { ListsService } from 'src/app/modules/shared/services/api/lists.service';
 import { RouteService } from 'src/app/modules/shared/services/common/route.service';
 
@@ -37,7 +38,8 @@ export class CreateItemComponent implements OnInit {
     private readonly router: Router,
     private readonly cdr: ChangeDetectorRef,
     private readonly listsService: ListsService,
-    private readonly snackBar: MatSnackBar
+    private readonly snackBar: MatSnackBar,
+    private readonly spinnerService: GlobalSpinnerService
   ) {
     const data = this.routeService.popData();
     console.log(data);
@@ -94,9 +96,10 @@ export class CreateItemComponent implements OnInit {
   public create() {
     const formValue = this.form.value;
     const tags = this.tags.map((t) => t as Tag);
-    const customFieldsValues = Object.values(this.customFieldsForm.value).map(v => v as CustomField)
+    const customFieldsValues = Object.values(this.customFieldsForm.value).map(
+      (v) => v as CustomField
+    );
     let response$: Observable<any>;
-
 
     if (this.isEdit) {
       const item = {
@@ -118,7 +121,8 @@ export class CreateItemComponent implements OnInit {
       response$ = this.listsService.addItem(request);
     }
 
-    response$
+    this.spinnerService
+      .wrap(response$)
       .pipe(
         tap((response) => {
           if (response.succeeded) {

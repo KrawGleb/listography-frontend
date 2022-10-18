@@ -1,0 +1,7 @@
+<div class="spinner-overlay" *ngIf="isShow | async"></div>
+<div class="spinner__wrapper" *ngIf="isShow | async">
+  <i class="spinner"></i>
+  <div class="spinner__text-bg" *ngIf="text$ | async">
+    <p class="spinner__text">{{ (text$ | async) || "" | translate }}</p>
+  </div>
+</div>
