@@ -11,4 +11,8 @@ export class CustomFieldComponent {
   @Input() public field!: CustomField;
 
   public CustomFieldType = CustomFieldType;
+
+  public getSelectedValue(field: CustomField) {
+    return field.selectOptions?.find(o => o.value === field.selectValue);
+  }
 }

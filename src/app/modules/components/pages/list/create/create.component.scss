@@ -12,4 +12,15 @@
     margin-left: 10px;
     margin-right: 14px;
   }
+
+  &__actions {
+    margin-right: 10px;
+  }
+}
+
+.select {
+  &__form {
+    display: flex;
+    flex-direction: row;
+  }
 }
