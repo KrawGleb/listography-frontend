@@ -106,9 +106,10 @@ export class CustomFieldInputComponent
   set value(field: CustomField | null) {
     if (field) {
       this.field = field;
+      const fieldValue = getCustomFieldValue(field) ?? '';
 
       this.form.setValue({
-        value: getCustomFieldValue(field),
+        value: fieldValue,
       });
     }
     this.stateChanges.next();
@@ -128,9 +129,15 @@ export class CustomFieldInputComponent
     this.editor.valueChanges
       .pipe(tap((value) => setCustomFieldValue(this.field, toHTML(value))))
       .subscribe();
+
     if (this.field.type == CustomFieldType.BoolType) {
       this.field.boolValue = false;
       this.onChange(this.field);
+    }
+    else if (this.field.type == CustomFieldType.SelectType) {
+      this.form.setValue({
+        value: this.field.selectValue
+      })
     }
   }
 

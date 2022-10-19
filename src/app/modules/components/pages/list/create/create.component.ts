@@ -10,6 +10,7 @@ import { SaveListInfoRequest } from 'src/app/models/requests/list/save-info.requ
 import { Router } from '@angular/router';
 import { ListsService } from 'src/app/modules/shared/services/api/lists.service';
 import { GlobalSpinnerService } from 'src/app/modules/shared/components/spinner/global-spinner.service';
+import { SelectOption } from 'src/app/models/select-option.model';
 
 @Component({
   selector: 'app-create',
@@ -17,8 +18,13 @@ import { GlobalSpinnerService } from 'src/app/modules/shared/components/spinner/
   styleUrls: ['./create.component.scss'],
 })
 export class ListCreateComponent extends DestroyableComponent {
-  public itemTemplateControls: FormGroup[] = [];
   public CustomFieldTypes = CustomFieldType;
+
+  public customFields: FormGroup[] = [];
+  public selectTemplates: {
+    customField: FormGroup;
+    options: FormGroup[];
+  }[] = [];
 
   constructor(
     private readonly listsService: ListsService,
@@ -29,33 +35,83 @@ export class ListCreateComponent extends DestroyableComponent {
   }
 
   public addCustomField() {
-    const group = new FormGroup({
+    const customField = new FormGroup({
       name: new FormControl(''),
       type: new FormControl(''),
-      order: new FormControl(this.itemTemplateControls.length),
+      order: new FormControl(this.customFields.length),
     });
 
-    this.itemTemplateControls.push(group);
+    customField.valueChanges
+      .pipe(
+        takeUntil(this.onDestroy$),
+        tap((_) => this.onItemTemplateChanged(customField))
+      )
+      .subscribe();
+
+    this.customFields.push(customField);
   }
 
   public removeCustomField(field: FormGroup) {
-    this.itemTemplateControls = this.itemTemplateControls.filter(
-      (f) => f !== field
+    this.customFields = this.customFields.filter((f) => f !== field);
+
+    this.selectTemplates = this.selectTemplates.filter(
+      (t) => t.customField !== field
     );
+  }
+
+  public getSelectTemplate(customField: FormGroup) {
+    return this.selectTemplates.find((t) => t.customField === customField);
+  }
+
+  public addSelectOption(customField: FormGroup) {
+    const template = this.getSelectTemplate(customField)!;
+    const selectOption = new FormGroup({
+      value: new FormControl(template.options.length + 1),
+      text: new FormControl(''),
+    });
+    template.options.push(selectOption);
+
+    selectOption.valueChanges.subscribe((v) => console.log(v));
   }
 
   public onSave(request: SaveListInfoRequest) {
     this.createList(request);
   }
 
-  private createList(listInfo: SaveListInfoRequest) {
-    const customFields = this.itemTemplateControls.map((control) => {
+  private onItemTemplateChanged(group: FormGroup) {
+    if (group.value.type === this.CustomFieldTypes.SelectType) {
+      this.selectTemplates.push({
+        customField: group,
+        options: [],
+      });
+    } else {
+      this.selectTemplates = this.selectTemplates.filter(
+        (t) => t.customField !== group
+      );
+    }
+
+    console.log(this.selectTemplates);
+  }
+
+  private collectCustomFields() {
+    const customFields = this.customFields.map((control) => {
+      const selectOptions = this.selectTemplates
+        .find((t) => t.customField === control)
+        ?.options.map((o) => o.value as SelectOption);
+
       return {
         name: control.value.name,
         type: control.value.type,
         order: control.value.order,
+        selectOptions: selectOptions,
       } as CustomField;
     });
+
+    return customFields;
+  }
+
+  private createList(listInfo: SaveListInfoRequest) {
+    const customFields = this.collectCustomFields();
 
     const list = {
       title: listInfo.title,

@@ -16,8 +16,7 @@
 
   <div class="custom-field__text" *ngSwitchCase="CustomFieldType.TextType">
     <div class="custom-field__title">{{ field.name }}:</div>
-    <div class="custom-field__value" [innerHtml]="field.textValue">
-    </div>
+    <div class="custom-field__value" [innerHtml]="field.textValue"></div>
   </div>
 
   <div class="custom-field__date" *ngSwitchCase="CustomFieldType.DateTimeType">
@@ -30,7 +29,14 @@
   <div class="custom-field__number" *ngSwitchCase="CustomFieldType.NumberType">
     <div class="custom-field__title">{{ field.name }}:</div>
     <div class="custom-field__value">
-      {{ field.numberValue}}
+      {{ field.numberValue }}
+    </div>
+  </div>
+
+  <div class="custom-field__select" *ngSwitchCase="CustomFieldType.SelectType">
+    <div class="custom-field__title">{{ field.name }}:</div>
+    <div class="custom-field__value">
+      {{ getSelectedValue(field)?.text }}
     </div>
   </div>
 </div>

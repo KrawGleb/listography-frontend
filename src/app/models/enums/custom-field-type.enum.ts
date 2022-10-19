@@ -4,4 +4,5 @@ export enum CustomFieldType {
   DateTimeType = 2,
   BoolType = 3,
   TextType = 4,
+  SelectType = 5,
 }
