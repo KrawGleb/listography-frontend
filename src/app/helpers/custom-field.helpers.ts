@@ -17,6 +17,9 @@ export function getCustomFieldValue(field: CustomField | undefined) {
       return field.stringValue;
     case CustomFieldType.TextType:
       return field.textValue;
+    case CustomFieldType.SelectType:
+      return field.selectOptions?.find((o) => o.value === field.selectValue)
+        ?.text;
     default:
       throw new Error('Unknown field type.');
   }
@@ -45,6 +48,9 @@ export function setCustomFieldValue(
       return field;
     case CustomFieldType.TextType:
       field.textValue = value as string;
+      return field;
+    case CustomFieldType.SelectType:
+      field.selectValue = value as number;
       return field;
     default:
       throw new Error('Unknown field type.');

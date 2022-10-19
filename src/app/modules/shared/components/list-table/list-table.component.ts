@@ -33,9 +33,6 @@ export class ListTableComponent extends DestroyableComponent implements OnInit {
         'name',
         ...(this._itemTemplate.customFields.map((f) => f.name) ?? []),
       ];
-
-      console.log(this._itemTemplate);
-      console.log(this.columnNames);
     }
   }
 

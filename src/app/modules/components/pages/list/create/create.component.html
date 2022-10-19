@@ -14,9 +14,15 @@
 
     <div
       class="template__custom-field custom-field"
-      *ngFor="let field of itemTemplateControls"
+      *ngFor="let field of customFields"
     >
       <form [formGroup]="field" class="custom-field__form">
+        <div class="custom-field__actions">
+          <button mat-mini-fab (click)="removeCustomField(field)" color="warn">
+            <mat-icon>remove</mat-icon>
+          </button>
+        </div>
+
         <mat-form-field class="custom-field__name">
           <mat-label>
             {{ "List.Fields.ItemTemplate.CustomField.Name" | translate }}
@@ -29,16 +35,45 @@
             {{ "List.Fields.ItemTemplate.CustomField.Type" | translate }}
           </mat-label>
           <mat-select formControlName="type">
-            <mat-option [value]="CustomFieldTypes.StringType">String</mat-option>
+            <mat-option [value]="CustomFieldTypes.StringType"
+              >String</mat-option
+            >
             <mat-option [value]="CustomFieldTypes.BoolType">Yes/No</mat-option>
-            <mat-option [value]="CustomFieldTypes.NumberType">Number</mat-option>
-            <mat-option [value]="CustomFieldTypes.DateTimeType">Date</mat-option>
+            <mat-option [value]="CustomFieldTypes.NumberType"
+              >Number</mat-option
+            >
+            <mat-option [value]="CustomFieldTypes.DateTimeType"
+              >Date</mat-option
+            >
             <mat-option [value]="CustomFieldTypes.TextType">Text</mat-option>
+            <mat-option [value]="CustomFieldTypes.SelectType"
+              >Select</mat-option
+            >
           </mat-select>
         </mat-form-field>
 
-        <div class="custom-field__actions">
-          <button mat-mini-fab (click)="removeCustomField(field)" color="warn"><mat-icon>remove</mat-icon></button>
+        <div
+          *ngIf="field.value.type === CustomFieldTypes.SelectType"
+          class="custom-field__select select"
+        >
+          <div class="select__inputs">
+            <form
+              *ngFor="let template of getSelectTemplate(field)?.options"
+              [formGroup]="template"
+              class="select__form"
+            >
+              <mat-form-field>
+                <input matInput type="text" formControlName="text" />
+              </mat-form-field>
+
+              <div class="select__delete-option">
+                <button mat-mini-fab color="warn"><mat-icon>remove</mat-icon></button>
+              </div>
+            </form>
+          </div>
+          <div class="select__button" (click)="addSelectOption(field)">
+            <button mat-mini-fab><mat-icon>add</mat-icon></button>
+          </div>
         </div>
       </form>
     </div>

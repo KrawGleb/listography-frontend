@@ -43,12 +43,31 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
+      <mat-form-field *ngSwitchCase="CustomFieldTypes.SelectType">
+        <mat-label> {{ field.name }} </mat-label>
+        <mat-select
+          matNativeControl
+          formControlName="value"
+          [required]="required"
+          (selectionChange)="_handleInput()"
+        >
+          <mat-option
+            *ngFor="let option of field.selectOptions"
+            [value]="option.value"
+          >
+            {{ option.text }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <mat-checkbox
         *ngSwitchCase="CustomFieldTypes.BoolType"
         formControlName="value"
         (input)="_handleInput()"
         >{{ field.name }}</mat-checkbox
       >
+
+      <input *ngSwitchDefault formControlName="value" type="hidden" />
     </form>
   </div>
 </div>
