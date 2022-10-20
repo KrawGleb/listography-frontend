@@ -13,13 +13,13 @@ export class AccountsService {
 
   public getMe(): Observable<Account> {
     return this.httpService
-      .get<CommonResponse<Account>>('/users/me', true)
+      .get<CommonResponse<Account>>('/accounts/me', true)
       .pipe(map((response) => response.body));
   }
 
   public getAccountLists(username: string): Observable<List[]> {
     return this.httpService
-      .get<CommonResponse<List[]>>(`/users/${username}`, false)
+      .get<CommonResponse<List[]>>(`/accounts/${username}`, false)
       .pipe(map((response) => response.body));
   }
 }
