@@ -10,15 +10,18 @@
     </thead>
 
     <tbody>
-      <tr class="table__row" *ngFor="let item of items">
-        <th scope="row" [routerLink]="['/item/', item.id]">{{ item.id }}</th>
+      <tr class="table__row" *ngFor="let item of items; let i = index">
+        <th scope="row" [routerLink]="['/item/', item.id]">{{ i + 1 }}</th>
         <td [routerLink]="['/item/', item.id]">{{ item.name }}</td>
+        <td [routerLink]="['/item/', item.id]">
+          <span *ngFor="let tag of item.tags"> {{ tag.name }} <br /> </span>
+        </td>
         <td
-          *ngFor="let customField of item.customFields"
+          *ngFor="let customField of filterTableFields(item.customFields)"
           [routerLink]="['/item/', item.id]"
           [innerHtml]="getCustomFieldValue(customField)"
         ></td>
-        
+
         <td *ngIf="isEdit">
           <button mat-mini-fab color="accent" (click)="editItem(item)">
             <mat-icon>edit</mat-icon>

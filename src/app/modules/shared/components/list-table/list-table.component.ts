@@ -9,13 +9,15 @@ import { RouteService } from '../../services/common/route.service';
 import { Router } from '@angular/router';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { filter, takeUntil, tap } from 'rxjs';
+import { CustomFieldType } from 'src/app/models/enums/custom-field-type.enum';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-list-table',
   templateUrl: './list-table.component.html',
   styleUrls: ['./list-table.component.scss'],
 })
-export class ListTableComponent extends DestroyableComponent implements OnInit {
+export class ListTableComponent extends DestroyableComponent {
   @Input() public id!: number;
   @Input() public items!: Item[];
   @Input() public isEdit: boolean = false;
@@ -28,10 +30,14 @@ export class ListTableComponent extends DestroyableComponent implements OnInit {
     if (value) {
       this._itemTemplate = value;
 
+      const filteredFields = this.filterTableFields(
+        this._itemTemplate.customFields
+      );
       this.columnNames = [
-        'id',
-        'name',
-        ...(this._itemTemplate.customFields.map((f) => f.name) ?? []),
+        '#',
+        '',
+        'tags',
+        ...(filteredFields.map((f) => f.name) ?? []),
       ];
     }
   }
@@ -44,15 +50,20 @@ export class ListTableComponent extends DestroyableComponent implements OnInit {
     private readonly routerService: RouteService,
     private readonly router: Router,
     private readonly dialog: MatDialog,
-    private readonly listsService: ListsService
+    private readonly listsService: ListsService,
+    private readonly datePipe: DatePipe
   ) {
     super();
   }
 
-  ngOnInit(): void {}
-
   public getCustomFieldValue(field: CustomField) {
-    return getCustomFieldValue(field);
+    let value = getCustomFieldValue(field);
+
+    if (field.type === CustomFieldType.DateTimeType) {
+      value = this.datePipe.transform(value?.toString());
+    }
+
+    return value;
   }
 
   public addItem() {
@@ -99,5 +110,17 @@ export class ListTableComponent extends DestroyableComponent implements OnInit {
     });
 
     this.router.navigateByUrl(`/item/edit/${item.id}`);
+  }
+
+  public filterTableFields(fields: CustomField[]) {
+    return fields.filter((f) => {
+      const type = f.type;
+
+      return [
+        CustomFieldType.StringType,
+        CustomFieldType.DateTimeType,
+        CustomFieldType.SelectType,
+      ].some((t) => t === type);
+    });
   }
 }

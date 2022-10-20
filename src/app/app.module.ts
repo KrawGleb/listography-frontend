@@ -51,7 +51,6 @@ import { AuthModule } from './modules/auth/auth.module';
       messagingSenderId: '964387488071',
       appId: '1:964387488071:web:3d3c5189100cd089868c62',
     }),
-    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
