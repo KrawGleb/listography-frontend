@@ -20,10 +20,7 @@ export class RegisterComponent extends DestroyableComponent {
   public form = new FormGroup(
     {
       email: new FormControl('', [Validators.required, Validators.email]),
-      username: new FormControl('', [
-        Validators.required,
-        Validators.pattern('[a-zA-Zd]+'),
-      ]),
+      username: new FormControl('', [Validators.required]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
@@ -81,7 +78,6 @@ export class RegisterComponent extends DestroyableComponent {
       )
       .subscribe();
   }
-
 
   private showErrors(errors: string[]) {
     const message = errors[0];
