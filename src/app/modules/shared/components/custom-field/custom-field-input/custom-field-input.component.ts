@@ -22,6 +22,8 @@ import {
 } from 'src/app/helpers/custom-field.helpers';
 import { CustomField } from 'src/app/models/custom-field.model';
 import { CustomFieldType } from 'src/app/models/enums/custom-field-type.enum';
+import { CustomFieldValidationRules } from 'src/app/models/validation/rules/custom-field-validation-rules';
+import { richTextMaxLengthValidator } from '../../../validators/list-description.validator';
 
 @Component({
   selector: 'app-custom-field-input',
@@ -36,7 +38,9 @@ export class CustomFieldInputComponent
     OnInit
 {
   static nextId = 0;
+
   public CustomFieldTypes = CustomFieldType;
+  public ValidationRules = CustomFieldValidationRules;
 
   public form = new FormGroup({
     value: new FormControl(),
@@ -111,6 +115,10 @@ export class CustomFieldInputComponent
       this.form.setValue({
         value: fieldValue,
       });
+
+      if (field.type === CustomFieldType.TextType) {
+        this.form.controls.value.addValidators(richTextMaxLengthValidator());
+      }
     }
     this.stateChanges.next();
   }
@@ -133,11 +141,10 @@ export class CustomFieldInputComponent
     if (this.field.type == CustomFieldType.BoolType) {
       this.field.boolValue = false;
       this.onChange(this.field);
-    }
-    else if (this.field.type == CustomFieldType.SelectType) {
+    } else if (this.field.type == CustomFieldType.SelectType) {
       this.form.setValue({
-        value: this.field.selectValue
-      })
+        value: this.field.selectValue,
+      });
     }
   }
 

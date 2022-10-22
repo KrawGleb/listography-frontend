@@ -8,6 +8,8 @@ import { CustomField } from 'src/app/models/custom-field.model';
 import { Item } from 'src/app/models/item.model';
 import { AddItemRequest } from 'src/app/models/requests/list/add-item.request';
 import { Tag } from 'src/app/models/tag.model';
+import { ItemValidationRules } from 'src/app/models/validation/rules/item-validation-rules';
+import { TagValidationRules } from 'src/app/models/validation/rules/tag-validation-rules';
 import { GlobalSpinnerService } from 'src/app/modules/shared/components/spinner/global-spinner.service';
 import { ListsService } from 'src/app/modules/shared/services/api/lists.service';
 import { RouteService } from 'src/app/modules/shared/services/common/route.service';
@@ -18,6 +20,10 @@ import { RouteService } from 'src/app/modules/shared/services/common/route.servi
   styleUrls: ['./create-item.component.scss'],
 })
 export class CreateItemComponent implements OnInit {
+  public tagValidationRules = TagValidationRules;
+  public itemValidationRules = ItemValidationRules;
+
+
   private listId!: number;
   public template!: Item;
   public itemId?: number;
@@ -42,7 +48,6 @@ export class CreateItemComponent implements OnInit {
     private readonly spinnerService: GlobalSpinnerService
   ) {
     const data = this.routeService.popData();
-    console.log(data);
 
     if (!data) {
       this.router.navigateByUrl('/home');

@@ -10,6 +10,7 @@
           [required]="required"
           (input)="_handleInput()"
           [value]="getCustomFieldValue(field)"
+          [maxlength]="ValidationRules.stringValueMaxLength"
         />
       </mat-form-field>
 

@@ -1,14 +1,16 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Guid } from 'guid-typescript';
-import { Editor, toHTML } from 'ngx-editor';
+import { Editor, toHTML, Validators } from 'ngx-editor';
 import { BehaviorSubject, takeUntil, takeWhile, tap } from 'rxjs';
 import { topicToIcon } from 'src/app/helpers/topic-to-icon.helper';
 import { Topics } from 'src/app/models/constants/topics.constants';
 import { List } from 'src/app/models/list.model';
 import { SaveListInfoRequest } from 'src/app/models/requests/list/save-info.request';
+import { ListValidationRules } from 'src/app/models/validation/rules/list-validation-rules';
 import { DestroyableComponent } from 'src/app/modules/shared/helpers/destroyable/destroyable.component';
 import { FirebaseService } from '../../../services/api/firebase.service';
+import { richTextMaxLengthValidator } from '../../../validators/list-description.validator';
 
 @Component({
   selector: 'app-list-editable-header',
@@ -19,10 +21,12 @@ export class ListEditableHeaderComponent
   extends DestroyableComponent
   implements OnInit
 {
-  private list$ = new BehaviorSubject<List>({} as List);
-  public editor = new Editor();
+  public listValidation = ListValidationRules;
 
+  private list$ = new BehaviorSubject<List>({} as List);
   private editorValue: string = '';
+
+  public editor = new Editor();
 
   @Input()
   public set list(value: List) {
@@ -51,6 +55,9 @@ export class ListEditableHeaderComponent
     title: new FormControl(''),
     topic: new FormControl(''),
     imageUrl: new FormControl(''),
+    description: new FormControl('', [
+      richTextMaxLengthValidator(),
+    ]),
   });
 
   constructor(private readonly firebaseService: FirebaseService) {
@@ -64,20 +71,11 @@ export class ListEditableHeaderComponent
         tap((list) => this.initForm(list))
       )
       .subscribe();
-
-    this.editor.valueChanges
-      .pipe(
-        takeUntil(this.onDestroy$),
-        tap((value) => (this.editorValue = toHTML(value)))
-      )
-      .subscribe();
   }
 
   public uploadImage(event: any) {
     const file = event.target.files[0];
     const path = Guid.create().toString();
-
-    console.log(path);
 
     this.firebaseService
       .uploadImage(path, file)
@@ -95,7 +93,7 @@ export class ListEditableHeaderComponent
     const info = {
       listId: this.list.id,
       title: this.form.value.title,
-      description: this.editorValue,
+      description: this.form.value.description,
       imageUrl: this.form.value.imageUrl,
       topic: { name: this.form.value.topic },
     } as SaveListInfoRequest;
@@ -110,9 +108,9 @@ export class ListEditableHeaderComponent
       topic: list.topic?.name ?? '',
       title: list.title ?? '',
       imageUrl: list.imageUrl ?? '',
+      description: list.description ?? '',
     });
 
-    if (list.description)
-      this.editor.setContent(list.description);
+    this.form.valueChanges.subscribe((v) => console.log(this.form.value.description?.length));
   }
 }

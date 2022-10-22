@@ -5,6 +5,7 @@ import { map, Observable, switchMap, takeUntil, tap, timer } from 'rxjs';
 import { getRandomColor } from 'src/app/helpers/random-color.helper';
 import { CommentModel } from 'src/app/models/comment.model';
 import { Item } from 'src/app/models/item.model';
+import { CommentValidationRules } from 'src/app/models/validation/rules/comment-validation-rules';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { GlobalSpinnerService } from 'src/app/modules/shared/components/spinner/global-spinner.service';
 import { DestroyableComponent } from 'src/app/modules/shared/helpers/destroyable/destroyable.component';
@@ -17,6 +18,8 @@ import { SocialService } from 'src/app/modules/shared/services/api/social.servic
   styleUrls: ['./item.component.scss'],
 })
 export class ItemComponent extends DestroyableComponent {
+  public commentValidationRules = CommentValidationRules;
+
   private id!: number;
 
   public isAuthorize = false;

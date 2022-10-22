@@ -30,13 +30,21 @@
                   <mat-icon>remove</mat-icon>
                 </span>
               </div>
-              <mat-form-field>
-                <mat-label> {{ "Item.Fields.Tag" | translate }} </mat-label>
-                <input matInput type="text" formControlName="tag" />
-              </mat-form-field>
-              <button mat-raised-button (click)="addTag()">
-                <mat-icon>add</mat-icon>
-              </button>
+
+              <div [hidden]="tags.length >= itemValidationRules.tagsMaxCount">
+                <mat-form-field>
+                  <mat-label> {{ "Item.Fields.Tag" | translate }} </mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="tag"
+                    [maxlength]="tagValidationRules.tagMaxLength"
+                  />
+                </mat-form-field>
+                <button mat-raised-button (click)="addTag()">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
             </div>
           </form>
 
