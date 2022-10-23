@@ -31,4 +31,9 @@ export class AuthService {
   public isAuthorize() {
     return !!localStorage.getItem(LocalStorageConstants.Token);
   }
+
+  public logout() {
+    localStorage.removeItem(LocalStorageConstants.IsAdmin);
+    localStorage.removeItem(LocalStorageConstants.Token);
+  }
 }

@@ -5,7 +5,9 @@
     "Add": "Add",
     "Yes": "Yes",
     "No": "No",
-    "Send": "Send"
+    "Send": "Send",
+    "Delete": "Delete",
+    "Actions": "Actions"
   },
   "Validation": {
     "Required": "{{field}} is required",
@@ -27,7 +29,8 @@
           "Russian": "Russian",
           "English": "English"
         }
-      }
+      },
+      "Logout": "Logout"
     },
     "Toolbar": {
       "Login": "Login",
@@ -79,6 +82,14 @@
           "Name": "Name",
           "Type": "Type"
         }
+      },
+      "Types": {
+        "String": "String",
+        "Number": "Number",
+        "Text": "Text",
+        "Bool": "Yes/No",
+        "Select": "Select",
+        "Date": "Date"
       }
     }
   },

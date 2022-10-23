@@ -1,6 +1,22 @@
 {
-  "Header" : {
-    "Menu" : {
+  "Actions": {
+    "Save": "Сохранить",
+    "Edit": "Изменить",
+    "Add": "Добавить",
+    "Yes": "Да",
+    "No": "Нет",
+    "Send": "Отправить",
+    "Delete": "Удалить",
+    "Actions": "Действия"
+  },
+  "Validation": {
+    "Required": "{{field}} обязательное",
+    "MinLength": "{{field}} минимальная длина {{value}} символа",
+    "Email": "Некорректный email",
+    "NotMatchPasswords": "Пароли должны совпадать"
+  },
+  "Header": {
+    "Menu": {
       "Title": "Меню",
       "Items": {
         "Themes": {
@@ -11,13 +27,91 @@
         "Languages": {
           "Title": "Языки",
           "Russian": "Русский",
-          "English": "Анлийский"
+          "English": "English"
         }
-      }
+      },
+      "Logout": "Выйти"
     },
     "Toolbar": {
-      "Login" : "Войти",
+      "Login": "Войти",
       "Register": "Зарегистрироваться"
+    }
+  },
+  "Login": {
+    "Title": "Войти",
+    "Action": "Войти",
+    "Labels": {
+      "Email": "Email",
+      "Password": "Пароль"
+    }
+  },
+  "Register": {
+    "Title": "Регистриция",
+    "Action": "Зарегистрироваться",
+    "Labels": {
+      "Email": "Email",
+      "Username": "Имя",
+      "Password": "Пароль",
+      "RepeatPassword": "Пароль ещё раз"
+    }
+  },
+  "Home": {
+    "Collections": "Топ 5 коллекций",
+    "Items": "Последние добавленные записи",
+    "Tags": "Теги"
+  },
+  "Update": {
+    "Actions": "Действия"
+  },
+  "List": {
+    "Actions": {
+      "Delete": {
+        "ConfirmationTitle": "Подтвержение удаления",
+        "ConfirmationMessage": "Вы уверены что хотите удалить список?"
+      }
+    },
+    "Fields": {
+      "Title": "Заголовок",
+      "Description": "Описание",
+      "ImageUrl": "Изображение",
+      "Topic": "Тема",
+      "ItemTemplate": {
+        "Label": "Шаблон",
+        "Name": "Имя",
+        "CustomField": {
+          "Name": "Название",
+          "Type": "Тип"
+        }
+      },
+      "Types": {
+        "String": "Строка",
+        "Number": "Число",
+        "Text": "Текст",
+        "Bool": "Да/Нет",
+        "Select": "Выбор",
+        "Date": "Дата"
+      }
+    }
+  },
+  "Item": {
+    "Form": {
+      "CreateTitle": "Добавление записи",
+      "EditTitle": "Редактирование записи"
+    },
+    "Actions": {
+      "Delete": {
+        "ConfirmationTitle": "Подтвержение удаления",
+        "ConfirmationMessage": "Вы уверены что хотите удалить запись?"
+      }
+    },
+    "Fields": {
+      "Name": "Имя",
+      "Tags": "Теги",
+      "Tag": "Тег"
+    },
+    "Page": {
+      "Comments": "Комментарии",
+      "Comment": "Ваш комментарий"
     }
   }
 }

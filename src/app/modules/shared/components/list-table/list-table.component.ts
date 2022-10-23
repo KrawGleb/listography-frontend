@@ -11,6 +11,7 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
 import { filter, takeUntil, tap } from 'rxjs';
 import { CustomFieldType } from 'src/app/models/enums/custom-field-type.enum';
 import { DatePipe } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-list-table',
@@ -33,12 +34,8 @@ export class ListTableComponent extends DestroyableComponent {
       const filteredFields = this.filterTableFields(
         this._itemTemplate.customFields
       );
-      this.columnNames = [
-        '#',
-        '',
-        'tags',
-        ...(filteredFields.map((f) => f.name) ?? []),
-      ];
+
+      this.columnNames = [...(filteredFields.map((f) => f.name) ?? [])];
     }
   }
 
@@ -51,7 +48,8 @@ export class ListTableComponent extends DestroyableComponent {
     private readonly router: Router,
     private readonly dialog: MatDialog,
     private readonly listsService: ListsService,
-    private readonly datePipe: DatePipe
+    private readonly datePipe: DatePipe,
+    private readonly translateService: TranslateService
   ) {
     super();
   }

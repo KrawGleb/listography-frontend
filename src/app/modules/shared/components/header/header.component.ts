@@ -38,8 +38,8 @@ export class HeaderComponent extends DestroyableComponent {
     this.translateService.use(language);
   }
 
-  public signOut() {
-    localStorage.removeItem(LocalStorageConstants.Token);
+  public logout() {
+    this.authService.logout();
     this.router.navigateByUrl('/login');
   }
 
