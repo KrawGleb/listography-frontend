@@ -131,7 +131,7 @@ export class CreateItemComponent implements OnInit {
       .pipe(
         tap((response) => {
           if (response.succeeded) {
-            this.router.navigateByUrl('/me');
+            this.router.navigateByUrl(`/list/update/${this.listId}`);
           } else {
             this.snackBar.open((response as any).errors[0], 'Ok', {
               duration: 2000,
