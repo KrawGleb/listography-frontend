@@ -1,5 +1,4 @@
 .table__container {
-  color: white;
   position: relative;
   margin-top: 12px;
 
@@ -28,4 +27,14 @@ mat-dialog-container {
 
 .edit__button {
   background-color: darkcyan;
+}
+
+.table {
+  --bs-table-striped-color: inherit;
+  --bs-table-color: inherit;
+}
+
+@mixin list-table-theme($theme) {
+  $foreground: map-get($theme, foreground);
+
 }

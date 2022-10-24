@@ -42,7 +42,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           errorMessage = (errorMessages as any)[status];
         }
 
-        if ((error.error as any).errors) {
+        if (error.error && (error.error as any).errors) {
           errorMessage = (error.error as any).errors.join('\n');
         }
 
