@@ -15,6 +15,7 @@ import { HomeService } from 'src/app/modules/shared/services/api/home.service';
 })
 export class HomeComponent extends DestroyableComponent implements OnInit {
   public info?: HomeInfo;
+  public colors: string[] = [];
 
   constructor(
     private readonly homeService: HomeService,
@@ -30,7 +31,10 @@ export class HomeComponent extends DestroyableComponent implements OnInit {
       .pipe(
         takeUntil(this.onDestroy$),
         map((response: any) => response.body),
-        tap((info) => (this.info = info))
+        tap((info: HomeInfo) => {
+          this.info = info;
+          this.colors = info.tags.map((t) => getRandomColor());
+        })
       )
       .subscribe();
   }

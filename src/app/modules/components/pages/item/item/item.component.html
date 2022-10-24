@@ -46,7 +46,7 @@
               type="text"
               matInput
               formControlName="comment"
-              maxlength="300"
+              [maxlength]="commentValidationRules.contentMaxLength"
             ></textarea>
           </mat-form-field>
 

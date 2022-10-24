@@ -1,6 +1,7 @@
 @import '../app/modules/shared/components/header/header.component';
-
+@import '../app/modules/shared/components/list-table/list-table.component';
 
 @mixin component-themes($theme) {
   @include header-theme($theme);
+  @include list-table-theme($theme);
 }

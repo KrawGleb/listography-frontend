@@ -21,8 +21,16 @@ export class AuthService {
         if (response.succeeded) {
           localStorage.setItem(LocalStorageConstants.Token, response.token);
 
+          localStorage.setItem(
+            LocalStorageConstants.Username,
+            response.username
+          );
+
           if (response.isAdmin)
-            localStorage.setItem(LocalStorageConstants.IsAdmin, response.isAdmin);
+            localStorage.setItem(
+              LocalStorageConstants.IsAdmin,
+              response.isAdmin
+            );
         }
       })
     );
@@ -30,5 +38,11 @@ export class AuthService {
 
   public isAuthorize() {
     return !!localStorage.getItem(LocalStorageConstants.Token);
+  }
+
+  public logout() {
+    localStorage.removeItem(LocalStorageConstants.Username);
+    localStorage.removeItem(LocalStorageConstants.Token);
+    localStorage.removeItem(LocalStorageConstants.IsAdmin);
   }
 }

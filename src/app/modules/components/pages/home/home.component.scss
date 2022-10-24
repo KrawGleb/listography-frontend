@@ -162,5 +162,11 @@
     &:last-child {
       margin-bottom: 0px;
     }
+
+    p {
+      width: 90%;
+      overflow: hidden;
+      margin: 0;
+    }
   }
 }

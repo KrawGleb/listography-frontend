@@ -80,8 +80,8 @@
               </ul>
             </div>
           </li>
-          <li *ngIf="isAuthorize" (click)="signOut()" class="sign-out">
-            <label>Sign out</label>
+          <li *ngIf="isAuthorize" (click)="logout()" class="sign-out">
+            <label>{{ "Header.Menu.Logout" | translate }}</label>
           </li>
         </ul>
       </div>

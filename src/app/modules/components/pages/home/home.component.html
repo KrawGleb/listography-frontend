@@ -54,13 +54,15 @@
             <div class="tags__body">
               <div
                 class="tag"
-                *ngFor="let tag of info?.tags"
+                *ngFor="let tag of info?.tags, let i = index"
                 [ngStyle]="{
-                  'background-color': getRandomColor()
+                  'background-color': colors[i]
                 }"
                 (click)="searchByTag(tag.name)"
               >
+              <p>
                 {{ tag.name }}
+              </p>
               </div>
             </div>
           </mat-card>
