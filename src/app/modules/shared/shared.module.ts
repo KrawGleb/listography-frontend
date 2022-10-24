@@ -7,7 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ListHeaderComponent } from './components/list-header/list-header.component';
 import { ListEditableHeaderComponent } from './components/list-header/list-editable-header/list-editable-header.component';
@@ -26,6 +26,8 @@ import { NgxEditorModule } from 'ngx-editor';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { GlobalSpinnerComponent } from './components/spinner/global-spinner.component';
 import { GlobalSpinnerService } from './components/spinner/global-spinner.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpErrorInterceptor } from './intercepters/http-error.interceptor';
 
 @NgModule({
   declarations: [
@@ -64,10 +66,17 @@ import { GlobalSpinnerService } from './components/spinner/global-spinner.servic
     ListCardComponent,
     CustomFieldInputComponent,
     CustomFieldComponent,
-    GlobalSpinnerComponent
+    GlobalSpinnerComponent,
   ],
   providers: [
+    DatePipe,
     RouteService,
-    GlobalSpinnerService],
+    GlobalSpinnerService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true,
+    },
+  ],
 })
 export class SharedModule {}

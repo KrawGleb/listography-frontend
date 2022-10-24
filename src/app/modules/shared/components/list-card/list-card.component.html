@@ -22,9 +22,11 @@
     </mat-card-content>
   </div>
   <mat-card-actions class="list-actions" *ngIf="editable">
-    <button mat-raised-button (click)="editClick()" color="accent">Edit</button>
+    <button mat-raised-button (click)="editClick()" color="accent">
+      {{ "Actions.Edit" | translate }}
+    </button>
     <button mat-raised-button (click)="deleteClick()" color="warn">
-      Delete
+      {{ "Actions.Delete" | translate }}
     </button>
   </mat-card-actions>
 </mat-card>

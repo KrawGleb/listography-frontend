@@ -70,8 +70,12 @@ export class ListCreateComponent extends DestroyableComponent {
       text: new FormControl(''),
     });
     template.options.push(selectOption);
+  }
 
-    selectOption.valueChanges.subscribe((v) => console.log(v));
+  public removeSelectOption(option: FormGroup) {
+    this.selectTemplates.forEach(
+      (t) => (t.options = t.options.filter((o) => o !== option))
+    );
   }
 
   public onSave(request: SaveListInfoRequest) {
@@ -89,8 +93,6 @@ export class ListCreateComponent extends DestroyableComponent {
         (t) => t.customField !== group
       );
     }
-
-    console.log(this.selectTemplates);
   }
 
   private collectCustomFields() {

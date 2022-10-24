@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { takeUntil, tap } from 'rxjs';
 import { checkPasswords } from 'src/app/helpers/repeat-password-validation.helper';
 import { RegisterRequest } from 'src/app/models/requests/register.request';
+import { notAllowedChars } from 'src/app/modules/shared/validators/not-allowed-chars.validator';
 import { DestroyableComponent } from '../../../shared/helpers/destroyable/destroyable.component';
 import { AuthService } from '../../services/auth.service';
 
@@ -20,10 +21,7 @@ export class RegisterComponent extends DestroyableComponent {
   public form = new FormGroup(
     {
       email: new FormControl('', [Validators.required, Validators.email]),
-      username: new FormControl('', [
-        Validators.required,
-        Validators.pattern('[a-zA-Zd]+'),
-      ]),
+      username: new FormControl('', [Validators.required, notAllowedChars(' .')]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
@@ -81,7 +79,6 @@ export class RegisterComponent extends DestroyableComponent {
       )
       .subscribe();
   }
-
 
   private showErrors(errors: string[]) {
     const message = errors[0];
