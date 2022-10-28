@@ -14,8 +14,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
-import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
-
+import {
+  GoogleLoginProvider,
+  SocialAuthServiceConfig,
+  SocialLoginModule,
+} from '@abacritt/angularx-social-login';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent],
@@ -33,21 +36,24 @@ import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 
     MatInputModule,
     MatCardModule,
     MatIconModule,
-    SocialLoginModule
+    SocialLoginModule,
   ],
   providers: [
     // Google
-  {
-    provide: 'SocialAuthServiceConfig',
-    useValue: {
-      autoLogin: false,
-      providers: [
-        {
-          id: GoogleLoginProvider.PROVIDER_ID,
-          provider: new GoogleLoginProvider('473094334857-1ds3b4m291i3pmpu6dpi63tu8167epo3.apps.googleusercontent.com')
-        }
-      ]
-    } as SocialAuthServiceConfig
-  }]
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '473094334857-1ds3b4m291i3pmpu6dpi63tu8167epo3.apps.googleusercontent.com'
+            ),
+          },
+        ],
+      } as SocialAuthServiceConfig,
+    },
+  ],
 })
 export class AuthModule {}

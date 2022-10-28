@@ -1,12 +1,10 @@
-import {
-  SocialAuthService,
-  SocialUser,
-} from '@abacritt/angularx-social-login';
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { filter, takeUntil, tap } from 'rxjs';
+import { filter, Observable, takeUntil, tap } from 'rxjs';
+import { AuthProviders } from 'src/app/models/enums/auth-providers.enum';
 import { LoginRequest } from 'src/app/models/requests/login.request';
 import { DestroyableComponent } from '../../../shared/helpers/destroyable/destroyable.component';
 import { AuthService } from '../../services/auth.service';
@@ -35,8 +33,8 @@ export class LoginComponent extends DestroyableComponent {
     this.socialAuthService.authState
       .pipe(
         takeUntil(this.onDestroy$),
-        filter(user => !!user),
-        tap((user) => this.loginWithGoogle(user))
+        filter((user) => !!user),
+        tap((user) => this.loginWithExternalService(user))
       )
       .subscribe();
   }
@@ -62,9 +60,18 @@ export class LoginComponent extends DestroyableComponent {
     return (this.form.controls as any)[controlName].hasError(error);
   }
 
-  private loginWithGoogle(user: SocialUser) {
-    this.authService
-      .loginWithGoogle(user.idToken)
+  private loginWithExternalService(user: SocialUser) {
+    let login$: Observable<any>;
+
+    switch (user.provider) {
+      case AuthProviders.Google:
+        login$ = this.authService.loginWithGoogle(user.idToken);
+        break;
+      default:
+        throw new Error('Unknown auth provider');
+    }
+
+    login$!
       .pipe(
         takeUntil(this.onDestroy$),
         tap((response: any) => this.redirectOnSuccessResponse(response))
