@@ -2,7 +2,14 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  Observable,
+  takeUntil,
+  tap,
+} from 'rxjs';
 import { getRandomColor } from 'src/app/helpers/random-color.helper';
 import { CustomField } from 'src/app/models/custom-field.model';
 import { Item } from 'src/app/models/item.model';
@@ -11,7 +18,9 @@ import { Tag } from 'src/app/models/tag.model';
 import { ItemValidationRules } from 'src/app/models/validation/rules/item-validation-rules';
 import { TagValidationRules } from 'src/app/models/validation/rules/tag-validation-rules';
 import { GlobalSpinnerService } from 'src/app/modules/shared/components/spinner/global-spinner.service';
+import { DestroyableComponent } from 'src/app/modules/shared/helpers/destroyable/destroyable.component';
 import { ListsService } from 'src/app/modules/shared/services/api/lists.service';
+import { TagsService } from 'src/app/modules/shared/services/api/tags.service';
 import { RouteService } from 'src/app/modules/shared/services/common/route.service';
 
 @Component({
@@ -19,10 +28,14 @@ import { RouteService } from 'src/app/modules/shared/services/common/route.servi
   templateUrl: './create-item.component.html',
   styleUrls: ['./create-item.component.scss'],
 })
-export class CreateItemComponent implements OnInit {
+export class CreateItemComponent
+  extends DestroyableComponent
+  implements OnInit
+{
   public tagValidationRules = TagValidationRules;
   public itemValidationRules = ItemValidationRules;
 
+  private allTags: Tag[] = [];
 
   private listId!: number;
   public template!: Item;
@@ -45,8 +58,11 @@ export class CreateItemComponent implements OnInit {
     private readonly cdr: ChangeDetectorRef,
     private readonly listsService: ListsService,
     private readonly snackBar: MatSnackBar,
+    private readonly tagsService: TagsService,
     private readonly spinnerService: GlobalSpinnerService
   ) {
+    super();
+
     const data = this.routeService.popData();
 
     if (!data) {
@@ -55,6 +71,14 @@ export class CreateItemComponent implements OnInit {
 
     this.listId = data.listId;
     this.isEdit = !!data.isEdit;
+
+    this.tagsService
+      .getAll()
+      .pipe(
+        takeUntil(this.onDestroy$),
+        tap((t) => (this.allTags = t))
+      )
+      .subscribe();
 
     if (this.isEdit) {
       this.item = data.item;
@@ -72,6 +96,22 @@ export class CreateItemComponent implements OnInit {
   }
 
   public getBackgroundColor = getRandomColor;
+
+  public searchByTags = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map((term) =>
+        term.length < 2
+          ? []
+          : this.allTags
+              .filter(
+                (v) => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1
+              )
+              .slice(0, 10)
+              .map((t) => t.name)
+      )
+    );
 
   public areFormsInvalid() {
     return this.form.invalid || this.customFieldsForm.invalid;
