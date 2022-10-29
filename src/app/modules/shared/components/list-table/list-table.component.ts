@@ -12,6 +12,7 @@ import { filter, takeUntil, tap } from 'rxjs';
 import { CustomFieldType } from 'src/app/models/enums/custom-field-type.enum';
 import { DatePipe } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
+import { List } from 'src/app/models/list.model';
 
 @Component({
   selector: 'app-list-table',
@@ -19,6 +20,9 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./list-table.component.scss'],
 })
 export class ListTableComponent extends DestroyableComponent {
+  private _list?: List;
+  private _itemTemplate?: Item;
+
   @Input() public id!: number;
   @Input() public items!: Item[];
   @Input() public isEdit: boolean = false;
@@ -39,7 +43,18 @@ export class ListTableComponent extends DestroyableComponent {
     }
   }
 
-  private _itemTemplate?: Item;
+  @Input()
+  public get list(): List | undefined {
+    return this._list;
+  }
+  public set list(value: List | undefined) {
+    if (value) {
+      this._list = value;
+
+      this.itemTemplate = value.itemTemplate;
+      this.items = value.items;
+    }
+  }
 
   public columnNames: string[] = [];
 
@@ -48,8 +63,7 @@ export class ListTableComponent extends DestroyableComponent {
     private readonly router: Router,
     private readonly dialog: MatDialog,
     private readonly listsService: ListsService,
-    private readonly datePipe: DatePipe,
-    private readonly translateService: TranslateService
+    private readonly datePipe: DatePipe
   ) {
     super();
   }
