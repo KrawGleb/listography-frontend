@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { takeUntil, tap } from 'rxjs';
 import { DestroyableComponent } from '../../../helpers/destroyable/destroyable.component';
 import { AdminService } from '../../../services/api/admin.service';
@@ -13,7 +14,10 @@ export class ToolbarComponent extends DestroyableComponent implements OnInit {
   public isAdmin: boolean = false;
   public blocked: boolean = false;
 
-  constructor(private readonly adminService: AdminService) {
+  constructor(
+    private readonly adminService: AdminService,
+    private readonly router: Router
+  ) {
     super();
   }
 
@@ -51,7 +55,10 @@ export class ToolbarComponent extends DestroyableComponent implements OnInit {
   public deleteClick() {
     this.adminService
       .deleteUser(this.username!)
-      .pipe(takeUntil(this.onDestroy$))
+      .pipe(
+        takeUntil(this.onDestroy$),
+        tap(() => this.router.navigateByUrl('/home'))
+      )
       .subscribe();
   }
 }
