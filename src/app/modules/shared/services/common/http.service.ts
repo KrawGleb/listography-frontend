@@ -16,11 +16,16 @@ export class HttpService {
     );
   }
 
-  public post<T>(url: string, body: any, includeToken: boolean = false) {
+  public post<T>(
+    url: string,
+    body: any,
+    includeToken: boolean = false,
+    responseType: string = 'application/json'
+  ) {
     return this.http.post<T>(
       HttpConstants.BaseApiUrl + url,
       body,
-      this.getRequestOptions(includeToken)
+      this.getPostRequestOptions(includeToken, responseType)
     );
   }
 
@@ -37,6 +42,16 @@ export class HttpService {
       body,
       this.getRequestOptions(includeToken)
     );
+  }
+
+  private getPostRequestOptions(
+    includeToken: boolean = false,
+    responseType: string = 'application/json'
+  ) {
+    const options = this.getRequestOptions(includeToken);
+    (options as any).responseType = responseType;
+
+    return options;
   }
 
   private getRequestOptions(includeToken: boolean = false) {

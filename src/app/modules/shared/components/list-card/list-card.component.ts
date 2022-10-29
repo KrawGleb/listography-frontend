@@ -24,6 +24,7 @@ export class ListCardComponent extends DestroyableComponent {
   @Input() public topic?: Topic;
   @Input() public clickable?: boolean = false;
   @Input() public editable?: boolean = false;
+  @Input() public canExport: boolean = false;
 
   @Output() public listDeleted = new EventEmitter<number>();
 
@@ -61,5 +62,9 @@ export class ListCardComponent extends DestroyableComponent {
       })
     )
     .subscribe();
+  }
+
+  public downloadClick() {
+    if (this.id) this.listsService.download(this.id);
   }
 }
