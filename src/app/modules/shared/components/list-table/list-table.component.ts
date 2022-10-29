@@ -13,6 +13,7 @@ import { CustomFieldType } from 'src/app/models/enums/custom-field-type.enum';
 import { DatePipe } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { List } from 'src/app/models/list.model';
+import { GlobalSpinnerService } from '../spinner/global-spinner.service';
 
 @Component({
   selector: 'app-list-table',
@@ -63,7 +64,8 @@ export class ListTableComponent extends DestroyableComponent {
     private readonly router: Router,
     private readonly dialog: MatDialog,
     private readonly listsService: ListsService,
-    private readonly datePipe: DatePipe
+    private readonly datePipe: DatePipe,
+    private readonly spinnerService: GlobalSpinnerService
   ) {
     super();
   }
@@ -102,8 +104,9 @@ export class ListTableComponent extends DestroyableComponent {
         filter((res) => res),
         takeUntil(this.onDestroy$),
         tap(() => {
-          this.listsService
-            .deleteItem(id)
+          const delete$ = this.listsService.deleteItem(id);
+
+          this.spinnerService.wrap(delete$)
             .pipe(
               takeUntil(this.onDestroy$),
               tap(() => (this.items = this.items.filter((i) => i.id !== id)))

@@ -8,6 +8,7 @@ import { Topic } from 'src/app/models/topic.model';
 import { ConfirmationDialogComponent } from 'src/app/modules/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { DestroyableComponent } from '../../helpers/destroyable/destroyable.component';
 import { ListsService } from '../../services/api/lists.service';
+import { GlobalSpinnerService } from '../spinner/global-spinner.service';
 
 @Component({
   selector: 'app-list-card',
@@ -31,7 +32,8 @@ export class ListCardComponent extends DestroyableComponent {
   constructor(
     private readonly router: Router,
     private readonly dialog: MatDialog,
-    private readonly listsService: ListsService
+    private readonly listsService: ListsService,
+    private readonly spinnerService: GlobalSpinnerService
   ) {
     super();
   }
@@ -54,7 +56,9 @@ export class ListCardComponent extends DestroyableComponent {
     dialogRef.afterClosed().pipe(
       filter((res) => res),
       tap(() => {
-        this.listsService.delete(this.id!)
+        const delete$ = this.listsService.delete(this.id!);
+
+        this.spinnerService.wrap(delete$)
           .pipe(
             takeUntil(this.onDestroy$),
             tap(() => this.listDeleted.emit(this.id)))
