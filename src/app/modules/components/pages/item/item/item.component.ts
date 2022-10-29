@@ -58,7 +58,7 @@ export class ItemComponent extends DestroyableComponent {
       )
       .subscribe();
 
-    this.reloadComments();
+    this.addReloadCommentsListener();
   }
 
   public getRandomColor = getRandomColor;
@@ -76,7 +76,8 @@ export class ItemComponent extends DestroyableComponent {
       this.socialService
         .comment(this.id, content)
         .pipe(
-          takeUntil(this.onDestroy$)
+          takeUntil(this.onDestroy$),
+          tap(() => this.reloadComments().subscribe())
         )
         .subscribe();
     }
@@ -84,26 +85,31 @@ export class ItemComponent extends DestroyableComponent {
     this.commentsForm.controls.comment.setValue('');
   }
 
-  private reloadComments() {
+  private addReloadCommentsListener() {
     timer(5000, 5000)
       .pipe(
         takeUntil(this.onDestroy$),
-        switchMap(() => this.socialService.getComments(this.id)),
-        tap((response: any) => {
-          if (response.succeeded) {
-            const latestComments = response.body;
-            const newComments = latestComments.filter((c: CommentModel) =>
-              this.comments.every((s) => s.id !== c.id)
-            );
-
-            if (newComments.length > 0) {
-              this.comments.push(...newComments);
-              console.log(newComments);
-            }
-          }
-        })
+        switchMap(() => this.reloadComments())
       )
       .subscribe();
+  }
+
+  private reloadComments() {
+    return this.socialService.getComments(this.id).pipe(
+      takeUntil(this.onDestroy$),
+      tap((response: any) => {
+        if (response.succeeded) {
+          const latestComments = response.body;
+          const newComments = latestComments.filter((c: CommentModel) =>
+            this.comments.every((s) => s.id !== c.id)
+          );
+
+          if (newComments.length > 0) {
+            this.comments.push(...newComments);
+          }
+        }
+      })
+    );
   }
 
   private like() {

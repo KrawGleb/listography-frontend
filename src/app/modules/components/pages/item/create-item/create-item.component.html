@@ -39,6 +39,7 @@
                     type="text"
                     formControlName="tag"
                     [maxlength]="tagValidationRules.tagMaxLength"
+                    [ngbTypeahead]="searchByTags"
                   />
                 </mat-form-field>
                 <button mat-raised-button (click)="addTag()">

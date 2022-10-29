@@ -10,6 +10,7 @@ import { CreateItemComponent } from './create-item/create-item.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [CreateItemComponent],
@@ -23,7 +24,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     MatInputModule,
     MatIconModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgbModule
   ],
 })
 export class ItemModule {}
