@@ -20,7 +20,7 @@ export class HttpService {
     url: string,
     body: any,
     includeToken: boolean = false,
-    responseType: string = 'application/json'
+    responseType: string = 'json'
   ) {
     return this.http.post<T>(
       HttpConstants.BaseApiUrl + url,
@@ -46,7 +46,7 @@ export class HttpService {
 
   private getPostRequestOptions(
     includeToken: boolean = false,
-    responseType: string = 'application/json'
+    responseType: string = 'json'
   ) {
     const options = this.getRequestOptions(includeToken);
     (options as any).responseType = responseType;
