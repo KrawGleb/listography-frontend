@@ -11,39 +11,53 @@
       </div>
     </mat-card-title>
     <mat-card-content>
-      <form [formGroup]="form">
-        <mat-form-field>
-          <mat-label>{{ "Login.Labels.Email" | translate }}</mat-label>
-          <input matInput formControlName="email" />
-          <mat-error *ngIf="hasError('email', 'required')">{{
-            "Validation.Required" | translate: { field: "Email" }
-          }}</mat-error>
-          <mat-error *ngIf="hasError('email', 'email')">{{
-            "Validation.Email" | translate
-          }}</mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>{{ "Login.Labels.Password" | translate }}</mat-label>
-          <input
-            matInput
-            [type]="hidePassword ? 'password' : 'text'"
-            formControlName="password"
-          />
-          <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{
-            hidePassword ? "visibility_off" : "visibility"
-          }}</mat-icon>
-          <mat-error *ngIf="hasError('password', 'required')">{{
-            "Validation.Required" | translate: { field: "Password" }
-          }}</mat-error>
-        </mat-form-field>
-
-        <div class="button">
-          <button type="submit" mat-button (click)="login()">
-            {{ "Login.Action" | translate }}
-          </button>
+      <div>
+        <div class="social-login">
+          <div class="button">
+            <asl-google-signin-button class="mx-5"></asl-google-signin-button>
+          </div>
         </div>
-      </form>
+
+        <div class="delimiter">
+          <hr />
+          <span> OR </span>
+          <hr />
+        </div>
+
+        <form [formGroup]="form">
+          <mat-form-field>
+            <mat-label>{{ "Login.Labels.Email" | translate }}</mat-label>
+            <input matInput formControlName="email" />
+            <mat-error *ngIf="hasError('email', 'required')">{{
+              "Validation.Required" | translate: { field: "Email" }
+            }}</mat-error>
+            <mat-error *ngIf="hasError('email', 'email')">{{
+              "Validation.Email" | translate
+            }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>{{ "Login.Labels.Password" | translate }}</mat-label>
+            <input
+              matInput
+              [type]="hidePassword ? 'password' : 'text'"
+              formControlName="password"
+            />
+            <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{
+              hidePassword ? "visibility_off" : "visibility"
+            }}</mat-icon>
+            <mat-error *ngIf="hasError('password', 'required')">{{
+              "Validation.Required" | translate: { field: "Password" }
+            }}</mat-error>
+          </mat-form-field>
+
+          <div class="button">
+            <button type="submit" mat-button (click)="login()">
+              {{ "Login.Action" | translate }}
+            </button>
+          </div>
+        </form>
+      </div>
     </mat-card-content>
   </mat-card>
 </div>
