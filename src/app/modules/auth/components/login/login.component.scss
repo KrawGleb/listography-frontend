@@ -16,6 +16,30 @@
   min-width: 300px;
 }
 
+.social-login {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.delimiter {
+  margin: 12px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  hr {
+    width: 40%
+  }
+
+  span {
+    margin: 0 10px;
+  }
+}
+
+
 mat-card-title,
 mat-card-content {
   display: flex;
@@ -32,4 +56,8 @@ mat-card-content {
 .button {
   display: flex;
   justify-content: flex-end;
+
+  .google-button {
+    width: 200px;
+  }
 }

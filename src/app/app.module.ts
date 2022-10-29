@@ -13,6 +13,7 @@ import { HttpLoaderFactory, MissingTranslationService } from './helpers/translat
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './modules/shared/shared.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { AuthModule } from './modules/auth/auth.module';
     }),
     AngularFireStorageModule,
     // TODO: Secure it.
+    // Firebase
     AngularFireModule.initializeApp({
       apiKey: 'AIzaSyCzU6G0jx3iOM6VdO9pUEzbr1FztjZfgrQ',
       authDomain: 'listography-690a0.firebaseapp.com',

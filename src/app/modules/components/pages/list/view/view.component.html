@@ -5,11 +5,10 @@
   [imageUrl]="list?.imageUrl"
   [tags]="list?.tags"
   [topic]="list?.topic"
+  [canExport]="true"
 ></app-list-card>
 
 <app-list-table
   [isEdit]="false"
   [id]="list?.id!"
-  [itemTemplate]="list?.itemTemplate!"
-  [items]="list?.items!"
-></app-list-table>
+  [list]="list"></app-list-table>

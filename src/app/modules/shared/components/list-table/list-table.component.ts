@@ -12,6 +12,8 @@ import { filter, takeUntil, tap } from 'rxjs';
 import { CustomFieldType } from 'src/app/models/enums/custom-field-type.enum';
 import { DatePipe } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
+import { List } from 'src/app/models/list.model';
+import { GlobalSpinnerService } from '../spinner/global-spinner.service';
 
 @Component({
   selector: 'app-list-table',
@@ -19,6 +21,9 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./list-table.component.scss'],
 })
 export class ListTableComponent extends DestroyableComponent {
+  private _list?: List;
+  private _itemTemplate?: Item;
+
   @Input() public id!: number;
   @Input() public items!: Item[];
   @Input() public isEdit: boolean = false;
@@ -39,7 +44,18 @@ export class ListTableComponent extends DestroyableComponent {
     }
   }
 
-  private _itemTemplate?: Item;
+  @Input()
+  public get list(): List | undefined {
+    return this._list;
+  }
+  public set list(value: List | undefined) {
+    if (value) {
+      this._list = value;
+
+      this.itemTemplate = value.itemTemplate;
+      this.items = value.items;
+    }
+  }
 
   public columnNames: string[] = [];
 
@@ -49,7 +65,7 @@ export class ListTableComponent extends DestroyableComponent {
     private readonly dialog: MatDialog,
     private readonly listsService: ListsService,
     private readonly datePipe: DatePipe,
-    private readonly translateService: TranslateService
+    private readonly spinnerService: GlobalSpinnerService
   ) {
     super();
   }
@@ -88,8 +104,9 @@ export class ListTableComponent extends DestroyableComponent {
         filter((res) => res),
         takeUntil(this.onDestroy$),
         tap(() => {
-          this.listsService
-            .deleteItem(id)
+          const delete$ = this.listsService.deleteItem(id);
+
+          this.spinnerService.wrap(delete$)
             .pipe(
               takeUntil(this.onDestroy$),
               tap(() => (this.items = this.items.filter((i) => i.id !== id)))

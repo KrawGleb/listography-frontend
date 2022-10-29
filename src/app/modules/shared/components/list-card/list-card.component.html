@@ -22,11 +22,16 @@
     </mat-card-content>
   </div>
   <mat-card-actions class="list-actions" *ngIf="editable">
-    <button mat-raised-button (click)="editClick()" color="accent">
+    <button mat-raised-button color="accent" (click)="editClick()">
       {{ "Actions.Edit" | translate }}
     </button>
-    <button mat-raised-button (click)="deleteClick()" color="warn">
+    <button mat-raised-button color="warn" (click)="deleteClick()">
       {{ "Actions.Delete" | translate }}
+    </button>
+  </mat-card-actions>
+  <mat-card-actions class="list-actions" *ngIf="canExport">
+    <button mat-raised-button color="primary" (click)="downloadClick()">
+      <mat-icon>file_download</mat-icon>
     </button>
   </mat-card-actions>
 </mat-card>

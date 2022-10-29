@@ -1,8 +1,10 @@
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { takeUntil, tap } from 'rxjs';
+import { filter, Observable, takeUntil, tap } from 'rxjs';
+import { AuthProviders } from 'src/app/models/enums/auth-providers.enum';
 import { LoginRequest } from 'src/app/models/requests/login.request';
 import { DestroyableComponent } from '../../../shared/helpers/destroyable/destroyable.component';
 import { AuthService } from '../../services/auth.service';
@@ -23,9 +25,18 @@ export class LoginComponent extends DestroyableComponent {
   constructor(
     private readonly authService: AuthService,
     private readonly router: Router,
-    private readonly snackBar: MatSnackBar
+    private readonly snackBar: MatSnackBar,
+    private readonly socialAuthService: SocialAuthService
   ) {
     super();
+
+    this.socialAuthService.authState
+      .pipe(
+        takeUntil(this.onDestroy$),
+        filter((user) => !!user),
+        tap((user) => this.loginWithExternalService(user))
+      )
+      .subscribe();
   }
 
   public login() {
@@ -39,14 +50,7 @@ export class LoginComponent extends DestroyableComponent {
         .login(request)
         .pipe(
           takeUntil(this.onDestroy$),
-          tap((response: any) => {
-            if (response.succeeded) {
-              this.router.navigateByUrl('/home');
-            }
-            else if (response.errors) {
-              this.showErrors(response.errors);
-            }
-          })
+          tap((response: any) => this.redirectOnSuccessResponse(response))
         )
         .subscribe();
     }
@@ -54,6 +58,33 @@ export class LoginComponent extends DestroyableComponent {
 
   public hasError(controlName: string, error: string) {
     return (this.form.controls as any)[controlName].hasError(error);
+  }
+
+  private loginWithExternalService(user: SocialUser) {
+    let login$: Observable<any>;
+
+    switch (user.provider) {
+      case AuthProviders.Google:
+        login$ = this.authService.loginWithGoogle(user.idToken);
+        break;
+      default:
+        throw new Error('Unknown auth provider');
+    }
+
+    login$!
+      .pipe(
+        takeUntil(this.onDestroy$),
+        tap((response: any) => this.redirectOnSuccessResponse(response))
+      )
+      .subscribe();
+  }
+
+  private redirectOnSuccessResponse(response: any) {
+    if (response.succeeded) {
+      this.router.navigateByUrl('/home');
+    } else if (response.errors) {
+      this.showErrors(response.errors);
+    }
   }
 
   private showErrors(errors: string[]) {

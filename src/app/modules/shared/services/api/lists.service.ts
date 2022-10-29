@@ -6,8 +6,9 @@ import { CommonResponse } from 'src/app/models/responses/common-response.model';
 import { ErrorResponse } from 'src/app/models/responses/error-response.model';
 import { Item } from 'src/app/models/item.model';
 import { ApiResponse } from 'src/app/models/responses/api-response.model';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { HttpService } from '../common/http.service';
+import { saveAs } from 'file-saver';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +24,15 @@ export class ListsService {
     return this.httpService
       .get<CommonResponse<List>>(`/lists/${id}`)
       .pipe(map((response) => response.body));
+  }
+
+  public download(id: number) {
+    return this.httpService
+      .post(`/lists/export`, { listId: id }, false, 'text')
+      .pipe(
+        tap((response) => this.downloadFile(response, 'text/csv;charset=utf-8'))
+      )
+      .subscribe();
   }
 
   public updateInfo(request: SaveListInfoRequest) {
@@ -58,13 +68,15 @@ export class ListsService {
   }
 
   public getItem(itemId: number) {
-    return this.httpService.get<CommonResponse<Item>>(
-      `/items/${itemId}`,
-      true
-    );
+    return this.httpService.get<CommonResponse<Item>>(`/items/${itemId}`, true);
   }
 
   public updateItem(item: Item) {
     return this.httpService.patch<Response>('/items/update', item, true);
+  }
+
+  private downloadFile(data: any, type: string) {
+    const blob = new Blob([data], { type });
+    saveAs(blob, 'list.csv');
   }
 }
