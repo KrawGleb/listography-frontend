@@ -46,7 +46,6 @@ export class AuthService {
   private fillLocalStorage(response: any) {
     if (response.succeeded) {
       localStorage.setItem(LocalStorageConstants.Token, response.token);
-
       localStorage.setItem(LocalStorageConstants.Username, response.username);
 
       if (response.isAdmin)

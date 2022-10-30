@@ -42,8 +42,7 @@ export class ItemComponent extends DestroyableComponent {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     this.isAuthorize = this.authService.isAuthorize();
 
-    let item$ = this.listsService.getItem(this.id);
-
+    const item$ = this.listsService.getItem(this.id);
     this.spinnerService
       .wrap(item$)
       .pipe(
@@ -60,8 +59,6 @@ export class ItemComponent extends DestroyableComponent {
 
     this.addReloadCommentsListener();
   }
-
-  public getRandomColor = getRandomColor;
 
   public likeButtonClick() {
     if (!this.item) return;

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { takeUntil, tap } from 'rxjs';
 import { checkPasswords } from 'src/app/helpers/repeat-password-validation.helper';
 import { RegisterRequest } from 'src/app/models/requests/register.request';
+import { GlobalSpinnerService } from 'src/app/modules/shared/components/spinner/global-spinner.service';
 import { notAllowedChars } from 'src/app/modules/shared/validators/not-allowed-chars.validator';
 import { DestroyableComponent } from '../../../shared/helpers/destroyable/destroyable.component';
 import { AuthService } from '../../services/auth.service';
@@ -21,7 +22,10 @@ export class RegisterComponent extends DestroyableComponent {
   public form = new FormGroup(
     {
       email: new FormControl('', [Validators.required, Validators.email]),
-      username: new FormControl('', [Validators.required, notAllowedChars(' .')]),
+      username: new FormControl('', [
+        Validators.required,
+        notAllowedChars(' .'),
+      ]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
@@ -34,7 +38,8 @@ export class RegisterComponent extends DestroyableComponent {
   constructor(
     private readonly authService: AuthService,
     private readonly router: Router,
-    private readonly snackBar: MatSnackBar
+    private readonly snackBar: MatSnackBar,
+    private readonly spinnerService: GlobalSpinnerService
   ) {
     super();
   }
@@ -46,8 +51,9 @@ export class RegisterComponent extends DestroyableComponent {
       password: this.form.value.password,
     } as RegisterRequest;
 
-    this.authService
-      .register(request)
+    const register$ = this.authService.register(request);
+    this.spinnerService
+      .wrap(register$)
       .pipe(
         takeUntil(this.onDestroy$),
         tap((response: any) => {
@@ -66,11 +72,13 @@ export class RegisterComponent extends DestroyableComponent {
   }
 
   private login(email: string, password: string) {
-    this.authService
-      .login({
-        email: email,
-        password: password,
-      })
+    const login$ = this.authService.login({
+      email: email,
+      password: password,
+    });
+
+    this.spinnerService
+      .wrap(login$)
       .pipe(
         takeUntil(this.onDestroy$),
         tap(() => {

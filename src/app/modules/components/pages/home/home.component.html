@@ -54,15 +54,15 @@
             <div class="tags__body">
               <div
                 class="tag"
-                *ngFor="let tag of info?.tags, let i = index"
+                *ngFor="let tag of info?.tags; let i = index"
                 [ngStyle]="{
                   'background-color': colors[i]
                 }"
-                (click)="searchByTag(tag.name)"
+                [routerLink]="['/search', tag.name]"
               >
-              <p>
-                {{ tag.name }}
-              </p>
+                <p>
+                  {{ tag.name }}
+                </p>
               </div>
             </div>
           </mat-card>

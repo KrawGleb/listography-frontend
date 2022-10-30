@@ -36,8 +36,8 @@ export class CreateItemComponent
   public itemValidationRules = ItemValidationRules;
 
   private allTags: Tag[] = [];
-
   private listId!: number;
+
   public template!: Item;
   public itemId?: number;
   public item?: Item;
@@ -55,7 +55,6 @@ export class CreateItemComponent
     private readonly routeService: RouteService,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
-    private readonly cdr: ChangeDetectorRef,
     private readonly listsService: ListsService,
     private readonly snackBar: MatSnackBar,
     private readonly tagsService: TagsService,
@@ -76,7 +75,10 @@ export class CreateItemComponent
       .getAll()
       .pipe(
         takeUntil(this.onDestroy$),
-        tap((t) => (this.allTags = t))
+        tap((t) => {
+          this.allTags = t;
+          console.log(t);
+        })
       )
       .subscribe();
 
@@ -91,8 +93,6 @@ export class CreateItemComponent
 
   ngOnInit(): void {
     this.initForm();
-
-    this.cdr.markForCheck();
   }
 
   public getBackgroundColor = getRandomColor;
@@ -110,6 +110,7 @@ export class CreateItemComponent
               )
               .slice(0, 10)
               .map((t) => t.name)
+              .filter((v, i, a) => a.indexOf(v) === i)
       )
     );
 
