@@ -13,7 +13,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class HeaderComponent extends DestroyableComponent {
   public form = new FormGroup({
-    search: new FormControl()
+    search: new FormControl(),
   });
 
   @Output() public onThemeChanged = new EventEmitter<boolean>();
@@ -32,10 +32,15 @@ export class HeaderComponent extends DestroyableComponent {
 
   public toggleTheme(isDarkMode: boolean = false) {
     this.onThemeChanged.emit(isDarkMode);
+    localStorage.setItem(
+      LocalStorageConstants.Theme,
+      isDarkMode ? 'dark' : 'light'
+    );
   }
 
   public toggleLanguage(language: string) {
     this.translateService.use(language);
+    localStorage.setItem(LocalStorageConstants.Language, language);
   }
 
   public logout() {
@@ -44,8 +49,7 @@ export class HeaderComponent extends DestroyableComponent {
   }
 
   public search() {
-    if (this.form.value.search)
-    {
+    if (this.form.value.search) {
       this.router.navigateByUrl(`/search/${this.form.value.search}`);
     }
   }

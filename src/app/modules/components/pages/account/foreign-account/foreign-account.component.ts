@@ -26,8 +26,9 @@ export class ForeignAccountComponent extends DestroyableComponent {
 
     this.username = this.route.snapshot.paramMap.get('username')!;
 
+    const getLists$ = this.accountsService.getAccountLists(this.username);
     this.spinnerService
-      .wrap(this.accountsService.getAccountLists(this.username))
+      .wrap(getLists$)
       .pipe(
         takeUntil(this.onDestroy$),
         tap((response) => (this.lists = response))

@@ -13,7 +13,7 @@ import { HomeService } from 'src/app/modules/shared/services/api/home.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent extends DestroyableComponent implements OnInit {
+export class HomeComponent extends DestroyableComponent {
   public info?: HomeInfo;
   public colors: string[] = [];
 
@@ -24,8 +24,7 @@ export class HomeComponent extends DestroyableComponent implements OnInit {
   ) {
     super();
 
-    let homeInfo$ = this.homeService.getHomeInfo();
-
+    const homeInfo$ = this.homeService.getHomeInfo();
     this.spinnerService
       .wrap(homeInfo$)
       .pipe(
@@ -38,10 +37,6 @@ export class HomeComponent extends DestroyableComponent implements OnInit {
       )
       .subscribe();
   }
-
-  public getRandomColor = getRandomColor;
-
-  ngOnInit(): void {}
 
   public searchByTag(tag: string) {
     this.router.navigateByUrl(`/search/${tag}`);

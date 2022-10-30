@@ -21,8 +21,9 @@ export class MyAccountComponent extends DestroyableComponent {
   ) {
     super();
 
+    const me$ = this.accountsService.getMe();
     this.spinnerService
-      .wrap(this.accountsService.getMe())
+      .wrap(me$)
       .pipe(
         takeUntil(this.onDestroy$),
         tap((account) => {

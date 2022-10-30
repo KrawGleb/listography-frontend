@@ -82,7 +82,6 @@ export class ListEditableHeaderComponent
       .pipe(
         takeUntil(this.onDestroy$),
         tap((imageUrl) => {
-          console.log(imageUrl);
           this.form.controls.imageUrl.setValue(imageUrl);
         })
       )
@@ -110,7 +109,5 @@ export class ListEditableHeaderComponent
       imageUrl: list.imageUrl ?? '',
       description: list.description ?? '',
     });
-
-    this.form.valueChanges.subscribe((v) => console.log(this.form.value.description?.length));
   }
 }
