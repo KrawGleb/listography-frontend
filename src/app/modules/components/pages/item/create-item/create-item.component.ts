@@ -77,7 +77,6 @@ export class CreateItemComponent
         takeUntil(this.onDestroy$),
         tap((t) => {
           this.allTags = t;
-          console.log(t);
         })
       )
       .subscribe();
