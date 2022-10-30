@@ -95,6 +95,29 @@ export class ListCreateComponent extends DestroyableComponent {
     }
   }
 
+  private createList(listInfo: SaveListInfoRequest) {
+    const customFields = this.collectCustomFields();
+
+    const list = {
+      title: listInfo.title,
+      description: listInfo.description,
+      imageUrl: listInfo.imageUrl,
+      topic: listInfo.topic,
+      itemTemplate: {
+        customFields: customFields,
+      } as Item,
+    } as List;
+
+    const createList$ = this.listsService.create(list);
+    this.spinnerService
+      .wrap(createList$)
+      .pipe(
+        takeUntil(this.onDestroy$),
+        tap(() => this.router.navigateByUrl('/me'))
+      )
+      .subscribe();
+  }
+
   private collectCustomFields() {
     const customFields = this.customFields.map((control) => {
       const selectOptions = this.selectTemplates
@@ -110,29 +133,5 @@ export class ListCreateComponent extends DestroyableComponent {
     });
 
     return customFields;
-  }
-
-  private createList(listInfo: SaveListInfoRequest) {
-    const customFields = this.collectCustomFields();
-
-    const list = {
-      title: listInfo.title,
-      description: listInfo.description,
-      imageUrl: listInfo.imageUrl,
-      topic: listInfo.topic,
-      itemTemplate: {
-        customFields: customFields,
-      } as Item,
-    } as List;
-
-    let createList$ = this.listsService.create(list);
-
-    this.spinnerService
-      .wrap(createList$)
-      .pipe(
-        takeUntil(this.onDestroy$),
-        tap(() => this.router.navigateByUrl('/me'))
-      )
-      .subscribe();
   }
 }
